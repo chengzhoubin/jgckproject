@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jgck.erp.ui.admin", "presentation\ui.admin\jgck.erp.ui.admin.csproj", "{C4FA22F1-B64F-4684-A23A-5D87EB844B17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jgck.erp.ui.frontpage", "presentation\ui.frontpage\jgck.erp.ui.frontpage.csproj", "{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{DED9B905-DE28-48B1-A852-68529536DD7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mvc", "mvc", "{4535EB2F-735A-4EF1-92EC-BC54B2B88983}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{43E0DD4F-45A5-48F3-B57D-AA7EDC4F08DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jgck.erp.api.product", "webapi\api.product\jgck.erp.api.product.csproj", "{5A0A5143-E3BE-4568-BA8A-1F61D070C74D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jgck.erp.api.member", "webapi\api.member\jgck.erp.api.member.csproj", "{3B2D7EF1-86BD-4192-8109-0DE6F1357096}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{F28AFC2C-5DA6-4849-88DF-4D80651870E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4FA22F1-B64F-4684-A23A-5D87EB844B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4FA22F1-B64F-4684-A23A-5D87EB844B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4FA22F1-B64F-4684-A23A-5D87EB844B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4FA22F1-B64F-4684-A23A-5D87EB844B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A0A5143-E3BE-4568-BA8A-1F61D070C74D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A0A5143-E3BE-4568-BA8A-1F61D070C74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A0A5143-E3BE-4568-BA8A-1F61D070C74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A0A5143-E3BE-4568-BA8A-1F61D070C74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2D7EF1-86BD-4192-8109-0DE6F1357096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B2D7EF1-86BD-4192-8109-0DE6F1357096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B2D7EF1-86BD-4192-8109-0DE6F1357096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B2D7EF1-86BD-4192-8109-0DE6F1357096}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4FA22F1-B64F-4684-A23A-5D87EB844B17} = {4535EB2F-735A-4EF1-92EC-BC54B2B88983}
+		{302690D3-FE4D-40B4-BAAE-A3979A8F6D2B} = {4535EB2F-735A-4EF1-92EC-BC54B2B88983}
+		{4535EB2F-735A-4EF1-92EC-BC54B2B88983} = {DED9B905-DE28-48B1-A852-68529536DD7F}
+		{43E0DD4F-45A5-48F3-B57D-AA7EDC4F08DA} = {DED9B905-DE28-48B1-A852-68529536DD7F}
+		{5A0A5143-E3BE-4568-BA8A-1F61D070C74D} = {43E0DD4F-45A5-48F3-B57D-AA7EDC4F08DA}
+		{3B2D7EF1-86BD-4192-8109-0DE6F1357096} = {43E0DD4F-45A5-48F3-B57D-AA7EDC4F08DA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BD082DB-5063-4B47-8B71-ECC6B2FB5C86}
+	EndGlobalSection
+EndGlobal
