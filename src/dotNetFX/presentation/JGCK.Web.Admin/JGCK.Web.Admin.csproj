@@ -675,7 +675,6 @@
     <Content Include="assets\global\plugins\select2\LICENSE.md" />
     <Content Include="assets\global\plugins\select2\README.md" />
     <Content Include="assets\global\plugins\select2\sass\select2-bootstrap.min.scss" />
-    <Content Include="Config\qiniu.json" />
     <Content Include="assets\global\plugins\bootbox\LICENSE.md" />
     <Content Include="assets\global\plugins\bootbox\README.md" />
     <Content Include="assets\css\demo.css.map" />
