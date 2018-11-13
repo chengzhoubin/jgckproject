@@ -1,0 +1,30 @@
+﻿@using HSMY.Data.BasicMeta
+@model List<long>
+ <div class="col-md-9" style="padding-top: 10px;" id="div_sectionList">
+    @{
+        var sectionList = ViewBag.DepartmentList as List<hospital_section>;
+        if (sectionList != null && sectionList.Count > 0)
+        {
+            foreach (var firstSection in sectionList)
+            {
+                <label>@firstSection.name</label>
+                <div class="checkbox-list">
+                    @foreach (var secondSection in firstSection.hospital_section1.Where(s => !s.is_deleted))
+                    {
+                        <label class="checkbox-inline">
+                            @{
+                                bool isSelected = false;
+                                if (Model != null && Model.Count() > 0)
+                                {
+                                    isSelected = Model.Contains(secondSection.id);
+                                }
+                            }
+                            <input type="checkbox" class="checkboxgroup" id="chb_section@(secondSection.id)" value="@(secondSection.id)" data-val="@secondSection.name" name="JoinStringOfSectionIds" @(isSelected?"checked":"") />@secondSection.name
+                        </label>
+                    }
+                </div>
+                <br />
+            }
+        }
+    }
+</div>
