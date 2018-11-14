@@ -19,7 +19,7 @@
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/favicon.png">
-    
+    @RenderSection("referenceHeader",required:false)
 </head>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -105,7 +105,7 @@
                                 <li><a href="#" class="">角色管理</a></li>
                                 <li><a href="#" class="">权限管理</a></li>
                                 <li><a href="#" class="">微信客服管理</a></li>
-                                <li><a href="charts.html" class="">日历维护</a></li>
+                                <li><a href="@Url.Action("Worktime","Settings")" class="">日历维护</a></li>
                             </ul>
                         </div>
                     </li>

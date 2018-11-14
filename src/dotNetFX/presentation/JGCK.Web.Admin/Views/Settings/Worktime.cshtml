@@ -1,0 +1,28 @@
+﻿@section referenceHeader
+{
+    <link rel="stylesheet" type="text/css" href="~/assets/global/plugins/bootstrap-year-datepicker/css/default.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/global/plugins/bootstrap-year-datepicker/css/bootstrap-year-calendar.min.css">
+    <style type="text/css">
+        #calendar {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+}
+<article class="htmleaf-container">
+    <div id="calendar"></div>
+</article>
+@section scripts
+{
+    <script src="~/assets/global/plugins/bootstrap-year-datepicker/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-year-calendar.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-popover.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#calendar').calendar();
+            $('#calendar').data('calendar').setYear(2018);
+        });
+    </script>
+}

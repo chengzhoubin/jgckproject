@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -355,6 +356,20 @@
     <Content Include="assets\global\plugins\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
     <Content Include="assets\global\plugins\bootstrap-timepicker\js\bootstrap-timepicker.js" />
     <Content Include="assets\global\plugins\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\css\bootstrap-datepicker.min.css" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\css\bootstrap-year-calendar.css" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\css\bootstrap-year-calendar.min.css" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\css\default.css" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.svg" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-datepicker.fr.min.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-popover.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.fr.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.fr.min.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.min-01.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.min.js" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\jquery-2.1.1.min.js" />
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap.css" />
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.svg" />
@@ -697,6 +712,9 @@
     <Content Include="assets\vendor\linearicons\fonts\Linearicons-Free.ttf" />
     <Content Include="assets\vendor\linearicons\fonts\Linearicons-Free.woff" />
     <Content Include="assets\vendor\linearicons\fonts\Linearicons-Free.woff2" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.eot" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.ttf" />
+    <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -732,6 +750,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ForgetPassword.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\Worktime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -782,6 +801,10 @@
     <ProjectReference Include="..\..\modules\JGCK.Modules.OrderProcessFlow\JGCK.Modules.OrderProcessFlow.csproj">
       <Project>{f58df582-baef-45ef-b4c4-17b16b09e475}</Project>
       <Name>JGCK.Modules.OrderProcessFlow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
+      <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>
+      <Name>JGCK.Respority.BasicInfoWork</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
