@@ -88,6 +88,7 @@
     <Compile Include="FileUpload\IFileUploadPreprocessor.cs" />
     <Compile Include="FileUpload\ISavedFileNameProvider.cs" />
     <Compile Include="HttpModules\ModuleConfiguration.cs" />
+    <Compile Include="MVC\GlobalUserAuthorizationFilterAttribute.cs" />
     <Compile Include="VO\AbstractPageVO.cs" />
     <Compile Include="VO\AbstractVO.cs" />
     <Compile Include="VO\AbstractVOWithFilter.cs" />

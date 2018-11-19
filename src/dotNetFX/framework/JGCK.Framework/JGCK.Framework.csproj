@@ -50,23 +50,27 @@
     <Compile Include="AbstractDefaultConfiguration.cs" />
     <Compile Include="AbstractDefaultPolicyRule.cs" />
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="AbstractDefaultAppService.cs" />
+    <Compile Include="Domain\AbstractDefaultAppService.cs" />
     <Compile Include="Define\Ad\IAdDBProxy.cs" />
     <Compile Include="Define\Doctor\IDoctorDBProxy.cs" />
     <Compile Include="Define\Hospital\IHospitalDBProxy.cs" />
     <Compile Include="Define\MicroClass\IMicroClassDBProxy.cs" />
     <Compile Include="Define\Permission\IPermissionDbProxy.cs" />
+    <Compile Include="Domain\IAppService.cs" />
     <Compile Include="HostVer.cs" />
-    <Compile Include="IAppService.cs" />
-    <Compile Include="IDBProxy.cs" />
+    <Compile Include="Repository\IDBProxy.cs" />
     <Compile Include="IRunnabled.cs" />
     <Compile Include="IToRunPolicy.cs" />
-    <Compile Include="ITransistService.cs" />
+    <Compile Include="Domain\ITransistService.cs" />
     <Compile Include="ModuleEntryPointAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AbstractDomainEntity.cs" />
     <Compile Include="Repository\IEntity.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Cache\" />
+    <Folder Include="Logger\" />
+    <Folder Include="Web\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

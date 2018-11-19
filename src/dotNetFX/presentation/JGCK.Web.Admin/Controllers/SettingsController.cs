@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using JGCK.Modules.Configuration;
+using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
 
 namespace JGCK.Web.Admin.Controllers
@@ -19,6 +20,7 @@ namespace JGCK.Web.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<ActionResult> Worktime(int? year)
         {
             if (!year.HasValue)
@@ -30,9 +32,10 @@ namespace JGCK.Web.Admin.Controllers
             return View();
         }
 
-        public async Task<ActionResult> AddOrUpdateRestWorktime()
+        [HttpPost]
+        public async Task<JsonResult> AddOrUpdateRestWorktime(JsonNoWorkTimes restTimes)
         {
-            return View("Worktime");
+            return Json(null);
         }
     }
 }

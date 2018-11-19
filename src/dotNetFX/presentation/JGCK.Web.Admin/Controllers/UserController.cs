@@ -26,7 +26,7 @@ namespace JGCK.Web.Admin.Controllers
             var ret = await m_UserManagerService.CheckAsync(userLogin.UserName, userLogin.Pwd);
             if (ret == CheckUserPwdResult.Success)
             {
-                return RedirectToAction("", "");
+                return RedirectToAction("Index", "Settings");
             }
 
             return View(userLogin);
