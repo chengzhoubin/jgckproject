@@ -19,10 +19,27 @@ namespace JGCK.Web.General.MVC
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (SkipControllerAction(filterContext))
+                return;
+
+            var token = JGCKUserToken.ResolveNewToken();
+            if (token == null)
+            {
+                filterContext.Result = new RedirectResult("~/User/Login");
+                return;
+            }
+
             var curExecutingControllerType = filterContext.Controller.GetType();
             var actionMethod = curExecutingControllerType.GetMethod(filterContext.ActionDescriptor.ActionName);
             //TODO:
             
+        }
+
+        private bool SkipControllerAction(ActionExecutingContext filterContext)
+        {
+            var ctrlName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            var actionName = filterContext.ActionDescriptor.ActionName;
+            return ctrlName == "User" && actionName == "Login";
         }
     }
 }

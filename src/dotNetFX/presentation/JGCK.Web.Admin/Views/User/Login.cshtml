@@ -26,55 +26,82 @@
     <link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/favicon.png">
 </head>
 <body>
-<!-- WRAPPER -->
-<div id="wrapper">
-    <div class="vertical-align-wrap">
-        <div class="vertical-align-middle">
-            <div class="auth-box ">
-                <div class="left">
-                    <div class="content">
-                        <div class="header">
-                            <div class="logo text-center"></div>
-                            <p class="lead">账号登录</p>
-                        </div>
-                        @using (Html.BeginForm("Login", "User", FormMethod.Post, new {@class = "form-auth-small"}))
-                        {
-                            <div class="form-group">
-                                <label for="signin-email" class="control-label sr-only">用户名</label>
-                                @Html.TextBoxFor(m => m.UserName, new {@id = "signin-email", @class = "form-control", placeholder = "用户名"})
-                                @*<input type="email" class="form-control" id="signin-email" value="samuel.gold@domain.com" placeholder="Email">*@
-                            </div>
-                            <div class="form-group">
-                                <label for="signin-password" class="control-label sr-only">密 码</label>
-                                @Html.PasswordFor(m => m.Pwd, new {@id = "signin-password", @class = "form-control", placeholder = "密码"})
+    <style>
+        .LoginContainer {
+            margin-top: 100px
+        }
 
-                                @*<input type="password" class="form-control" id="signin-password" value="thisisthepassword" placeholder="Password">*@
+        .overrideFancyCheckbox {
+            display: inline-block !important;
+            vertical-align: middle;
+            position: relative;
+            bottom: 1px;
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+            content: "";
+            border: 1px solid #ccc;
+        }
+    </style>
+    <!-- WRAPPER -->
+    <div id="wrapper" class="LoginContainer">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle">
+                <div class="auth-box ">
+                    <div class="left">
+                        <div class="content">
+                            <div class="header">
+                                <div class="logo text-center"></div>
+                                <p class="lead">账号登录</p>
                             </div>
-                            <div class="form-group clearfix">
-                                <label class="fancy-checkbox element-left">
-                                    <input type="checkbox">
-                                    <span>记住密码</span>
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">确 定</button>
-                            <div class="bottom">
-                                <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">忘记密码</a></span>
-                            </div>
-                        }
+                            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-auth-small" }))
+                            {
+                                <div class="form-group">
+                                    <label for="signin-email" class="control-label sr-only">用户名</label>
+                                    @Html.TextBoxFor(m => m.UserName, new { @id = "signin-email", @class = "form-control", placeholder = "用户名" })
+                                    @*<input type="email" class="form-control" id="signin-email" value="samuel.gold@domain.com" placeholder="Email">*@
+                                </div>
+                                <div class="form-group">
+                                    <label for="signin-password" class="control-label sr-only">密 码</label>
+                                    @Html.PasswordFor(m => m.Pwd, new { @id = "signin-password", @class = "form-control", placeholder = "密码" })
+
+                                    @*<input type="password" class="form-control" id="signin-password" value="thisisthepassword" placeholder="Password">*@
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="fancy-checkbox element-left">
+                                        @Html.CheckBoxFor(m => m.IsRememberPwd, new { @class = "overrideFancyCheckbox" })
+                                        <span>记住密码</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">确 定</button>
+                                <div class="bottom">
+                                    <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">忘记密码</a></span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="overlay"></div>
+                        <div class="content text">
+                            <h1 class="heading">上海精功齿科技术有限公司</h1>
+                            <p>by 精功齿科</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div id="divErrorPanel" style="color:red">
+                        @Html.ValidationSummary()
                     </div>
                 </div>
-                <div class="right">
-                    <div class="overlay"></div>
-                    <div class="content text">
-                        <h1 class="heading">上海精功齿科技术有限公司</h1>
-                        <p>by 精功齿科</p>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
             </div>
         </div>
     </div>
-</div>
-<!-- END WRAPPER -->
+    <!-- END WRAPPER -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        setTimeout(function () {
+            $("#divErrorPanel").hide();
+        }, 10000)
+    </script>
 </body>
 </html>

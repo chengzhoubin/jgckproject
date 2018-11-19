@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using FluentValidation.Mvc;
 
 namespace JGCK.Web.Admin
 {
@@ -20,6 +21,7 @@ namespace JGCK.Web.Admin
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            FluentValidationModelValidatorProvider.Configure();
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

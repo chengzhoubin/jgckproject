@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using JGCK.Modules.Membership;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
+using JGCK.Web.General.MVC;
 
 namespace JGCK.Web.Admin.Controllers
 {
@@ -23,12 +24,23 @@ namespace JGCK.Web.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(VmUserLogin userLogin)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userLogin);
+            }
             var ret = await m_UserManagerService.CheckAsync(userLogin.UserName, userLogin.Pwd);
             if (ret == CheckUserPwdResult.Success)
             {
+                var token = new JGCKUserToken
+                {
+                    UserName = userLogin.UserName,
+                    RoleName = "Admin"
+                };
+                token.BuildToken();
                 return RedirectToAction("Index", "Settings");
             }
 
+            ModelState.AddModelError("UserPwdMatch", "用户名和密码不匹配");
             return View(userLogin);
         }
     }

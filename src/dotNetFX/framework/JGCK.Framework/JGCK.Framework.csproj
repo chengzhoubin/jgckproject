@@ -66,11 +66,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AbstractDomainEntity.cs" />
     <Compile Include="Repository\IEntity.cs" />
+    <Compile Include="Web\AbstractUserIdentityToken.cs" />
+    <Compile Include="Web\IToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Cache\" />
     <Folder Include="Logger\" />
-    <Folder Include="Web\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

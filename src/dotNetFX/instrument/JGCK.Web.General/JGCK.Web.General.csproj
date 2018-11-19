@@ -40,6 +40,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rsft.HttpCookieSecure, Version=1.0.2.0, Culture=neutral, PublicKeyToken=754720334dc421a0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rsft.HttpCookieSecure.1.0.2\lib\net40\Rsft.HttpCookieSecure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -87,8 +90,10 @@
     <Compile Include="FileUpload\GuidSavedFileNameProvider.cs" />
     <Compile Include="FileUpload\IFileUploadPreprocessor.cs" />
     <Compile Include="FileUpload\ISavedFileNameProvider.cs" />
+    <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="HttpModules\ModuleConfiguration.cs" />
     <Compile Include="MVC\GlobalUserAuthorizationFilterAttribute.cs" />
+    <Compile Include="MVC\JGCKUserToken.cs" />
     <Compile Include="VO\AbstractPageVO.cs" />
     <Compile Include="VO\AbstractVO.cs" />
     <Compile Include="VO\AbstractVOWithFilter.cs" />
@@ -126,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExceptionHandle\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
