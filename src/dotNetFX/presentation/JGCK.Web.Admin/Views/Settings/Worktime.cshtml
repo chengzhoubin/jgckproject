@@ -21,8 +21,15 @@
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-popover.js"></script>
     <script type="text/javascript">
         $(function() {
-            $('#calendar').calendar();
-            $('#calendar').data('calendar').setYear(2018);
+            $('#calendar').calendar({
+                clickDay: function(e) {
+                    console.log("year:" + e.date.getYear());
+                    console.log("month:" + e.date.getMonth());
+                    console.log("day:" + e.date.getUTCDay());
+                    console.log("date" + e.date.toLocaleDateString());
+                    
+                }
+            });
         });
     </script>
 }
