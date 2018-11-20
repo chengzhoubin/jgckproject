@@ -30,6 +30,30 @@ namespace JGCK.Modules.Configuration
             return GetDefaultRestDays(year);
         }
 
+        public async Task<int> RemoveCurrentYearRestDays(int year)
+        {
+            var startDate = Convert.ToDateTime(year + "-01-01");
+            var endDate = Convert.ToDateTime((year + 1) + "-01-01");
+            var offLineDays =
+                await basicDbContext.OffDay.Where(offline =>
+                        offline.NonworkDate >= startDate &&
+                        offline.NonworkDate < endDate)
+                    .ToListAsync();
+            if (offLineDays.Count > 0)
+            {
+                basicDbContext.OffDay.RemoveRange(offLineDays);
+                return await basicDbContext.SaveChangesAsync();
+            }
+
+            return 0;
+        }
+
+        public async Task<int> AddNewYearRestDays(IEnumerable<OffDay> Days)
+        {
+            basicDbContext.OffDay.AddRange(Days);
+            return await basicDbContext.SaveChangesAsync();
+        }
+
         private IEnumerable<OffDay> GetDefaultRestDays(int year)
         {
             DateTime counYear = Convert.ToDateTime($"{year}-01-01");
