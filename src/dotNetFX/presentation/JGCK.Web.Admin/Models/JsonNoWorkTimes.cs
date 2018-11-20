@@ -12,7 +12,7 @@ namespace JGCK.Web.Admin.Models
     {
         public int Year { get; set; }
 
-        public JsonNoWorkDaysInMonth[] RestMonths { get; set; }
+        public List<JsonNoWorkDaysInMonth> RestMonths { get; set; }
     }
 
     public class JsonNoWorkDaysInMonth
@@ -25,6 +25,6 @@ namespace JGCK.Web.Admin.Models
         /// <summary>
         /// 当月几号休息
         /// </summary>
-        public int[] Days { get; set; }
+        public List<int> Days { get; set; }
     }
 }

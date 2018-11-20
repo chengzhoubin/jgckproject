@@ -10,6 +10,9 @@
         }
     </style>
 }
+<div style="margin-left: 10px !important; color: black">
+    基础管理 > 日历维护
+</div>
 <article class="htmleaf-container">
     <div id="calendar"></div>
 </article>
@@ -20,16 +23,82 @@
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-year-calendar.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-popover.js"></script>
     <script type="text/javascript">
+        var rawRestTime = '@Html.Raw(ViewBag.RestDays)';
+        var restTimeClass = {
+            Year: 2018,
+            RestMonths: [
+                {
+                    Month: 1,
+                    Days: [5, 6]
+                }, {
+                    Month: 2,
+                    Days: [5, 6]
+                }, {
+                    Month: 3,
+                    Days: [5, 6]
+                }
+            ]
+        }
+
         $(function() {
             $('#calendar').calendar({
                 clickDay: function(e) {
-                    console.log("year:" + e.date.getYear());
-                    console.log("month:" + e.date.getMonth());
-                    console.log("day:" + e.date.getUTCDay());
-                    console.log("date" + e.date.toLocaleDateString());
-                    
+                    var current_bgColor = $(e.element).css("background-color");
+                    if (typeof (current_bgColor) == "undefined" || current_bgColor == "rgba(0, 0, 0, 0)") {
+                        $(e.element).css('background-color', 'red');
+                    } else {
+                        $(e.element).css('background-color', '');
+                    }
                 }
             });
+
+            $("#btnUpdateRestDays").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddOrUpdateRestWorktime")',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(restTimeClass),
+                    success: function(data) {
+                        if (data.result == 1) {
+                            location.href = location.href;
+                        }
+                    }
+                });
+            });
+
+            $("#btnRefresh").click(function() {
+                location.href = location.href;
+            });
+
+            restTimeClass = JSON.parse(rawRestTime);
+            renderPageByJson();
         });
+
+        var renderPageByJson = function() {
+            var pushIndex = 0;
+            Array.from($(".month")).forEach(function(e) {
+                console.log("3");
+                var monthDays = restTimeClass.RestMonths.find((m) => m.Month == (pushIndex + 1));
+                if (typeof (monthDays) == "undefined" || monthDays.Days.length <= 0) {
+                    pushIndex++;
+                    return;
+                }
+
+                Array.from(monthDays.Days).forEach(function(restIntDay) {
+                    var allDayDoms = $(e).find(".day .day-content");
+                    var selectedDayDom = Array.from(allDayDoms)
+                        .find((day) => day.innerText != "" && parseInt(day.innerText) == restIntDay)
+                    if (typeof (selectedDayDom) != "undefined") {
+                        $(selectedDayDom).parent().css('background-color', 'red');
+                    }
+                });
+                pushIndex++;
+            });
+        }
     </script>
 }
+<div style="margin-left: 40px !important; color: black">
+    <input id="btnUpdateRestDays" type="button" value="更新全年休息日"/>&nbsp;
+    <input id="btnRefresh" type="button" value="刷新"/>
+</div>
