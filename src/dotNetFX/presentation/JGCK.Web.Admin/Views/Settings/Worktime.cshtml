@@ -13,6 +13,7 @@
 <div style="margin-left: 10px !important; color: black">
     基础管理 > 日历维护
 </div>
+<p></p>
 <article class="htmleaf-container">
     <div id="calendar"></div>
 </article>
@@ -42,12 +43,18 @@
 
         $(function() {
             $('#calendar').calendar({
-                clickDay: function(e) {
+                clickDay: function (e) {
+                    var selYear = e.date.getYear() - 100 + 2000;
+                    var selMonth = e.date.getMonth() + 1;
+                    var selDay = e.date.getDate();
+
                     var current_bgColor = $(e.element).css("background-color");
                     if (typeof (current_bgColor) == "undefined" || current_bgColor == "rgba(0, 0, 0, 0)") {
                         $(e.element).css('background-color', 'red');
+                        opRemoveAndAdd(1, selYear, selMonth, selDay);
                     } else {
                         $(e.element).css('background-color', '');
+                        opRemoveAndAdd(2, selYear, selMonth, selDay);
                     }
                 }
             });
@@ -73,6 +80,8 @@
 
             restTimeClass = JSON.parse(rawRestTime);
             renderPageByJson();
+
+            $(".calendar-header").hide();
         });
 
         var renderPageByJson = function() {
@@ -96,9 +105,22 @@
                 pushIndex++;
             });
         }
+
+        var opRemoveAndAdd = function(opMod, inYear, inMonth, inDay) {
+            if (restTimeClass.Year != inYear)
+                return;
+            var selectedItem = restTimeClass.RestMonths.find(md => md.Month == inMonth);
+            if (typeof (selectedItem) == "undefined")
+                return;
+
+            if (opMod == 1)
+                selectedItem.Days.push(inDay);
+            else
+                selectedItem.Days.splice(jQuery.inArray(inDay, selectedItem.Days), 1);
+        }
     </script>
 }
 <div style="margin-left: 40px !important; color: black">
-    <input id="btnUpdateRestDays" type="button" value="更新全年休息日"/>&nbsp;
+    <input id="btnUpdateRestDays" type="button" value="@($"更新{DateTime.Now.Year}年全年休息日")"/>&nbsp;
     <input id="btnRefresh" type="button" value="刷新"/>
 </div>
