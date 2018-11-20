@@ -170,6 +170,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Enum\HospitalRank.cs" />
     <Compile Include="Enum\MicroClassFileType.cs" />
@@ -549,6 +550,7 @@
     <Content Include="assets\img\favicon.png" />
     <Content Include="assets\img\login-bg.jpg" />
     <Content Include="assets\img\logo-dark.png" />
+    <Content Include="assets\img\permission.png" />
     <Content Include="assets\img\profile-bg.png" />
     <Content Include="assets\img\user-medium.png" />
     <Content Include="assets\img\user.png" />
@@ -766,10 +768,12 @@
     <Content Include="Views\User\ForgetPassword.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Worktime.cshtml" />
+    <Content Include="Views\Permission\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
+    <Folder Include="Views\SettingsController01\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
