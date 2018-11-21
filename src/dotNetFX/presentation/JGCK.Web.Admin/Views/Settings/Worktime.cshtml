@@ -8,10 +8,22 @@
             height: 100%;
             overflow: hidden;
         }
+        .month-title {
+            color: black !important;
+        }
+        .day-header {
+            color: black !important;
+        }
+        .day-content {
+            color: black!important;
+        }
     </style>
 }
 <div style="margin-left: 10px !important; color: black">
-    基础管理 > 日历维护
+    @{
+        var selectedYear = Request["year"] ?? DateTime.Now.Year.ToString();
+    }
+    基础管理 > 日历维护(@(selectedYear))
 </div>
 <p></p>
 <article class="htmleaf-container">
@@ -43,6 +55,7 @@
 
         $(function() {
             $('#calendar').calendar({
+                startYear: @(selectedYear),
                 clickDay: function (e) {
                     var selYear = e.date.getYear() - 100 + 2000;
                     var selMonth = e.date.getMonth() + 1;
@@ -50,7 +63,7 @@
 
                     var current_bgColor = $(e.element).css("background-color");
                     if (typeof (current_bgColor) == "undefined" || current_bgColor == "rgba(0, 0, 0, 0)") {
-                        $(e.element).css('background-color', 'red');
+                        $(e.element).css('background-color', 'blanchedalmond');
                         opRemoveAndAdd(1, selYear, selMonth, selDay);
                     } else {
                         $(e.element).css('background-color', '');
@@ -81,13 +94,29 @@
             restTimeClass = JSON.parse(rawRestTime);
             renderPageByJson();
 
-            $(".calendar-header").hide();
+            $('.year-neighbor, .year-neighbor2').click(function() {
+                if(!$(this).hasClass('disabled')) {
+                    location.href = "/settings/worktime?year=" + parseInt($(this).text());
+                }
+            });
+
+            $('.calendar-header .prev').click(function() {
+                if (!$(this).hasClass('disabled')) {
+                    location.href = "/settings/worktime?year=" + (@selectedYear - 1);
+                }
+            });
+			
+            $('.calendar-header .next').click(function() {
+                if (!$(this).hasClass('disabled')) {
+                    location.href = "/settings/worktime?year=" + (@selectedYear + 1);
+                }
+            });
+            //$(".calendar-header").hide();
         });
 
         var renderPageByJson = function() {
             var pushIndex = 0;
             Array.from($(".month")).forEach(function(e) {
-                console.log("3");
                 var monthDays = restTimeClass.RestMonths.find((m) => m.Month == (pushIndex + 1));
                 if (typeof (monthDays) == "undefined" || monthDays.Days.length <= 0) {
                     pushIndex++;
@@ -99,7 +128,7 @@
                     var selectedDayDom = Array.from(allDayDoms)
                         .find((day) => day.innerText != "" && parseInt(day.innerText) == restIntDay)
                     if (typeof (selectedDayDom) != "undefined") {
-                        $(selectedDayDom).parent().css('background-color', 'red');
+                        $(selectedDayDom).parent().css('background-color', 'blanchedalmond');
                     }
                 });
                 pushIndex++;
@@ -121,6 +150,7 @@
     </script>
 }
 <div style="margin-left: 40px !important; color: black">
-    <input id="btnUpdateRestDays" type="button" value="@($"更新{DateTime.Now.Year}年全年休息日")"/>&nbsp;
+    <br/>
+    <input id="btnUpdateRestDays" type="button" value="@($"更新{selectedYear}年全年休息日")"/>&nbsp;
     <input id="btnRefresh" type="button" value="刷新"/>
 </div>
