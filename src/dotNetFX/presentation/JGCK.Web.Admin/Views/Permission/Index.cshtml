@@ -6,6 +6,7 @@
         padding-top: 20px;
         padding-left: 40px;
         font-size: small;
+        cursor: pointer;
     }
     #roleContainer ul {
         margin: 0 auto;
@@ -26,50 +27,153 @@
 <div id="roleContainer">
     <ul>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0001-管理员（正）">
                 管理员（正）
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0002-管理员（副）">
                 管理员（副）
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0003-营业">
                 营业
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0004-质检">
                 质检
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0005-组长">
                 组长
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0006-仓管">
                 仓管
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0007-信息维护">
                 信息维护
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0008-医生">
                 医生
             </div>
         </li>
         <li>
-            <div class="roleBox">
+            <div class="roleBox" data-toggle="modal" data-target="#permissionModal" data-whatever="r0009-操作员">
                 操作员
             </div>
         </li>
     </ul>
 </div>
+
+<div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="r0001" class="permissionList">
+                    <li><input type="checkbox" checked="checked"/>订单信息管理</li>
+                    <li><input type="checkbox" checked="checked" />工单信息查询</li>
+                    <li><input type="checkbox" checked="checked" />员工信息管理</li>
+                    <li><input type="checkbox" checked="checked" />医院信息管理</li>
+                    <li><input type="checkbox" checked="checked" />产品信息管理</li>
+                    <li><input type="checkbox" checked="checked" />其他基础信息管理</li>
+                    <li><input type="checkbox" checked="checked" />取消制作的订单关闭</li>
+                    <li><input type="checkbox" checked="checked" />微信客服使用权限</li>
+                    <li><input type="checkbox" checked="checked" />快递信息管理</li>
+                    <li><input type="checkbox" checked="checked" />各类报表查询、打印</li>
+                </ul>
+                <ul id="r0002" class="permissionList">
+                    <li><input type="checkbox" checked="checked"/>订单信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />工单信息查询(查看)</li>
+                    <li><input type="checkbox" checked="checked" />员工信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />医院信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />产品信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />其他基础信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />取消制作的订单关闭(查看)</li>
+                    <li><input type="checkbox" checked="checked" />微信客服使用权限(查看)</li>
+                    <li><input type="checkbox" checked="checked" />快递信息管理(查看)</li>
+                    <li><input type="checkbox" checked="checked" />各类报表查寻(查看)</li>
+                </ul>
+                <ul id="r0003" class="permissionList">
+                    <li><input type="checkbox" checked="checked"/>订单信息管理</li>
+                    <li><input type="checkbox" checked="checked" />工单信息查询</li>
+                    <li><input type="checkbox" checked="checked" />员工信息管理</li>
+                    <li><input type="checkbox" checked="checked" />医院信息管理</li>
+                    <li><input type="checkbox" checked="checked" />产品信息管理</li>
+                    <li><input type="checkbox" checked="checked" />其他基础信息管理</li>
+                    <li><input type="checkbox" checked="checked" />取消制作的订单关闭</li>
+                    <li><input type="checkbox" checked="checked" />微信客服使用权限</li>
+                    <li><input type="checkbox" checked="checked" />快递信息管理</li>
+                    <li><input type="checkbox" checked="checked" />各类报表查询、打印</li>
+                </ul>
+                <ul id="r0004" class="permissionList">
+                    <li><input type="checkbox" checked="checked"/>订单信息管理</li>
+                    <li><input type="checkbox" checked="checked" />工单管理（分配，确认）</li>
+                    <li><input type="checkbox" checked="checked" />终检，放行</li>
+                    <li><input type="checkbox" checked="checked" />微信客服使用权限</li>
+                </ul>
+                <ul id="r0005" class="permissionList">
+                    <li><input type="checkbox" checked="checked" />订单信息查询（产品价格除外）</li>
+                    <li><input type="checkbox" checked="checked" />工单管理（工单分配、工分确认）</li>
+                    <li><input type="checkbox" checked="checked" />材料及批号选择</li>
+                    <li><input type="checkbox" checked="checked" />微信客服使用权限</li>
+                </ul>
+                <ul id="r0006" class="permissionList">
+                    <li><input type="checkbox" checked="checked" />产品相关材料信息管理（材料、品牌、批号）</li>
+                </ul>
+                <ul id="r0007" class="permissionList">
+                    <li><input type="checkbox" checked="checked" />基础信息的管理（除订单、工单、材料外）</li>
+                </ul>
+                <ul id="r0008" class="permissionList">
+                    <li><input type="checkbox" checked="checked" />订单信息管理（添加、修改）</li>
+                </ul>
+                <ul id="r0009" class="permissionList">
+                    <li>无操作权限</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section referenceHeader
+{
+    <link rel="stylesheet" href="~/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css"/>
+}
+@section scripts
+{
+    <script src="~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+    <script>
+        $(function () {
+            $('#permissionModal').on('show.bs.modal',
+                function(event) {
+                    var button = $(event.relatedTarget);
+                    var roleCodeAndName = button.data('whatever');
+                    var arrCodeAndName = roleCodeAndName.split("-");
+                    resetRolePermission();
+                    $("#" + arrCodeAndName[0]).show();
+                    var modal = $(this);
+                    modal.find('.modal-title').text(arrCodeAndName[1] + "权限如下：");
+                });
+        });
+
+        var resetRolePermission = function() {
+            $(".permissionList").hide();
+        }
+    </script>
+}
 
