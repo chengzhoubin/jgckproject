@@ -773,7 +773,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
-    <Folder Include="Views\SettingsController01\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
