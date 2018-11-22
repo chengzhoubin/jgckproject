@@ -59,6 +59,8 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="BasicDbProxy.cs" />
+    <Compile Include="Models\HospitalInvoice.cs" />
+    <Compile Include="Models\HospitalReference.cs" />
     <Compile Include="Models\OffDay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
