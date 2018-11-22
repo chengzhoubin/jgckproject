@@ -22,8 +22,15 @@ namespace JGCK.Respority.UserWork
                 .IsUnicode(false);
 
             modelBuilder.Entity<Person>()
-                .Property(e => e.ContactNO)
+                .Property(e => e.ContactNo)
                 .IsUnicode(false);
+
+            
+            modelBuilder.Entity<PersonDoctor>()
+                .HasRequired(p => p.WithPerson)
+                .WithOptional(pd=>pd.Doctor)
+                .Map(m => m.MapKey("PersonId"))
+                .WillCascadeOnDelete(false);
         }
     }
 }
