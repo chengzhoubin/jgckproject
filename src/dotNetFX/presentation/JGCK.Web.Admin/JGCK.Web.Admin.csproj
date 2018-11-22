@@ -546,6 +546,7 @@
     <Content Include="assets\global\plugins\vue.min.js" />
     <Content Include="assets\global\scripts\app.js" />
     <Content Include="assets\global\scripts\datatable.js" />
+    <Content Include="assets\scripts\promise.js" />
     <Content Include="assets\img\apple-icon.png" />
     <Content Include="assets\img\favicon.png" />
     <Content Include="assets\img\login-bg.jpg" />
