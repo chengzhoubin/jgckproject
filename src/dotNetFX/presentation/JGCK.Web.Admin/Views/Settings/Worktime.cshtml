@@ -1,6 +1,6 @@
 ﻿@section referenceHeader
 {
-    <link rel="stylesheet" type="text/css" href="~/assets/global/plugins/bootstrap-year-datepicker/css/default.css">
+    @*<link rel="stylesheet" type="text/css" href="~/assets/global/plugins/bootstrap-year-datepicker/css/default.css">*@
     <link rel="stylesheet" type="text/css" href="~/assets/global/plugins/bootstrap-year-datepicker/css/bootstrap-year-calendar.min.css">
     <style type="text/css">
         #calendar {
@@ -17,21 +17,51 @@
         .day-content {
             color: black!important;
         }
+        .buttonFlattening {
+            background-color: #ff8c00; /* Green */
+            border: none;
+            color: white;
+            font-family: Arial;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
     </style>
 }
-<div style="margin-left: 10px !important; color: black">
-    @{
-        var selectedYear = Request["year"] ?? DateTime.Now.Year.ToString();
-    }
-    基础管理 > 日历维护(@(selectedYear))
+
+@{ var selectedYear = Request["year"] ?? DateTime.Now.Year.ToString(); }
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#">基础管理</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>日历维护(@(selectedYear))</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+
+        </div>
+    </div>
 </div>
 <p></p>
-<article class="htmleaf-container">
+<article style="margin-bottom: 17%;">
     <div id="calendar"></div>
+    <div style="margin-top: 10px;">
+        <input id="btnUpdateRestDays" type="button" value="@($"更新{selectedYear}年全年休息日")" class="buttonFlattening" />&nbsp;
+        <input id="btnRefresh" type="button" value="刷新" class="buttonFlattening" />
+    </div>
 </article>
+
 @section scripts
 {
-    <script src="~/assets/global/plugins/bootstrap-year-datepicker/js/jquery-2.1.1.min.js"></script>
+    @*<script src="~/assets/global/plugins/bootstrap-year-datepicker/js/jquery-2.1.1.min.js"></script>*@
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-year-calendar.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-popover.js"></script>
@@ -149,8 +179,3 @@
         }
     </script>
 }
-<div style="margin-left: 40px !important; color: black">
-    <br/>
-    <input id="btnUpdateRestDays" type="button" value="@($"更新{selectedYear}年全年休息日")"/>&nbsp;
-    <input id="btnRefresh" type="button" value="刷新"/>
-</div>

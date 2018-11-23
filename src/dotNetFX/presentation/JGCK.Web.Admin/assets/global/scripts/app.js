@@ -11,7 +11,7 @@ var App = function() {
 
     var resizeHandlers = [];
 
-    var assetsPath = 'assets/';
+    var assetsPath = '../assets/';
 
     var globalImgPath = 'global/img/';
 
@@ -59,8 +59,8 @@ var App = function() {
         }
     };
 
-    // handle the layout reinitialization on window resize
     var handleOnResize = function() {
+        var windowWidth = $(window).width();
         var resize;
         if (isIE8) {
             var currheight;
@@ -78,12 +78,15 @@ var App = function() {
             });
         } else {
             $(window).resize(function() {
-                if (resize) {
-                    clearTimeout(resize);
+                if ($(window).width() != windowWidth) {
+                    windowWidth = $(window).width();
+                    if (resize) {
+                        clearTimeout(resize);
+                    }
+                    resize = setTimeout(function() {
+                        _runResizeHandlers();
+                    }, 50); // wait 50ms until window resize finishes.
                 }
-                resize = setTimeout(function() {
-                    _runResizeHandlers();
-                }, 50); // wait 50ms until window resize finishes.
             });
         }
     };
@@ -195,23 +198,7 @@ var App = function() {
             }
         });
     };
-
-    // Handles custom checkboxes & radios using jQuery Uniform plugin
-    var handleUniform = function() {
-        if (!$().uniform) {
-            return;
-        }
-        var test = $("input[type=checkbox]:not(.toggle, .md-check, .md-radiobtn, .make-switch, .icheck), input[type=radio]:not(.toggle, .md-check, .md-radiobtn, .star, .make-switch, .icheck)");
-        if (test.size() > 0) {
-            test.each(function() {
-                if ($(this).parents(".checker").size() === 0) {
-                    $(this).show();
-                    $(this).uniform();
-                }
-            });
-        }
-    };
-
+    
     // Handlesmaterial design checkboxes
     var handleMaterialDesign = function() {
 
@@ -325,7 +312,7 @@ var App = function() {
         if (!$().confirmation) {
             return;
         }
-        $('[data-toggle=confirmation]').confirmation({ container: 'body', btnOkClass: 'btn btn-sm btn-success', btnCancelClass: 'btn btn-sm btn-danger'});
+        $('[data-toggle=confirmation]').confirmation({ btnOkClass: 'btn btn-sm btn-success', btnCancelClass: 'btn btn-sm btn-danger'});
     }
     
     // Handles Bootstrap Accordions.
@@ -338,7 +325,7 @@ var App = function() {
     // Handles Bootstrap Tabs.
     var handleTabs = function() {
         //activate tab if tab id provided in the URL
-        if (location.hash) {
+        if (encodeURI(location.hash)) {
             var tabid = encodeURI(location.hash.substr(1));
             $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function() {
                 var tabid = $(this).attr("id");
@@ -373,7 +360,7 @@ var App = function() {
         });
 
         // fix page scrollbars issue
-        $('body').on('hide.bs.modal', '.modal', function() {
+        $('body').on('hidden.bs.modal', '.modal', function() {
             $('body').removeClass("modal-open-noscroll");
         });
 
@@ -390,22 +377,27 @@ var App = function() {
 
         // portlet tooltips
         $('.portlet > .portlet-title .fullscreen').tooltip({
+            trigger: 'hover',
             container: 'body',
             title: 'Fullscreen'
         });
         $('.portlet > .portlet-title > .tools > .reload').tooltip({
+            trigger: 'hover',
             container: 'body',
             title: 'Reload'
         });
         $('.portlet > .portlet-title > .tools > .remove').tooltip({
+            trigger: 'hover',
             container: 'body',
             title: 'Remove'
         });
         $('.portlet > .portlet-title > .tools > .config').tooltip({
+            trigger: 'hover',
             container: 'body',
             title: 'Settings'
         });
         $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({
+            trigger: 'hover',
             container: 'body',
             title: 'Collapse/Expand'
         });
@@ -436,14 +428,6 @@ var App = function() {
         $('body').on('click', '[data-remove="note"]', function(e) {
             $(this).closest('.note').remove();
             e.preventDefault();
-        });
-    };
-
-    // Handle Hower Dropdowns
-    var handleDropdownHover = function() {
-        $('[data-hover="dropdown"]').not('.hover-initialized').each(function() {
-            $(this).dropdownHover();
-            $(this).addClass('hover-initialized');
         });
     };
 
@@ -600,10 +584,9 @@ var App = function() {
 
             //UI Component handlers     
             handleMaterialDesign(); // handle material design       
-            handleUniform(); // hanfle custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-          // handleScrollers(); // handles slim scrolling contents 
+            handleScrollers(); // handles slim scrolling contents 
             handleFancybox(); // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -624,7 +607,21 @@ var App = function() {
             // Hacks
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
         },
-                
+
+        //main function to initiate core javascript after ajax complete
+        initAjax: function() {
+            //handleUniform(); // handles custom radio & checkboxes     
+            handleiCheck(); // handles custom icheck radio and checkboxes
+            handleBootstrapSwitch(); // handle bootstrap switch plugin
+            handleScrollers(); // handles slim scrolling contents 
+            handleSelect2(); // handle custom Select2 dropdowns
+            handleFancybox(); // handle fancy box
+            handleDropdowns(); // handle dropdowns
+            handleTooltips(); // handle bootstrap tooltips
+            handlePopovers(); // handles bootstrap popovers
+            handleAccordions(); //handles accordions 
+            handleBootstrapConfirmation(); // handle bootstrap confirmations
+        },
 
         //init main components 
         initComponents: function() {
@@ -667,6 +664,10 @@ var App = function() {
         },
 
         initSlimScroll: function(el) {
+            if (!$().slimScroll) {
+                return;
+            }
+
             $(el).each(function() {
                 if ($(this).attr("data-initialized")) {
                     return; // exit
@@ -698,6 +699,10 @@ var App = function() {
         },
 
         destroySlimScroll: function(el) {
+            if (!$().slimScroll) {
+                return;
+            }
+
             $(el).each(function() {
                 if ($(this).attr("data-initialized") === "1") { // destroy existing instance before updating the height
                     $(this).removeAttr("data-initialized");
@@ -847,13 +852,15 @@ var App = function() {
             }
 
             if (!options.container) {
-                if ($('body').hasClass("page-container-bg-solid") || $('body').hasClass("page-content-white")) {
+                if ($('.page-fixed-main-content').size() === 1) {
+                    $('.page-fixed-main-content').prepend(html);
+                } else if (($('body').hasClass("page-container-bg-solid") || $('body').hasClass("page-content-white")) && $('.page-head').size() === 0) {
                     $('.page-title').after(html);
                 } else {
                     if ($('.page-bar').size() > 0) {
                         $('.page-bar').after(html);
                     } else {
-                        $('.page-breadcrumb').after(html);
+                        $('.page-breadcrumb, .breadcrumbs').after(html);
                     }
                 }
             } else {
@@ -875,25 +882,6 @@ var App = function() {
             }
 
             return id;
-        },
-
-        // initializes uniform elements
-        initUniform: function(els) {
-            if (els) {
-                $(els).each(function() {
-                    if ($(this).parents(".checker").size() === 0) {
-                        $(this).show();
-                        $(this).uniform();
-                    }
-                });
-            } else {
-                handleUniform();
-            }
-        },
-
-        //wrApper function to update/sync jquery uniform checkbox & radios
-        updateUniform: function(els) {
-            $.uniform.update(els); // update the uniform checkbox & radios UI after the actual input control state changed
         },
 
         //public function to initialize the fancybox plugin
@@ -1024,6 +1012,8 @@ var App = function() {
     };
 
 }();
+
+<!-- END THEME LAYOUT SCRIPTS -->
 
 jQuery(document).ready(function() {    
    App.init(); // init metronic core componets

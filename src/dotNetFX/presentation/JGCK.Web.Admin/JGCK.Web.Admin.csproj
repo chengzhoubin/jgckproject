@@ -184,11 +184,25 @@
     <Compile Include="Controllers\UserController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\apps\css\inbox.css" />
+    <Content Include="assets\apps\css\inbox.min.css" />
+    <Content Include="assets\apps\css\ticket.css" />
+    <Content Include="assets\apps\css\ticket.min.css" />
+    <Content Include="assets\apps\css\todo.css" />
+    <Content Include="assets\apps\css\todo.min.css" />
+    <Content Include="assets\apps\scripts\calendar.js" />
+    <Content Include="assets\apps\scripts\calendar.min.js" />
+    <Content Include="assets\apps\scripts\inbox.js" />
+    <Content Include="assets\apps\scripts\inbox.min.js" />
+    <Content Include="assets\apps\scripts\todo.js" />
+    <Content Include="assets\apps\scripts\todo.min.js" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\demo.css" />
     <Content Include="assets\css\main.css" />
+    <Content Include="assets\global\css\components.css" />
     <Content Include="assets\global\css\components.min.css" />
+    <Content Include="assets\global\css\plugins.css" />
     <Content Include="assets\global\css\plugins.min.css" />
     <Content Include="assets\global\img\accordion-plusminus.png" />
     <Content Include="assets\global\img\ajax-loading.gif" />
@@ -543,9 +557,12 @@
     <Content Include="assets\global\plugins\uniform\images\sprite_original.png" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.js" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="assets\global\plugins\vue-resource.min.js" />
     <Content Include="assets\global\plugins\vue.min.js" />
     <Content Include="assets\global\scripts\app.js" />
+    <Content Include="assets\global\scripts\app.min.js" />
     <Content Include="assets\global\scripts\datatable.js" />
+    <Content Include="assets\global\scripts\datatable.min.js" />
     <Content Include="assets\scripts\promise.js" />
     <Content Include="assets\img\apple-icon.png" />
     <Content Include="assets\img\favicon.png" />
@@ -774,6 +791,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
+    <Folder Include="assets\pages\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
