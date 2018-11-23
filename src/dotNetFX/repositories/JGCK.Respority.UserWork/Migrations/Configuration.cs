@@ -9,7 +9,7 @@ namespace JGCK.Respority.UserWork.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(JGCK.Respority.UserWork.UserDbProxy context)

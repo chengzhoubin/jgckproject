@@ -12,7 +12,7 @@ namespace JGCK.Respority.UserWork
     [Table("PersonDoctor")]
     public partial class PersonDoctor : AbstractDomainEntity
     {
-        public virtual Person WithPerson { get; set; }
+        public Person WithPerson { get; set; }
 
         public long Hospital { get; set; }
 

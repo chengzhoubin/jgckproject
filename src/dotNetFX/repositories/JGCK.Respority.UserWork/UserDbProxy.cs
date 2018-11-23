@@ -25,12 +25,12 @@ namespace JGCK.Respority.UserWork
                 .Property(e => e.ContactNo)
                 .IsUnicode(false);
 
-            
+
             modelBuilder.Entity<PersonDoctor>()
                 .HasRequired(p => p.WithPerson)
-                .WithOptional(pd=>pd.Doctor)
+                .WithOptional(pd => pd.Doctor)
                 .Map(m => m.MapKey("PersonId"))
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }
