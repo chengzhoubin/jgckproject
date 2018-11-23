@@ -179,6 +179,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
+    <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -806,6 +807,10 @@
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Worktime.cshtml" />
     <Content Include="Views\Permission\Index.cshtml" />
+    <Content Include="Views\User\DoctorList.cshtml" />
+    <Content Include="Views\Settings\HospitalList.cshtml" />
+    <Content Include="Views\Settings\DepartmentList.cshtml" />
+    <Content Include="Views\User\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

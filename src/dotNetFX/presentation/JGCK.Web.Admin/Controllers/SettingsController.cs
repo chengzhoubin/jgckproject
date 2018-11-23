@@ -22,6 +22,8 @@ namespace JGCK.Web.Admin.Controllers
             return View();
         }
 
+        #region 日历维护
+
         [HttpGet]
         public async Task<ActionResult> Worktime(int? year)
         {
@@ -89,5 +91,25 @@ namespace JGCK.Web.Admin.Controllers
             });
             return ret;
         }
+
+        #endregion
+
+        #region 医院管理
+
+        public ActionResult HospitalList()
+        {
+            return View();
+        }
+
+        #endregion
+
+        #region 部门管理
+
+        public ActionResult DepartmentList()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }

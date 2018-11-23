@@ -43,5 +43,17 @@ namespace JGCK.Web.Admin.Controllers
             ModelState.AddModelError("UserPwdMatch", "用户名和密码不匹配");
             return View(userLogin);
         }
+
+        [HttpGet]
+        public ActionResult DoctorList()
+        {
+            return View(new VmUserDoctorIndex());
+        }
+
+        [HttpGet]
+        public ActionResult UserList()
+        {
+            return View();
+        }
     }
 }
