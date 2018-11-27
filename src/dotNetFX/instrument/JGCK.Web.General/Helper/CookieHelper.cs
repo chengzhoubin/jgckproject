@@ -20,7 +20,8 @@ namespace JGCK.Web.General
             T cookieObject,
             string key,
             DateTime? expiredTime = null,
-            Func<T, string> resolveObjectToStr = null)
+            Func<T, string> resolveObjectToStr = null,
+            bool isSecurity = true)
         {
             var newCookie = new HttpCookie(key);
             string cookieValue = null;
@@ -35,7 +36,8 @@ namespace JGCK.Web.General
             newCookie.Value = cookieValue;
             if (expiredTime.HasValue)
                 newCookie.Expires = expiredTime.Value;
-            newCookie = CookieSecure.Encode(newCookie);
+            if (isSecurity)
+                newCookie = CookieSecure.Encode(newCookie);
             HttpContext.Current?.Response.Cookies.Add(newCookie);
         }
 
@@ -59,13 +61,13 @@ namespace JGCK.Web.General
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static T GetValue<T>(string key)
+        public static T GetValue<T>(string key, bool isSecurity = true)
         {
             var existCookie = HttpContext.Current?.Request.Cookies[key];
             if (existCookie == null || string.IsNullOrEmpty(existCookie.Value))
                 throw new NullReferenceException("can't get cookie");
 
-            existCookie = CookieSecure.Decode(existCookie);
+            existCookie = isSecurity ? CookieSecure.Decode(existCookie) : existCookie;
             if (typeof(T) == typeof(string))
                 return (T) (object) existCookie.Value;
             return JsonConvert.DeserializeObject<T>(existCookie.Value);

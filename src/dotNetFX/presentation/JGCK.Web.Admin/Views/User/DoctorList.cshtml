@@ -1,4 +1,6 @@
-﻿<div class="page-bar">
+﻿@using Webdiyer.WebControls.Mvc
+@model JGCK.Web.Admin.Models.VmUserDoctorIndex
+<div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <a href="#">基础管理</a>
@@ -26,7 +28,7 @@
                             <div class="form-group">
                                 <!--<label>Small Input Default Group</label>-->
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="姓名、医生编号、手机">
+                                    @Html.TextBoxFor(m=>m.Filter,new{@class= "form-control",placeholder= "姓名、医生编号、手机" })
                                     <span class="input-group-btn">
                                         <button class="btn green" type="button">搜索</button>
                                     </span>
@@ -66,7 +68,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        @{
+                            var itemIndex = 1;
+                            foreach (var item in Model.ViewObjects)
+                            {
+                                <tr>
+                                    <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
+                                    <td> @item.DoctorName </td>
+                                    <td> @item.DoctorCode </td>
+                                    <td> @item.LinePhone </td>
+                                    <td> @item.MobilePhone </td>
+                                    <td> @item.AduitStatus </td>
+                                    <td> @item.AduitDate </td>
+                                    <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
+                                </tr>
+                                itemIndex++;
+                            }
+                        }
+                        @*<tr>
                             <td> 1 </td>
                             <td> 张三 </td>
                             <td> AB0001 </td>
@@ -74,7 +93,7 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
+                            <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
                         </tr>
                         <tr>
                             <td> 1 </td>
@@ -84,7 +103,7 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>  <button type="button" class="btn green btn-sm"> 操作 </button> </td>
+                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
                         </tr>
                         <tr>
                             <td> 1 </td>
@@ -94,7 +113,7 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>  <button type="button" class="btn green btn-sm"> 操作 </button> </td>
+                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
                         </tr>
                         <tr>
                             <td> 1 </td>
@@ -104,7 +123,7 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>  <button type="button" class="btn green btn-sm"> 操作 </button> </td>
+                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
                         </tr>
                         <tr>
                             <td> 1 </td>
@@ -138,7 +157,7 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>   <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a></td>
+                            <td> <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a></td>
                         </tr>
                         <tr>
                             <td> 1 </td>
@@ -148,13 +167,19 @@
                             <td> 13912345678 </td>
                             <td> 待审核 </td>
                             <td> 2018-1-1 </td>
-                            <td>  <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a> </td>
-                        </tr>
+                            <td> <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a> </td>
+                        </tr>*@
                         </tbody>
                     </table>
 
-                    <div>
-                        <ul class="pagination pagination-sm">
+                    <div class="text-right">
+                        @Html.Pager(Model.TotalRecordCount,Model.PageSize,Model.CurrentIndex,new PagerOptions
+                        { 
+                            PageIndexParameterName = "p",
+                            HorizontalAlign = "right",
+                            PagerItemTemplate = "&nbsp;{0}"
+                        });
+                        @*<ul class="pagination pagination-sm">
                             <li>
                                 <a href="javascript:;">
                                     <i class="fa fa-angle-left"></i>
@@ -183,7 +208,7 @@
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>*@
                     </div>
                 </div>
             </div>

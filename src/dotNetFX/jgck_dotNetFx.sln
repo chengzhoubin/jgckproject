@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Respority.UserWork", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Modules.Configuration", "modules\JGCK.Modules.Configuration\JGCK.Modules.Configuration.csproj", "{CEDC28EE-2A38-448D-BC81-C68B5FEF5127}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Framework.EF", "framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj", "{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{CEDC28EE-2A38-448D-BC81-C68B5FEF5127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEDC28EE-2A38-448D-BC81-C68B5FEF5127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEDC28EE-2A38-448D-BC81-C68B5FEF5127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{0B66D0D1-1CC9-4F70-ACB4-61AE8E0388AE} = {124EE6F0-5B80-44B3-9AB1-19E68713F9C0}
 		{05FAFF0E-0225-45EF-BC59-585E4BB4F16C} = {6BAE36EB-60F9-435D-915E-40462A9BC103}
 		{CEDC28EE-2A38-448D-BC81-C68B5FEF5127} = {ECD5A776-C705-4EB3-9B88-D5F972AD6B7E}
+		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340} = {2A093C28-1200-41AD-8353-E21B9E01C4C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {109C6EB6-96A4-4DE7-8116-F2EE99CAFAC7}

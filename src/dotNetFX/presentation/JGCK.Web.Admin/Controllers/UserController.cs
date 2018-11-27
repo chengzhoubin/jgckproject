@@ -45,10 +45,26 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         [HttpGet]
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        #region 医生信息管理
+
+        [HttpGet]
         public ActionResult DoctorList()
         {
             return View(new VmUserDoctorIndex());
         }
+
+        [HttpPost]
+        public ActionResult DoctorList(string filter, int p)
+        {
+            return View();
+        }
+
+        #endregion
 
         [HttpGet]
         public ActionResult UserList()

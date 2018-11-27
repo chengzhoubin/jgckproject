@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JGCK.Web.General.VO;
 
 namespace JGCK.Web.General.MVC
 {
-    public abstract class AbstractVOWithFilter<TFilter, TVO>
-        where TVO : class
+    public abstract class AbstractVoWithFilter<TFilter, TVo> : AbstractPageVO
+        where TVo : class
     {
         public TFilter Filter { get; set; }
 
-        public IList<TVO> ViewObjects { get; set; }
+        public IList<TVo> ViewObjects { get; set; }
 
-        public TVO AddOrUpdateViewObject { get; set; }
+        public TVo AddOrUpdateViewObject { get; set; }
     }
 }

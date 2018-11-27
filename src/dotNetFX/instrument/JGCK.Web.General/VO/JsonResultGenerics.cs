@@ -8,7 +8,7 @@ namespace JGCK.Web.General.VO
 {
     public class JsonResultGenerics<TValue>
     {
-        public bool Result { get; set; }
+        public bool Result { get; set; } = true;
 
         public string Error { get; set; }
 

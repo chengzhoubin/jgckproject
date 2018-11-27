@@ -133,6 +133,9 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -169,6 +172,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AjaxCommonController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -179,6 +183,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
+    <Compile Include="Models\JsonSortColumn.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -794,7 +799,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -816,6 +823,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
     <Folder Include="assets\pages\img\" />
+    <Folder Include="Views\AjaxCommon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -866,6 +874,10 @@
     <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
       <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>
       <Name>JGCK.Respority.BasicInfoWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.UserWork\JGCK.Respority.UserWork.csproj">
+      <Project>{05FAFF0E-0225-45EF-BC59-585E4BB4F16C}</Project>
+      <Name>JGCK.Respority.UserWork</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

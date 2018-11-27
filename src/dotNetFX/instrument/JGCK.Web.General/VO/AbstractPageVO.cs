@@ -4,10 +4,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using JGCK.Web.General.MVC;
 
 namespace JGCK.Web.General.VO
 {
-    public abstract class AbstractPageVO
+    public abstract class AbstractPageVO : AbstractVO
     {
         public int CurrentIndex { get; set; } = 1;
 
