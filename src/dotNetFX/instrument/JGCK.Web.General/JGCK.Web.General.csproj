@@ -91,7 +91,9 @@
     <Compile Include="FileUpload\IFileUploadPreprocessor.cs" />
     <Compile Include="FileUpload\ISavedFileNameProvider.cs" />
     <Compile Include="Helper\CookieHelper.cs" />
+    <Compile Include="HttpModules\DynamicBindServiceModules.cs" />
     <Compile Include="HttpModules\ModuleConfiguration.cs" />
+    <Compile Include="HttpModules\PreApplicationStartCode.cs" />
     <Compile Include="MVC\GlobalUserAuthorizationFilterAttribute.cs" />
     <Compile Include="MVC\JGCKUserToken.cs" />
     <Compile Include="VO\AbstractPageVO.cs" />
