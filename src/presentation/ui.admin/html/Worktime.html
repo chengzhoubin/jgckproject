@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>精功齿科-Home</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="../assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="../assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="../assets/layouts/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/layouts/layout/css/themes/grey.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="../assets/layouts/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+
+
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-year-datepicker/css/bootstrap-year-calendar.min.css">
+    <style type="text/css">
+        #calendar {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .month-title {
+            color: black !important;
+        }
+        .day-header {
+            color: black !important;
+        }
+        .day-content {
+            color: black!important;
+        }
+        .buttonFlattening {
+            background-color: #ff8c00; /* Green */
+            border: none;
+            color: white;
+            font-family: Arial;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<!-- WRAPPER -->
+<div class="page-wrapper">
+    <!-- NAVBAR -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner ">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo" style="margin-top: 10px">
+                <a href="/">
+
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <span></span>
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span></span>
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;">
+                            <span class="username username-hide-on-mobile"> admin </span>
+                        </a>
+                    </li>
+                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </li>
+                    <!--<li class="heading">-->
+                    <!--<h3 class="uppercase">信息管理</h3>-->
+                    <!--</li>-->
+                    <li class="nav-item  active open">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-briefcase"></i>
+                            <span class="title">基础管理</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item  active open">
+                                <a href="doctor.html" class="nav-link ">
+                                    <span class="title">医生信息管理</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">医院管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="#">
+                                    <span class="title">部门管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">员工信息管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="/Permission">
+                                    <span class="title">角色和权限管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="/Settings/Worktime?year=2018">
+                                    <span class="title">日历维护</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="#">
+                                    <span class="title">微信客服管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="#">
+                                    <span class="title">绩效管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-briefcase"></i>
+                            <span class="title">产品管理</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="doctor.html" class="nav-link ">
+                                    <span class="title">产品类型管理</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">产品管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="#">
+                                    <span class="title">工序管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">材料管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="#">
+                                    <span class="title">批号管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-briefcase"></i>
+                            <span class="title">网站管理</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">栏目管理</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">网站展示</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-briefcase"></i>
+                            <span class="title">订单与生产管理</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">订单管理</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">工单管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="#" class="nav-link ">
+                                    <span class="title">成品管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- END SIDEBAR MENU -->
+                <!-- END SIDEBAR MENU -->
+            </div>
+            <!-- END SIDEBAR -->
+        </div>
+        <!-- END LEFT SIDEBAR -->
+        <!-- MAIN -->
+        <div class="page-content-wrapper">
+            <!-- MAIN CONTENT -->
+            <div class="page-content">
+
+
+
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <a href="#">基础管理</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span>日历维护(2018)</span>
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+                        <div class="btn-group pull-right">
+
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <article style="margin-bottom: 17%;">
+                    <div id="calendar"></div>
+                    <div style="margin-top: 10px;">
+                        <input id="btnUpdateRestDays" type="button" value="更新2018年全年休息日" class="buttonFlattening" />&nbsp;
+                        <input id="btnRefresh" type="button" value="刷新" class="buttonFlattening" />
+                    </div>
+                </article>
+
+
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN -->
+        <div class="clearfix"></div>
+        <footer>
+            <div class="container-fluid">
+
+            </div>
+        </footer>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- Javascript -->
+<!-- BEGIN CORE PLUGINS -->
+<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="../assets/global/scripts/app.js" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="../assets/layouts/layout/scripts/layout.js" type="text/javascript"></script>
+
+
+
+<script type="text/javascript" src="../assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-year-calendar.min.js"></script>
+<script type="text/javascript" src="../assets/global/plugins/bootstrap-year-datepicker/js/bootstrap-popover.js"></script>
+<script type="text/javascript">
+    var rawRestTime = '{"Year":2018,"RestMonths":[{"Month":1,"Days":[6,7,13,14,20,21,27,28]},{"Month":2,"Days":[3,4,10,11,17,18,24,25]},{"Month":3,"Days":[3,4,10,11,17,18,24,25,31]},{"Month":4,"Days":[1,7,8,14,15,21,22,28,29]},{"Month":5,"Days":[5,6,12,13,19,20,26,27]},{"Month":6,"Days":[2,3,9,10,16,17,23,24,30]},{"Month":7,"Days":[1,7,8,14,15,21,28,29,30]},{"Month":8,"Days":[4,5,11,12,18,19,25,26,15,22,21]},{"Month":9,"Days":[1,2,8,9,15,16,22,23,29,30]},{"Month":10,"Days":[6,7,13,14,20,21,27,28,16,17,18]},{"Month":11,"Days":[3,4,10,11,17,18,24,25]},{"Month":12,"Days":[1,2,8,9,15,16,22,23,29,30]}]}';
+    var restTimeClass = {
+        Year: 2018,
+        RestMonths: [
+            {
+                Month: 1,
+                Days: [5, 6]
+            }, {
+                Month: 2,
+                Days: [5, 6]
+            }, {
+                Month: 3,
+                Days: [5, 6]
+            }
+        ]
+    }
+
+    $(function() {
+        $('#calendar').calendar({
+            startYear: 2018,
+            clickDay: function (e) {
+                var selYear = e.date.getYear() - 100 + 2000;
+                var selMonth = e.date.getMonth() + 1;
+                var selDay = e.date.getDate();
+
+                var current_bgColor = $(e.element).css("background-color");
+                if (typeof (current_bgColor) == "undefined" || current_bgColor == "rgba(0, 0, 0, 0)") {
+                    $(e.element).css('background-color', 'blanchedalmond');
+                    opRemoveAndAdd(1, selYear, selMonth, selDay);
+                } else {
+                    $(e.element).css('background-color', '');
+                    opRemoveAndAdd(2, selYear, selMonth, selDay);
+                }
+            }
+        });
+
+        $("#btnUpdateRestDays").click(function() {
+            $.ajax({
+                type: "POST",
+                url: '/Settings/AddOrUpdateRestWorktime',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(restTimeClass),
+                success: function(data) {
+                    if (data.result == 1) {
+                        location.href = location.href;
+                    }
+                }
+            });
+        });
+
+        $("#btnRefresh").click(function() {
+            location.href = location.href;
+        });
+
+        restTimeClass = JSON.parse(rawRestTime);
+        renderPageByJson();
+
+        $('.year-neighbor, .year-neighbor2').click(function() {
+            if(!$(this).hasClass('disabled')) {
+                location.href = "/settings/worktime?year=" + parseInt($(this).text());
+            }
+        });
+
+        $('.calendar-header .prev').click(function() {
+            if (!$(this).hasClass('disabled')) {
+                location.href = "/settings/worktime?year=" + (2018 - 1);
+            }
+        });
+
+        $('.calendar-header .next').click(function() {
+            if (!$(this).hasClass('disabled')) {
+                location.href = "/settings/worktime?year=" + (2018 + 1);
+            }
+        });
+        //$(".calendar-header").hide();
+    });
+
+    var renderPageByJson = function() {
+        var pushIndex = 0;
+        Array.from($(".month")).forEach(function(e) {
+            var monthDays = restTimeClass.RestMonths.find((m) => m.Month == (pushIndex + 1));
+            if (typeof (monthDays) == "undefined" || monthDays.Days.length <= 0) {
+                pushIndex++;
+                return;
+            }
+
+            Array.from(monthDays.Days).forEach(function(restIntDay) {
+                var allDayDoms = $(e).find(".day .day-content");
+                var selectedDayDom = Array.from(allDayDoms)
+                    .find((day) => day.innerText != "" && parseInt(day.innerText) == restIntDay)
+                if (typeof (selectedDayDom) != "undefined") {
+                    $(selectedDayDom).parent().css('background-color', 'blanchedalmond');
+                }
+            });
+            pushIndex++;
+        });
+    }
+
+    var opRemoveAndAdd = function(opMod, inYear, inMonth, inDay) {
+        if (restTimeClass.Year != inYear)
+            return;
+        var selectedItem = restTimeClass.RestMonths.find(md => md.Month == inMonth);
+        if (typeof (selectedItem) == "undefined")
+            return;
+
+        if (opMod == 1)
+            selectedItem.Days.push(inDay);
+        else
+            selectedItem.Days.splice(jQuery.inArray(inDay, selectedItem.Days), 1);
+    }
+</script>
+
+</html>
+
+
+
