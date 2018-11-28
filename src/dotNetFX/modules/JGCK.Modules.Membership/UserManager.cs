@@ -32,5 +32,15 @@ namespace JGCK.Modules.Membership
                 return CheckUserPwdResult.User_Pwd_Not_Match;
             return CheckUserPwdResult.Success;
         }
+
+        public List<PersonDoctor> GetPersonDoctorByCondition(string filter)
+        {
+            List<PersonDoctor> ret = new List<PersonDoctor>();
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ret = userDbContext.PersonDoctor.Where(pd => pd.LinePhone.Contains(filter) || pd.WithPerson.Name.Contains(filter) || pd.DoctorCode.Contains(filter)).ToList();
+            }
+            return ret;
+        }
     }
 }

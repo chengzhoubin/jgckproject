@@ -61,6 +61,7 @@ namespace JGCK.Web.Admin.Controllers
         [HttpPost]
         public ActionResult DoctorList(string filter, int p)
         {
+
             return View();
         }
 
