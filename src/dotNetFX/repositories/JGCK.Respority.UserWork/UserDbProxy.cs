@@ -1,3 +1,5 @@
+using JGCK.Framework.EF;
+
 namespace JGCK.Respority.UserWork
 {
     using System;
@@ -5,7 +7,7 @@ namespace JGCK.Respority.UserWork
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class UserDbProxy : DbContext
+    public partial class UserDbProxy : AbstractUnitOfWork
     {
         public UserDbProxy()
             : base("name=UserDbProxy")

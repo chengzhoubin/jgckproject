@@ -1,3 +1,5 @@
+using JGCK.Framework.EF;
+
 namespace JGCK.Repority.OrderWork
 {
     using System;
@@ -5,7 +7,7 @@ namespace JGCK.Repority.OrderWork
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class OrderDbProxy : DbContext
+    public partial class OrderDbProxy : AbstractUnitOfWork
     {
         public OrderDbProxy()
             : base("name=OrderDbProxy")

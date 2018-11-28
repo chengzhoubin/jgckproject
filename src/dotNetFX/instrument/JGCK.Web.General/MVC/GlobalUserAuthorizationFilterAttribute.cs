@@ -30,9 +30,10 @@ namespace JGCK.Web.General.MVC
             }
 
             var curExecutingControllerType = filterContext.Controller.GetType();
-            var actionMethod = curExecutingControllerType.GetMethod(filterContext.ActionDescriptor.ActionName);
+            var actionMethod = curExecutingControllerType.GetMethods()
+                .Where(mi => mi.Name == filterContext.ActionDescriptor.ActionName);
             //TODO:
-            
+
         }
 
         private bool SkipControllerAction(ActionExecutingContext filterContext)

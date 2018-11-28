@@ -1,3 +1,4 @@
+using JGCK.Framework.EF;
 using JGCK.Respority.BasicInfo.Models;
 
 namespace JGCK.Respority.BasicInfo
@@ -7,7 +8,7 @@ namespace JGCK.Respority.BasicInfo
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class BasicDbProxy : DbContext
+    public partial class BasicDbProxy : AbstractUnitOfWork
     {
         public BasicDbProxy()
             : base("name=BasicDbProxy")

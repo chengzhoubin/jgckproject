@@ -65,6 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj">
+      <Project>{eae4cff9-c3b2-4580-a70f-2b299f9ab340}</Project>
+      <Name>JGCK.Framework.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\JGCK.Framework\JGCK.Framework.csproj">
       <Project>{034bdd9a-4061-42da-b9bb-5b301b2efeac}</Project>
       <Name>JGCK.Framework</Name>

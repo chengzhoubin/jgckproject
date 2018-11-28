@@ -1,3 +1,5 @@
+using JGCK.Framework.EF;
+
 namespace JGCK.Respority.ProductWork
 {
     using System;
@@ -5,7 +7,7 @@ namespace JGCK.Respority.ProductWork
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ProductDbProxy : DbContext
+    public partial class ProductDbProxy : AbstractUnitOfWork
     {
         public ProductDbProxy()
             : base("name=ProductDbProxy")

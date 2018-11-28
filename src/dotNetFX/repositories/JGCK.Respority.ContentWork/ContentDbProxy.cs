@@ -1,3 +1,5 @@
+using JGCK.Framework.EF;
+
 namespace JGCK.Respority.ContentWork
 {
     using System;
@@ -5,7 +7,7 @@ namespace JGCK.Respority.ContentWork
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ContentDbProxy : DbContext
+    public partial class ContentDbProxy : AbstractUnitOfWork
     {
         public ContentDbProxy()
             : base("name=ContentDbProxy")
