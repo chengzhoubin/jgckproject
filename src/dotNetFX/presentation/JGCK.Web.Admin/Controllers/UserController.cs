@@ -29,8 +29,7 @@ namespace JGCK.Web.Admin.Controllers
                 jsonSortValue?.ForEach(v =>
                 {
                     var item = new AbstractUnitOfWork.OrderByExpression<Person>();
-                    item.OrderByExpressionMember =
-                        m_UserManagerService.GenerateOrderExpression<Person, dynamic>(v.SortProperty);
+                    item.OrderByExpressionMember = v.SortProperty;
                     item.SortBy = v.SortDirect;
                     orderByExps.Add(item);
                 });
@@ -39,7 +38,7 @@ namespace JGCK.Web.Admin.Controllers
                 {
                     orderByExps.Add(new AbstractUnitOfWork.OrderByExpression<Person>
                     {
-                        OrderByExpressionMember = m_UserManagerService.GenerateOrderExpression<Person, dynamic>("ID"),
+                        OrderByExpressionMember = "ID",
                         SortBy = AscOrDesc.Desc
                     });
                 }

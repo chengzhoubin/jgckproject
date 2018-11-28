@@ -54,18 +54,18 @@ namespace JGCK.Framework.EF
             {
                 for (var i = 0; i < orderByExpressions.Length; i++)
                 {
-                    if (i == 0)
-                    {
+                    //if (i == 0)
+                    //{
                         ret = orderByExpressions[i].SortBy == AscOrDesc.Asc
                             ? ret.OrderBy(orderByExpressions[i].OrderByExpressionMember)
                             : ret.OrderByDescending(orderByExpressions[i].OrderByExpressionMember);
-                        continue;
-                    }
+                        //continue;
+                    //}
 
-                    var orderQuerable = (IOrderedQueryable<TEntity>) ret;
-                    ret = orderByExpressions[i].SortBy == AscOrDesc.Asc
-                        ? orderQuerable.ThenBy(orderByExpressions[i].OrderByExpressionMember)
-                        : orderQuerable.ThenByDescending(orderByExpressions[i].OrderByExpressionMember);
+                    //var orderQuerable = (IOrderedQueryable<TEntity>) ret;
+                    //ret = orderByExpressions[i].SortBy == AscOrDesc.Asc
+                    //    ? orderQuerable.ThenBy(orderByExpressions[i].OrderByExpressionMember)
+                    //    : orderQuerable.ThenByDescending(orderByExpressions[i].OrderByExpressionMember);
                 }
             }
 
@@ -120,7 +120,7 @@ namespace JGCK.Framework.EF
 
         public class OrderByExpression<TEntity> where TEntity : class
         {
-            public Expression<Func<TEntity, dynamic>> OrderByExpressionMember { get; set; }
+            public string OrderByExpressionMember { get; set; }
 
             public AscOrDesc SortBy { get; set; }
         }
