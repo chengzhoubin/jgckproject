@@ -65,7 +65,7 @@ namespace JGCK.Web.General
         {
             var existCookie = HttpContext.Current?.Request.Cookies[key];
             if (existCookie == null || string.IsNullOrEmpty(existCookie.Value))
-                throw new NullReferenceException("can't get cookie");
+                return default(T);
 
             existCookie = isSecurity ? CookieSecure.Decode(existCookie) : existCookie;
             if (typeof(T) == typeof(string))

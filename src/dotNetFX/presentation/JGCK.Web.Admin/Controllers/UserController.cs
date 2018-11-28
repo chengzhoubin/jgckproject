@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JGCK.Framework.EF;
 using JGCK.Modules.Membership;
+using JGCK.Respority.UserWork;
+using JGCK.Util.Enums;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
 using JGCK.Web.General.MVC;
@@ -13,6 +17,37 @@ namespace JGCK.Web.Admin.Controllers
 {
     public class UserController : JGCK_MvcController
     {
+        protected override string m_ModuleName => "sf_doctorData";
+
+        private AbstractUnitOfWork.OrderByExpression<Person>[] UserSortBy
+        {
+            get
+            {
+                var keyOfSort = $"{m_ModuleName}_sort_keys";
+                var jsonSortValue = CookieHelper.GetValue<List<JsonSortValue>>(keyOfSort, false);
+                var orderByExps = new List<AbstractUnitOfWork.OrderByExpression<Person>>();
+                jsonSortValue?.ForEach(v =>
+                {
+                    var item = new AbstractUnitOfWork.OrderByExpression<Person>();
+                    item.OrderByExpressionMember =
+                        m_UserManagerService.GenerateOrderExpression<Person, object>(v.SortProperty);
+                    item.SortBy = v.SortDirect;
+                    orderByExps.Add(item);
+                });
+
+                if (jsonSortValue == null || orderByExps.Count == 0)
+                {
+                    orderByExps.Add(new AbstractUnitOfWork.OrderByExpression<Person>
+                    {
+                        OrderByExpressionMember = m_UserManagerService.GenerateOrderExpression<Person, object>("ID"),
+                        SortBy = AscOrDesc.Desc
+                    });
+                }
+
+                return orderByExps.ToArray();
+            }
+        }
+
         private UserManager m_UserManagerService { get; set; }
 
         [HttpGet]
@@ -53,14 +88,19 @@ namespace JGCK.Web.Admin.Controllers
         #region 医生信息管理
 
         [HttpGet]
-        public ActionResult DoctorList()
+        public async Task<ActionResult> DoctorList()
         {
+            var doctorIndex = new VmUserDoctorIndex();
+            var entList = await m_UserManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
+
             return View(new VmUserDoctorIndex());
         }
 
         [HttpPost]
-        public ActionResult DoctorList(string filter, int p)
+        public async Task<ActionResult> DoctorList(string filter, int p)
         {
+            var doctorIndex = new VmUserDoctorIndex {Filter = filter};
+            var entList = await m_UserManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, p);
             return View();
         }
 

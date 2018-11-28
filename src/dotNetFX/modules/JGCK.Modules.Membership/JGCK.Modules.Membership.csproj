@@ -62,6 +62,10 @@
       <Project>{034bdd9a-4061-42da-b9bb-5b301b2efeac}</Project>
       <Name>JGCK.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\framework\JGCK.Util\JGCK.Util.csproj">
+      <Project>{1BE70373-9665-4166-A57C-61E618AB69CF}</Project>
+      <Name>JGCK.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
       <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>
       <Name>JGCK.Respority.BasicInfoWork</Name>

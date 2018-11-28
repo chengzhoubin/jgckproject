@@ -14,7 +14,7 @@ namespace JGCK.Web.Admin.Models
     {
         public Expression<Func<Person, bool>> CombineExpression()
         {
-            var exp = PredicateBuilder.True<Person>();
+            var exp = PredicateBuilder.Create<Person>(p => p.IsDoctor);
             if (!string.IsNullOrEmpty(this.Filter))
             {
                 exp = exp.And(p => p.RealName.Contains(Filter)
@@ -22,6 +22,7 @@ namespace JGCK.Web.Admin.Models
                                    || p.Doctor.LinePhone.Contains(Filter)
                                    || p.Doctor.MobilePhone.Contains(Filter));
             }
+
             return exp;
         }
     }
