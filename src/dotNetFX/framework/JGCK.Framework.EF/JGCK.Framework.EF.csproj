@@ -53,10 +53,17 @@
   <ItemGroup>
     <Compile Include="AbstractUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryableExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JGCK.Util\JGCK.Util.csproj">
+      <Project>{1be70373-9665-4166-a57c-61e618ab69cf}</Project>
+      <Name>JGCK.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

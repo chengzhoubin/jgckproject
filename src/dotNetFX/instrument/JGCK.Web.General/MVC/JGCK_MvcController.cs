@@ -11,8 +11,10 @@ using JGCK.Framework;
 
 namespace JGCK.Web.General
 {
-    public class JGCK_MvcController : Controller
+    public abstract class JGCK_MvcController : Controller
     {
+        protected virtual string m_ModuleName => "";
+
         public JGCK_MvcController()
         {
             var propsInController = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);

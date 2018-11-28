@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using JGCK.Framework.EF;
 using JGCK.Respority.UserWork;
+using JGCK.Util.Enums;
 
 namespace JGCK.Modules.Membership
 {
@@ -41,6 +44,15 @@ namespace JGCK.Modules.Membership
                 ret = userDbContext.PersonDoctor.Where(pd => pd.LinePhone.Contains(filter) || pd.WithPerson.Name.Contains(filter) || pd.DoctorCode.Contains(filter)).ToList();
             }
             return ret;
+        }
+
+        public async Task<List<Person>> GetDoctorListAsync(
+            Expression<Func<Person, bool>> search,
+            AbstractUnitOfWork.OrderByExpression<Person>[] orderBy,
+            int pageIndex)
+        {
+            var pager = new AbstractUnitOfWork.Pager {CurrentIndex = pageIndex};
+            return await userDbContext.GetObjectsAsync(search, pager, false, orderBy, p => p.Doctor);
         }
     }
 }

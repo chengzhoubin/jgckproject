@@ -823,7 +823,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
     <Folder Include="assets\pages\img\" />
-    <Folder Include="Views\AjaxCommon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -843,6 +842,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj">
+      <Project>{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}</Project>
+      <Name>JGCK.Framework.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\JGCK.Framework\JGCK.Framework.csproj">
       <Project>{034bdd9a-4061-42da-b9bb-5b301b2efeac}</Project>
       <Name>JGCK.Framework</Name>
