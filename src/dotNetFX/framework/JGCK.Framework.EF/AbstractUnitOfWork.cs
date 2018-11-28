@@ -120,7 +120,7 @@ namespace JGCK.Framework.EF
 
         public class OrderByExpression<TEntity> where TEntity : class
         {
-            public Expression<Func<TEntity, object>> OrderByExpressionMember { get; set; }
+            public Expression<Func<TEntity, dynamic>> OrderByExpressionMember { get; set; }
 
             public AscOrDesc SortBy { get; set; }
         }
