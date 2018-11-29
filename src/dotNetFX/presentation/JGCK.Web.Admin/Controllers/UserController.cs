@@ -41,6 +41,11 @@ namespace JGCK.Web.Admin.Controllers
                         OrderByExpressionMember = "ID",
                         SortBy = AscOrDesc.Desc
                     });
+                    orderByExps.Add(new AbstractUnitOfWork.OrderByExpression<Person>
+                    {
+                        OrderByExpressionMember = "Doctor.AuditStatus",
+                        SortBy = AscOrDesc.Desc
+                    });
                 }
 
                 return orderByExps.ToArray();

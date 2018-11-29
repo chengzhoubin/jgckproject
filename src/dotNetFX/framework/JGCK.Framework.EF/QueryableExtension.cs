@@ -2,22 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Linq.Dynamic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using JGCK.Util.Enums;
 
 namespace JGCK.Framework.EF
 {
     public static class QueryableExtension
     {
-        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> query, string propertyName)
+        public static IQueryable<T> Sort<T>(this IQueryable<T> collection,
+            AbstractUnitOfWork.OrderByExpression<T>[] sortBys) where T : class
         {
-            return _OrderBy<T>(query, propertyName, false);
+            var orderJoinStr = new StringBuilder();
+            foreach (var sort in sortBys)
+            {
+                orderJoinStr.Append(sort.OrderByExpressionMember)
+                    .Append(sort.SortBy == AscOrDesc.Asc ? "" : " descending")
+                    .Append(",");
+            }
+
+            return collection.OrderBy<T>(orderJoinStr.ToString().Trim(','));
         }
-        public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> query, string propertyName)
+
+        public static IQueryable<T> Sort<T>(this IQueryable<T> collection, string sortBy, bool reverse = false)
         {
-            return _OrderBy<T>(query, propertyName, true);
+            return collection.OrderBy<T>(sortBy + (reverse ? " descending" : ""));
         }
+
+        /*
+        //public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> query, string propertyName)
+        //{
+        //    return _OrderBy<T>(query, propertyName, false);
+        //}
+        //public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> query, string propertyName)
+        //{
+        //    return _OrderBy<T>(query, propertyName, true);
+        //}
 
         static IOrderedQueryable<T> _OrderBy<T>(IQueryable<T> query, string propertyName, bool isDesc)
         {
@@ -48,5 +70,6 @@ namespace JGCK.Framework.EF
             var lamba = Expression.Lambda<Func<T, TProp>>(Expression.Property(thisArg, memberProperty), thisArg);
             return lamba;
         }
+        */
     }
 }
