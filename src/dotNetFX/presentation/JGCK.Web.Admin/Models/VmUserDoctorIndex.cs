@@ -27,7 +27,7 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
-    public class VmUserDoctorSimple
+    public class VmUserDoctorSimple : AbstractVO
     {
         public long UserID { get; set; }
 

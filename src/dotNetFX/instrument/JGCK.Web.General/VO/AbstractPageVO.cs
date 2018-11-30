@@ -8,7 +8,7 @@ using JGCK.Web.General.MVC;
 
 namespace JGCK.Web.General.VO
 {
-    public abstract class AbstractPageVO : AbstractVO
+    public abstract class AbstractPageVO 
     {
         public int CurrentIndex { get; set; } = 1;
 
