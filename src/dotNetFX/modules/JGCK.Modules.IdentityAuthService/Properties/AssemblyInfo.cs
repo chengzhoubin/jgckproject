@@ -1,17 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Web;
-using JGCK.Web.General.HttpModules;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("JGCK.Web.General")]
+[assembly: AssemblyTitle("JGCK.Modules.IdentityAuthService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("JGCK.Web.General")]
+[assembly: AssemblyProduct("JGCK.Modules.IdentityAuthService")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +20,7 @@ using JGCK.Web.General.HttpModules;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("c50abeb3-4d14-4314-b285-c84135fabce3")]
+[assembly: Guid("74fb2678-34db-41c8-9414-7a2de202018f")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
@@ -36,5 +34,3 @@ using JGCK.Web.General.HttpModules;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: PreApplicationStartMethod(typeof(PreApplicationStartCode), "PreStart")]
-//[assembly: InternalsVisibleTo()]

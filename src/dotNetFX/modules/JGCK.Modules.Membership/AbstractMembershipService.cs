@@ -18,10 +18,10 @@ namespace JGCK.Modules.Membership
 
         protected UserDbProxy userDbContext { get; set; }
 
-        public Expression<Func<T, TProp>> GenerateOrderExpression<T, TProp>(string propertyName)
-        {
-            var propInfo = typeof(T).GetProperty(propertyName);
-            return propInfo._GetLamba<T, TProp>();
-        }
+        //public Expression<Func<T, TProp>> GenerateOrderExpression<T, TProp>(string propertyName)
+        //{
+        //    var propInfo = typeof(T).GetProperty(propertyName);
+        //    return propInfo._GetLamba<T, TProp>();
+        //}
     }
 }

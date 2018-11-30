@@ -41,6 +41,11 @@ namespace JGCK.Web.Admin.Controllers
                         OrderByExpressionMember = "ID",
                         SortBy = AscOrDesc.Desc
                     });
+                    orderByExps.Add(new AbstractUnitOfWork.OrderByExpression<Person>
+                    {
+                        OrderByExpressionMember = "Doctor.AuditStatus",
+                        SortBy = AscOrDesc.Desc
+                    });
                 }
 
                 return orderByExps.ToArray();
@@ -48,6 +53,7 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         private UserManager m_UserManagerService { get; set; }
+        private DoctorManager m_DoctorManagerService { get; set; }
 
         [HttpGet]
         public ActionResult Login()
@@ -90,7 +96,7 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<ActionResult> DoctorList()
         {
             var doctorIndex = new VmUserDoctorIndex();
-            var entList = await m_UserManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
+            var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
 
             return View(new VmUserDoctorIndex());
         }
@@ -99,7 +105,7 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<ActionResult> DoctorList(string filter, int p)
         {
             var doctorIndex = new VmUserDoctorIndex {Filter = filter};
-            var entList = await m_UserManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, p);
+            var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, p);
             return View();
         }
 
