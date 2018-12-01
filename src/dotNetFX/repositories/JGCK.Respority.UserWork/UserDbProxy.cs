@@ -15,6 +15,9 @@ namespace JGCK.Respority.UserWork
         }
 
         public virtual DbSet<Person> Person { get; set; }
+
+        public virtual DbSet<PersonDoctor> PersonDoctor { get; set; }
+
         public virtual DbSet<Role> Role { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

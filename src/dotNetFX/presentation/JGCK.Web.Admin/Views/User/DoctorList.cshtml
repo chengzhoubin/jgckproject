@@ -69,20 +69,23 @@
                         </thead>
                         <tbody>
                         @{
-                            var itemIndex = 1;
-                            foreach (var item in Model.ViewObjects)
+                            if (Model != null&&Model.ViewObjects!=null)
                             {
-                                <tr>
-                                    <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
-                                    <td> @item.DoctorName </td>
-                                    <td> @item.DoctorCode </td>
-                                    <td> @item.LinePhone </td>
-                                    <td> @item.MobilePhone </td>
-                                    <td> @item.AduitStatus </td>
-                                    <td> @item.AduitDate </td>
-                                    <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                                </tr>
-                                itemIndex++;
+                                var itemIndex = 1;
+                                foreach (var item in Model.ViewObjects)
+                                {
+                                    <tr>
+                                        <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
+                                        <td> @item.DoctorName </td>
+                                        <td> @item.DoctorCode </td>
+                                        <td> @item.LinePhone </td>
+                                        <td> @item.MobilePhone </td>
+                                        <td> @item.AduitStatus </td>
+                                        <td> @item.AduitDate </td>
+                                        <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
+                                    </tr>
+                                    itemIndex++;
+                                }
                             }
                         }
                         @*<tr>
