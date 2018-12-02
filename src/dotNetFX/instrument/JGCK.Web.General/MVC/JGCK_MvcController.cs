@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using JGCK.Framework;
+using JGCK.Framework.EF;
+using JGCK.Util.Enums;
+using JGCK.Web.General.VO;
 
 namespace JGCK.Web.General
 {
     public abstract class JGCK_MvcController : Controller
     {
-        protected virtual string m_ModuleName => "";
+        //protected virtual string m_ModuleName => "";
 
         public JGCK_MvcController()
         {
@@ -35,5 +38,32 @@ namespace JGCK.Web.General
         }
 
         protected bool IsGetMethod => Request.HttpMethod == "GET";
+
+        protected virtual AbstractUnitOfWork.OrderByExpression<T>[] UserSortBy<T, TSortValue>(string modulename)
+            where T : class
+            where TSortValue : ISortValue
+        {
+            var keyOfSort = $"{modulename}_sort_keys";
+            var jsonSortValue = CookieHelper.GetValue<List<TSortValue>>(keyOfSort, false);
+            var orderByExps = new List<AbstractUnitOfWork.OrderByExpression<T>>();
+            jsonSortValue?.ForEach(v =>
+            {
+                var item = new AbstractUnitOfWork.OrderByExpression<T>();
+                item.OrderByExpressionMember = v.SortProperty;
+                item.SortBy = v.SortDirect;
+                orderByExps.Add(item);
+            });
+
+            if (jsonSortValue == null || orderByExps.Count == 0)
+            {
+                orderByExps.Add(new AbstractUnitOfWork.OrderByExpression<T>
+                {
+                    OrderByExpressionMember = "ID",
+                    SortBy = AscOrDesc.Desc
+                });
+            }
+
+            return orderByExps.ToArray();
+        }
     }
 }

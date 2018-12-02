@@ -14,7 +14,7 @@ namespace JGCK.Web.Admin.Models
     {
         public Expression<Func<Person, bool>> CombineExpression()
         {
-            var exp = PredicateBuilder.Create<Person>(p => p.IsDoctor);
+            var exp = PredicateBuilder.Create<Person>(p => p.IsDoctor && !p.IsDeleted);
             if (!string.IsNullOrEmpty(this.Filter))
             {
                 exp = exp.And(p => p.RealName.Contains(Filter)
@@ -27,7 +27,7 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
-    public class VmUserDoctor : AbstractVO
+    public class VmUserDoctor : AbstractVO<Person>
     {
         /*
         public long UserID { get; set; }
@@ -44,6 +44,6 @@ namespace JGCK.Web.Admin.Models
 
         public DateTime? AduitDate { get; set; }
         */
-        public Person NagigatedDoctor { get; set; }
+        //public Person NagigatedDoctor { get; set; }
     }
 }

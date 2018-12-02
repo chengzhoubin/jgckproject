@@ -76,12 +76,12 @@
                                 {
                                     <tr>
                                         <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
-                                        <td> @item.NagigatedDoctor.RealName </td>
-                                        <td> @item.NagigatedDoctor.Doctor.DoctorCode </td>
-                                        <td> @item.NagigatedDoctor.Doctor.LinePhone </td>
-                                        <td> @item.NagigatedDoctor.Doctor.MobilePhone </td>
-                                        <td> @item.NagigatedDoctor.Doctor.AuditStatus.ToDescription() </td>
-                                        <td> @item.NagigatedDoctor.Doctor.AuditDate </td>
+                                        <td> @item.NagigatedDomainObject.RealName </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.AuditDate </td>
                                         <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')" data-json="@(item.HiddenJsonString)"> 操作 </button> </td>
                                     </tr>
                                     itemIndex++;

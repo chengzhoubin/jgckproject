@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using JGCK.Respority.UserWork;
 
 namespace JGCK.Respority.UserWork
@@ -42,6 +43,9 @@ namespace JGCK.Respority.UserWork
 
         public long? DepartmentId { get; set; }
 
+        [StringLength(150)]
+        public string DepartmentName { get; set; }
+
         public long? RoleId { get; set; }
 
         [ForeignKey("RoleId")] public virtual Role Role { get; set; }
@@ -58,6 +62,8 @@ namespace JGCK.Respority.UserWork
 
         [StringLength(50)] public string GraduateInstitution { get; set; }
 
+        [StringLength(50)] public string Major { get; set; }
+
         [StringLength(30)] public string Phone { get; set; }
 
         public string FamliyAddress { get; set; }
@@ -68,62 +74,73 @@ namespace JGCK.Respority.UserWork
 
         public string Note { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public virtual PersonDoctor Doctor { get; set; }
     }
 
     public enum Gender
     {
-        Male = 1,
-        Female
+        [Description("男")] Male = 1,
+        [Description("女")] Female
     }
 
     public enum OnJobType
     {
-        Null,
-        OnWork,
-        Fired,
-        OnPractice,
-        OverPractice
+        [Description("无")] Null,
+        [Description("在职")] OnWork,
+        [Description("离职")] Fired,
+        [Description("实习期中")] OnPractice,
+        [Description("实习结束")] OverPractice
     }
 
     public enum EducationType
     {
-        Null,
+        [Description("无")] Null,
+
         /// <summary>
         /// 初中
         /// </summary>
-        Junior = 1,
+        [Description("初中")] Junior = 1,
+
         /// <summary>
         /// 中专
         /// </summary>
-        TechnicalSecondary,
+        [Description("中专")] TechnicalSecondary,
+
         /// <summary>
         /// 高职
         /// </summary>
-        HigherVocational,
+        [Description("高职")] HigherVocational,
+
         /// <summary>
         /// 高中
         /// </summary>
-        HighSchool,
+        [Description("高中")] HighSchool,
+
         /// <summary>
         /// 专科
         /// </summary>
-        JuniorCollege,
+        [Description("专科")] JuniorCollege,
+
         /// <summary>
         /// 本科
         /// </summary>
-        RegularCollege,
+        [Description("本科")] RegularCollege,
+
         /// <summary>
         /// 硕士
         /// </summary>
-        Master,
+        [Description("硕士")] Master,
+
         /// <summary>
         /// 博士
         /// </summary>
-        Doctor,
+        [Description("博士")] Doctor,
+
         /// <summary>
         /// 博士后
         /// </summary>
-        PostDoctor
+        [Description("博士后")] PostDoctor
     }
 }

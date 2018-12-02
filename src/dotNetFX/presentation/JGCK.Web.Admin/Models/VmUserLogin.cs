@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FluentValidation;
 using FluentValidation.Attributes;
+using JGCK.Web.Admin.Models.Validator;
 
 namespace JGCK.Web.Admin.Models
 {
@@ -15,18 +16,5 @@ namespace JGCK.Web.Admin.Models
         public string Pwd { get; set; }
 
         public bool IsRememberPwd { get; set; }
-    }
-
-    public class VmUserLoginValidator : AbstractValidator<VmUserLogin>
-    {
-        public VmUserLoginValidator()
-        {
-            RuleFor(login => login.UserName)
-                .NotEmpty()
-                .WithMessage("用户名不能为空");
-            RuleFor(login => login.Pwd)
-                .NotEmpty()
-                .WithMessage("密码不能为空");
-        }
     }
 }
