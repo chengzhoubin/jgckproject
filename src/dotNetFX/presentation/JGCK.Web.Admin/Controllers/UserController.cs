@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HSMY_AdminWeb.Models;
 using JGCK.Framework.EF;
 using JGCK.Modules.Membership;
 using JGCK.Respority.UserWork;
@@ -12,6 +13,7 @@ using JGCK.Util.Enums;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
 using JGCK.Web.General.MVC;
+using Newtonsoft.Json;
 
 namespace JGCK.Web.Admin.Controllers
 {
@@ -93,20 +95,37 @@ namespace JGCK.Web.Admin.Controllers
         #region 医生信息管理
 
         [HttpGet]
-        public async Task<ActionResult> DoctorList()
+        public async Task<ActionResult> DoctorList(string filter, int? p)
         {
-            var doctorIndex = new VmUserDoctorIndex();
-            var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
-
-            return View(new VmUserDoctorIndex());
+            var doctorIndex = new VmUserDoctorIndex() {Filter = filter?.Trim()};
+            var pageIndex = p.HasValue ? p.Value : 1;
+            var searchExp = doctorIndex.CombineExpression();
+            var entList = await m_DoctorManagerService.GetDoctorListAsync(searchExp, UserSortBy, pageIndex);
+            doctorIndex.TotalRecordCount = await m_DoctorManagerService.GetDoctorCount(searchExp);
+            doctorIndex.ViewObjects = entList.Select(item => new VmUserDoctor
+            {
+                NagigatedDoctor = item,
+                ResetSettingHandler = () =>
+                {
+                    JsonConvert.DefaultSettings = () =>
+                    {
+                        var js = new JsonSerializerSettings();
+                        js.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                        return js;
+                    };
+                }
+            }).ToList();
+            doctorIndex.CurrentIndex = pageIndex;
+            return View(doctorIndex);
         }
 
         [HttpPost]
-        public async Task<ActionResult> DoctorList(string filter, int p)
+        public async Task<JsonResult> UpdateDoctor(VmUserDoctor doctor)
         {
-            var doctorIndex = new VmUserDoctorIndex {Filter = filter};
-            var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, p);
-            return View();
+            var vm = new VM_JsonOnlyResult();
+            var ret = await m_DoctorManagerService.UpdateDoctorInfo(doctor.NagigatedDoctor);
+            vm.Result = ret > 0;
+            return Json(vm);
         }
 
         #endregion

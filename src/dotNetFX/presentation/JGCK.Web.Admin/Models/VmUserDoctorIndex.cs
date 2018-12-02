@@ -10,7 +10,7 @@ using JGCK.Web.General.VO;
 
 namespace JGCK.Web.Admin.Models
 {
-    public class VmUserDoctorIndex : AbstractVoWithFilter<string, VmUserDoctorSimple>, ICustomFilter<Person>
+    public class VmUserDoctorIndex : AbstractVoWithFilter<string, VmUserDoctor>, ICustomFilter<Person>
     {
         public Expression<Func<Person, bool>> CombineExpression()
         {
@@ -27,8 +27,9 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
-    public class VmUserDoctorSimple : AbstractVO
+    public class VmUserDoctor : AbstractVO
     {
+        /*
         public long UserID { get; set; }
 
         public string DoctorName { get; set; }
@@ -42,12 +43,7 @@ namespace JGCK.Web.Admin.Models
         public AduitStatus AduitStatus { get; set; }
 
         public DateTime? AduitDate { get; set; }
-    }
-
-    public enum AduitStatus
-    {
-        Pending,
-        Fail,
-        Pass
+        */
+        public Person NagigatedDoctor { get; set; }
     }
 }
