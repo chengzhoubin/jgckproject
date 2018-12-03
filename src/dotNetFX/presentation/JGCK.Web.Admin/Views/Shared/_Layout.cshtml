@@ -84,7 +84,7 @@
                         <!--<li class="heading">-->
                         <!--<h3 class="uppercase">信息管理</h3>-->
                         <!--</li>-->
-                        <li class="nav-item  active open">
+                        <li class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-briefcase"></i>
                                 <span class="title">基础管理</span>
@@ -92,7 +92,7 @@
                                 <span class="arrow open"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item  active open">
+                                <li class="nav-item">
                                     <a href="@Url.Action("DoctorList","User")" class="nav-link ">
                                         <span class="title">医生信息管理</span>
                                         <span class="selected"></span>
@@ -251,6 +251,7 @@
         <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
         <script src="~/assets/global/plugins/moment.min.js"></script>
         <script src="~/assets/global/plugins/underscore-min.js"></script>
         <script src="~/assets/global/plugins/vue.min.js"></script>
@@ -262,6 +263,17 @@
         <script src="~/assets/layouts/layout/scripts/layout.js" type="text/javascript"></script>
 
         @RenderSection("scripts", false)
+
+    <script>
+        if (typeof pageUrl != "undefined" && pageUrl) {        
+            $(".page-sidebar-menu  a").each(function (i, item) {
+                if ($(this).attr("href").toLowerCase() == pageUrl.toLowerCase()) {
+                    $(this).parent().addClass("active");
+                    $(this).closest(".sub-menu").closest(".nav-item").addClass("active open");
+                }
+            })
+        }
+    </script>
 </html>
 
 
