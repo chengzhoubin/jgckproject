@@ -10,11 +10,11 @@ using JGCK.Web.General.VO;
 
 namespace JGCK.Web.Admin.Models
 {
-    public class VmUserDoctorIndex : AbstractVoWithFilter<string, VmUserDoctorSimple>, ICustomFilter<Person>
+    public class VmUserDoctorIndex : AbstractVoWithFilter<string, VmUserDoctor>, ICustomFilter<Person>
     {
         public Expression<Func<Person, bool>> CombineExpression()
         {
-            var exp = PredicateBuilder.Create<Person>(p => p.IsDoctor);
+            var exp = PredicateBuilder.Create<Person>(p => p.IsDoctor && !p.IsDeleted);
             if (!string.IsNullOrEmpty(this.Filter))
             {
                 exp = exp.And(p => p.RealName.Contains(Filter)
@@ -27,8 +27,9 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
-    public class VmUserDoctorSimple : AbstractVO
+    public class VmUserDoctor : AbstractVO<Person>
     {
+        /*
         public long UserID { get; set; }
 
         public string DoctorName { get; set; }
@@ -42,12 +43,7 @@ namespace JGCK.Web.Admin.Models
         public DoctorAuditStatus AduitStatus { get; set; }
 
         public DateTime? AduitDate { get; set; }
-    }
-
-    public enum AduitStatus
-    {
-        Pending,
-        Fail,
-        Pass
+        */
+        //public Person NagigatedDoctor { get; set; }
     }
 }

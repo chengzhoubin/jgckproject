@@ -7,9 +7,20 @@ using Newtonsoft.Json;
 
 namespace JGCK.Web.General.MVC
 {
-    public abstract class AbstractVO
+    public abstract class AbstractVO<TDomainModel>
     {
+        [JsonIgnore] public Action ResetSettingHandler { set; private get; }
+
         [JsonIgnore]
-        public string HiddenJsonString => JsonConvert.SerializeObject(this);
+        public string HiddenJsonString
+        {
+            get
+            {
+                ResetSettingHandler?.Invoke();
+                return JsonConvert.SerializeObject(this);
+            }
+        }
+
+        public TDomainModel NagigatedDomainObject { get; set; }
     }
 }

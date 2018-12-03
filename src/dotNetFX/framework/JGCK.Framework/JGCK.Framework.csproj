@@ -50,6 +50,8 @@
     <Compile Include="AbstractDefaultConfiguration.cs" />
     <Compile Include="AbstractDefaultPolicyRule.cs" />
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="Cache\DefaultCachePolicy.cs" />
+    <Compile Include="Cache\ICacheManage.cs" />
     <Compile Include="Domain\AbstractDefaultAppService.cs" />
     <Compile Include="Define\Ad\IAdDBProxy.cs" />
     <Compile Include="Define\Doctor\IDoctorDBProxy.cs" />
@@ -70,7 +72,6 @@
     <Compile Include="Web\IToken.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Cache\" />
     <Folder Include="Logger\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -65,14 +66,17 @@ namespace JGCK.Respority.UserWork
         /// <summary>
         /// 待审核
         /// </summary>
+        [Description("待审核")]
         Pending,
         /// <summary>
         /// 审核成功
         /// </summary>
+        [Description("审核通过")]
         Pass,
         /// <summary>
         /// 审核失败
         /// </summary>
+        [Description("审核不通过")]
         Fail = -1001
     }
 }

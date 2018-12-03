@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using JGCK.Util.Enums;
+using JGCK.Web.General.VO;
 using Newtonsoft.Json;
 
 namespace JGCK.Web.Admin.Models
@@ -13,7 +14,7 @@ namespace JGCK.Web.Admin.Models
     }
 
     [JsonObject()]
-    public class JsonSortValue
+    public class JsonSortValue : ISortValue
     {
         [JsonProperty("sortby")] public string SortProperty { get; set; }
 

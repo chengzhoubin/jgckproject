@@ -90,6 +90,7 @@
     <Compile Include="FileUpload\GuidSavedFileNameProvider.cs" />
     <Compile Include="FileUpload\IFileUploadPreprocessor.cs" />
     <Compile Include="FileUpload\ISavedFileNameProvider.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="HttpModules\DynamicBindServiceModules.cs" />
     <Compile Include="HttpModules\ModuleConfiguration.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="VO\ICustomFilter.cs" />
     <Compile Include="VO\IObjectMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VO\ISortValue.cs" />
     <Compile Include="VO\JsonResultGenerics.cs" />
     <Compile Include="VO\VM_JsonOnlyResult.cs" />
     <Compile Include="WebAPI\ApiGlobalDisposeFilterAttribute.cs" />
@@ -114,6 +116,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj">
+      <Project>{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}</Project>
+      <Name>JGCK.Framework.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\JGCK.Framework.Web.Security\JGCK.Framework.Web.Security.csproj">
       <Project>{fac9fef2-55ca-4185-b13d-c33bf2941c5c}</Project>
       <Name>JGCK.Framework.Web.Security</Name>

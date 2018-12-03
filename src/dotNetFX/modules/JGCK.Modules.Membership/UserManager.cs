@@ -36,23 +36,18 @@ namespace JGCK.Modules.Membership
             return CheckUserPwdResult.Success;
         }
 
-        public List<PersonDoctor> GetPersonDoctorByCondition(string filter)
-        {
-            List<PersonDoctor> ret = new List<PersonDoctor>();
-            if (!string.IsNullOrEmpty(filter))
-            {
-                ret = userDbContext.PersonDoctor.Where(pd => pd.LinePhone.Contains(filter) || pd.WithPerson.Name.Contains(filter) || pd.DoctorCode.Contains(filter)).ToList();
-            }
-            return ret;
-        }
-
-        public async Task<List<Person>> GetDoctorListAsync(
+        public Task<List<Person>> GetStaffListAsync(
             Expression<Func<Person, bool>> search,
             AbstractUnitOfWork.OrderByExpression<Person>[] orderBy,
             int pageIndex)
         {
             var pager = new AbstractUnitOfWork.Pager {CurrentIndex = pageIndex};
-            return await userDbContext.GetObjectsAsync(search, pager, false, orderBy, p => p.Doctor);
+            return userDbContext.GetObjectsAsync(search, pager, true, orderBy);
+        }
+
+        public Task<int> GetStaffCount(Expression<Func<Person, bool>> search)
+        {
+            return userDbContext.Person.CountAsync(search);
         }
     }
 }

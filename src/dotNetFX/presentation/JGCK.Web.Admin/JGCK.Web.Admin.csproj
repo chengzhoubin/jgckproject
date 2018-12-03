@@ -184,8 +184,10 @@
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
+    <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
+    <Compile Include="Models\VmUserStaffIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\UserController.cs" />
   </ItemGroup>

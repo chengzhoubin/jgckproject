@@ -1,4 +1,5 @@
 ﻿@using Webdiyer.WebControls.Mvc
+@using JGCK.Util
 @model JGCK.Web.Admin.Models.VmUserDoctorIndex
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -12,7 +13,7 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <button type="button" class="btn green btn-sm btn-outline"> 新增 </button>
+            @*<button type="button" class="btn green btn-sm btn-outline"> 新增 </button>*@
         </div>
     </div>
 </div>
@@ -30,14 +31,13 @@
                                 <div class="input-group input-group-sm">
                                     @Html.TextBoxFor(m=>m.Filter,new{@class= "form-control",placeholder= "姓名、医生编号、手机" })
                                     <span class="input-group-btn">
-                                        <button class="btn green" type="button">搜索</button>
+                                        <button id="btnSearch" class="btn green" type="button">搜索</button>
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <style>
-
                         .ul-person li {
                             list-style: none;
                             float: left;
@@ -76,142 +76,31 @@
                                 {
                                     <tr>
                                         <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
-                                        <td> @item.DoctorName </td>
-                                        <td> @item.DoctorCode </td>
-                                        <td> @item.LinePhone </td>
-                                        <td> @item.MobilePhone </td>
-                                        <td> @item.AduitStatus </td>
-                                        <td> @item.AduitDate </td>
-                                        <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
+                                        <td> @item.NagigatedDomainObject.RealName </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
+                                        <td> @item.NagigatedDomainObject.Doctor.AuditDate </td>
+                                        <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')" data-json="@(item.HiddenJsonString)"> 操作 </button> </td>
                                     </tr>
                                     itemIndex++;
                                 }
                             }
                         }
-                        @*<tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <button type="button" class="btn green btn-sm"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td>
-                                <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td>
-                                <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a></td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> 张三 </td>
-                            <td> AB0001 </td>
-                            <td> 021-123456789 </td>
-                            <td> 13912345678 </td>
-                            <td> 待审核 </td>
-                            <td> 2018-1-1 </td>
-                            <td> <a class="btn dark btn-outline sbold" data-toggle="modal" href="#modelfull"> 操作 </a> </td>
-                        </tr>*@
                         </tbody>
                     </table>
 
-                    <div class="text-right">
-                        @Html.Pager(Model.TotalRecordCount,Model.PageSize,Model.CurrentIndex,new PagerOptions
-                        { 
+                    <div>
+                        @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
+                        {
                             PageIndexParameterName = "p",
-                            HorizontalAlign = "right",
-                            PagerItemTemplate = "&nbsp;{0}"
-                        });
-                        @*<ul class="pagination pagination-sm">
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="fa fa-angle-left"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> 1 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> 2 </a>
-                            </li>
-                            <li class="active">
-                                <a href="javascript:;"> 3 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> 4 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> 5 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> 6 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>*@
+                            ContainerTagName = "ul",
+                            CssClass = "pagination pagination-sm",
+                            CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
+                            DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
+                            PagerItemTemplate = "<li>{0}</li>"
+                        })
                     </div>
                 </div>
             </div>
@@ -219,3 +108,18 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    <script>
+        $(function() {
+            $("#btnSearch").click(function () {
+                if ($("#Filter").val() == "") {
+                    location.href = '@Url.Action("DoctorList")';
+                    return;
+                }
+                var reloadUrlWithFilter = '@Url.Action("DoctorList")?filter=' + encodeURI($("#Filter").val());
+                location.href = reloadUrlWithFilter;
+            });
+        })
+    </script>
+}
