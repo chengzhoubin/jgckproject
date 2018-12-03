@@ -28,7 +28,13 @@ namespace JGCK.Web.Admin.Models.Validator
             this.RuleFor(ud => ud.NagigatedDomainObject.Doctor.DoctorLicensePic)
                 .NotNull()
                 .NotEmpty().WithMessage("医师资格证不能为空");
-            //this.RuleFor(v=>v.NagigatedDomainObject.Doctor)
+            this.RuleFor(v => v.NagigatedDomainObject.Doctor).Custom((pd, cc) =>
+            {
+                if (string.IsNullOrEmpty(pd?.LinePhone) && string.IsNullOrEmpty(pd?.MobilePhone))
+                {
+                    cc.AddFailure("医生固定电话或者手机号不能都为空");
+                }
+            });
         }
     }
 }
