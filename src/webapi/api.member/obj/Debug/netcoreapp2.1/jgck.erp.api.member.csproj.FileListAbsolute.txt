@@ -26,3 +26,17 @@ H:\Worktests\JGCK_Projects\jgckproject\src\webapi\api.member\obj\Debug\netcoreap
 H:\Worktests\JGCK_Projects\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.RazorTargetAssemblyInfo.cache
 H:\Worktests\JGCK_Projects\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.dll
 H:\Worktests\JGCK_Projects\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.pdb
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\bin\Debug\netcoreapp2.1\jgck.erp.api.member.deps.json
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\bin\Debug\netcoreapp2.1\jgck.erp.api.member.runtimeconfig.json
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\bin\Debug\netcoreapp2.1\jgck.erp.api.member.runtimeconfig.dev.json
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\bin\Debug\netcoreapp2.1\jgck.erp.api.member.dll
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\bin\Debug\netcoreapp2.1\jgck.erp.api.member.pdb
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.csprojAssemblyReference.cache
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.csproj.CoreCompileInputs.cache
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.RazorAssemblyInfo.cache
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.RazorAssemblyInfo.cs
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.AssemblyInfoInputs.cache
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.AssemblyInfo.cs
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.RazorTargetAssemblyInfo.cache
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.dll
+F:\shiny\Projects_czb\jgckproject\src\webapi\api.member\obj\Debug\netcoreapp2.1\jgck.erp.api.member.pdb
