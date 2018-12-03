@@ -86,32 +86,32 @@ namespace JGCK.Web.Admin.Controllers
             doctorIndex.CurrentIndex = pageIndex;
             return View(doctorIndex);
         }
-        public async Task<ActionResult> DoctorList()
-        {
-            var doctorIndex = new VmUserDoctorIndex();
-            var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
-            if (entList != null && entList.Count > 0)
-            {
-                doctorIndex.ViewObjects = new List<VmUserDoctorSimple>();
-                foreach (var p in entList)
-                {
-                    VmUserDoctorSimple doctor = new VmUserDoctorSimple()
-                    {
-                        AduitDate = p.Doctor.AuditDate,
-                        AduitStatus = p.Doctor.AuditStatus,
-                        DoctorCode = p.Doctor.DoctorCode,
-                        DoctorName = p.Name,
-                        LinePhone = p.Doctor.LinePhone,
-                        MobilePhone = p.Doctor.MobilePhone,
-                        UserID = p.ID
-                    };
-                    doctorIndex.ViewObjects.Add(doctor);
-                }
+        //public async Task<ActionResult> DoctorList()
+        //{
+        //    var doctorIndex = new VmUserDoctorIndex();
+        //    var entList = await m_DoctorManagerService.GetDoctorListAsync(doctorIndex.CombineExpression(), UserSortBy, 1);
+        //    if (entList != null && entList.Count > 0)
+        //    {
+        //        doctorIndex.ViewObjects = new List<VmUserDoctorSimple>();
+        //        foreach (var p in entList)
+        //        {
+        //            VmUserDoctorSimple doctor = new VmUserDoctorSimple()
+        //            {
+        //                AduitDate = p.Doctor.AuditDate,
+        //                AduitStatus = p.Doctor.AuditStatus,
+        //                DoctorCode = p.Doctor.DoctorCode,
+        //                DoctorName = p.Name,
+        //                LinePhone = p.Doctor.LinePhone,
+        //                MobilePhone = p.Doctor.MobilePhone,
+        //                UserID = p.ID
+        //            };
+        //            doctorIndex.ViewObjects.Add(doctor);
+        //        }
                 
-            }
-            return View(doctorIndex);
+        //    }
+        //    return View(doctorIndex);
 
-        }
+        //}
 
         [HttpPost]
         public async Task<JsonResult> UpdateDoctor(VmUserDoctor doctor)
