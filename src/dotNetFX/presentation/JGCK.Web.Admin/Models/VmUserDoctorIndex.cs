@@ -39,7 +39,7 @@ namespace JGCK.Web.Admin.Models
 
         public string MobilePhone { get; set; }
 
-        public AduitStatus AduitStatus { get; set; }
+        public DoctorAuditStatus AduitStatus { get; set; }
 
         public DateTime? AduitDate { get; set; }
     }
