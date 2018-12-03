@@ -22,6 +22,8 @@ namespace JGCK.Web.Admin
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             FluentValidationModelValidatorProvider.Configure();
+            JsonValueProviderConfig.Regist();
+            //ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<JsonValueProviderFactory>())
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
