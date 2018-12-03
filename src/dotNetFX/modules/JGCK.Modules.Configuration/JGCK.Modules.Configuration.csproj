@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractConfigurationService.cs" />
+    <Compile Include="DepartmentManager.cs" />
     <Compile Include="HospitalManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorktimeManager.cs" />
