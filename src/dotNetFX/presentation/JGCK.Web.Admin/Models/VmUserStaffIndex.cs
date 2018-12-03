@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.Mvc;
 using FluentValidation.Attributes;
 using JGCK.Respority.UserWork;
 using JGCK.Util;
+using JGCK.Web.General.Extensions;
 using JGCK.Web.General.MVC;
 
 namespace JGCK.Web.Admin.Models
@@ -23,6 +25,10 @@ namespace JGCK.Web.Admin.Models
 
             return exp;
         }
+
+        public Gender Sex { get; set; }
+
+        public IEnumerable<SelectListItem> SexList => EnumHelper.GetSelectItemByEnum<Gender>(true);
     }
 
     [Validator(typeof(VmStaffValidator))]

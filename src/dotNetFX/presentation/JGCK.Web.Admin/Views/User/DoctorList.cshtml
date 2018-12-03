@@ -39,7 +39,7 @@
                         <thead>
                             <tr>
                                 @*class="sorting_asc"
-                                class="sorting_desc"*@
+                                    class="sorting_desc"*@
                                 <th> 序号 </th>
                                 <th @@click="click_setsort('RealName')" :class="{'sorting_asc':SortDirect_RealName=='Asc','sorting_desc':SortDirect_RealName=='Desc','sorting':SortDirect_RealName==''}"> 医生姓名 </th>
                                 <th> 医生编号 </th>
@@ -181,8 +181,8 @@
                         <div class="col-xs-12">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>备注:</strong> 
-                                    ａ）正式在职：有入职时间 ，没有离职时间<br/>
+                                    <strong>备注:</strong>
+                                    ａ）正式在职：有入职时间 ，没有离职时间<br />
                                     ｂ）正式离职：有入职时间，有离职时间<br />
                                     Ｃ）实习在职：没有入职时间，没有离职时间。有实习开始时间，没有实习结束时间<br />
                                     Ｄ）实习离职：没有入职时间，没有离职时间。有实习开始时间，有实习结束时间<br />
@@ -207,7 +207,11 @@
     <!-- /.modal-dialog -->
 </div>
 
-
+@section referenceHeader{
+    <script>
+        var pageUrl = "/User/DoctorList"
+    </script>
+}
 
 
 @section scripts
@@ -233,7 +237,7 @@
                 console.log(Cookies.get('sf_doctorData_sort_keys_sort_keys'))
                 if (Cookies.get('sf_doctorData_sort_keys_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys_sort_keys'))
             },
-            mounted: function () { 
+            mounted: function () {
                 console.log(this.SortDirect_RealName)
                 console.log(this.SortDirect_AuditStatus)
             },
@@ -241,7 +245,7 @@
                 SortDirect_RealName: function () {
                     var _tmp = _.where(this.sort_keys, { SortProperty: "RealName" });
                     if (!_tmp && _tmp.length === 0) return '';
-                    return(_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");                 
+                    return(_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
                 },
                 SortDirect_AuditStatus: function () {
                     var _tmp = _.where(this.sort_keys, { SortProperty: "Doctor.AuditStatus" });
@@ -250,13 +254,13 @@
                 }
             },
             methods: {
-                click_showDoctorPop: function (doctorObj) {            
+                click_showDoctorPop: function (doctorObj) {
                     this.doctorObj = doctorObj.NagigatedDomainObject
                     console.log(this.doctorObj)
                    $('#modelfull').modal('show')
                 },
                 click_setsort: function (Name) {
-                    var _tmp = _.where(this.sort_keys, { SortProperty: Name });                 
+                    var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length>0 && _tmp[0].SortDirect===1 ? "Desc" : "Asc");
                     $.post("/ajaxcommon/setsort/", {
                         "ModuleName": "sf_doctorData_sort_keys",

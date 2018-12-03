@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -11,13 +12,24 @@ namespace JGCK.Util
     {
         public static string GetEnumDisplayName(object o)
         {
-            return o.GetType()
+            var ret = o.GetType()
                 .GetMember(o.ToString())
                 .First()
                 .GetCustomAttributes(false)
                 .OfType<DisplayAttribute>()
                 .LastOrDefault()
-                .Name;
+                ?.Name;
+            if (string.IsNullOrEmpty(ret))
+            {
+                ret = o.GetType()
+                    .GetMember(o.ToString())
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DescriptionAttribute>()
+                    .LastOrDefault()?.Description;
+            }
+
+            return ret;
         }
 
         public static IList<SelectListItem> GetSelectItemByEnum<T>(string selectValue)
