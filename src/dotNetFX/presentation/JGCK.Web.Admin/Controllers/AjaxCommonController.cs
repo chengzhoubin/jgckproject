@@ -29,7 +29,7 @@ namespace JGCK.Web.Admin.Controllers
                 SortProperty = sort.SortProperty,
                 SortDirect = sort.SortDirect
             });
-            CookieHelper.CreateCookieJsonValue(retSort, sortKey);
+            CookieHelper.CreateCookieJsonValue(retSort, sortKey, isSecurity: false);
             return Json(new VM_JsonOnlyResult
             {
                 Result = true,
