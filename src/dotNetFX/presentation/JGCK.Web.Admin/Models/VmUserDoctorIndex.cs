@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using FluentValidation.Attributes;
 using JGCK.Respority.UserWork;
 using JGCK.Util;
 using JGCK.Web.General.MVC;
@@ -27,6 +28,7 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
+    [Validator(typeof(VmUserDoctor))]
     public class VmUserDoctor : AbstractVO<Person>
     {
         /*

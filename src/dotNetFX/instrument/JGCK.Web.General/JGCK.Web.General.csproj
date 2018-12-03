@@ -97,6 +97,7 @@
     <Compile Include="HttpModules\PreApplicationStartCode.cs" />
     <Compile Include="MVC\GlobalUserAuthorizationFilterAttribute.cs" />
     <Compile Include="MVC\JGCKUserToken.cs" />
+    <Compile Include="MVC\JsonNetValueProviderFactory.cs" />
     <Compile Include="VO\AbstractPageVO.cs" />
     <Compile Include="VO\AbstractVO.cs" />
     <Compile Include="VO\AbstractVOWithFilter.cs" />

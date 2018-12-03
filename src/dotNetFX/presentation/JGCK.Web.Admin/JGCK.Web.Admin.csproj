@@ -171,6 +171,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\JsonValueProviderConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AjaxCommonController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -184,7 +185,10 @@
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
+    <Compile Include="Models\Validator\VmDoctorValidator.cs" />
+    <Compile Include="Models\Validator\VmStaffValidator.cs" />
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
+    <Compile Include="Models\VmDepartment.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Models\VmUserStaffIndex.cs" />

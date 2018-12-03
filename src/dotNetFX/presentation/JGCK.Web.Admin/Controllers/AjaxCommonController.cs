@@ -24,12 +24,21 @@ namespace JGCK.Web.Admin.Controllers
         {
             var sortKey = $"{sort.ModuleName}_sort_keys";
             var retSort = CookieHelper.GetValue<List<JsonSortValue>>(sortKey, false) ?? new List<JsonSortValue>();
-            retSort.Add(new JsonSortValue
+            var existSort = retSort.FirstOrDefault(j => j.SortProperty == sort.SortProperty);
+            if (existSort == null)
             {
-                SortProperty = sort.SortProperty,
-                SortDirect = sort.SortDirect
-            });
-            CookieHelper.CreateCookieJsonValue(retSort, sortKey);
+                retSort.Add(new JsonSortValue
+                {
+                    SortProperty = sort.SortProperty,
+                    SortDirect = sort.SortDirect
+                });
+            }
+            else
+            {
+                existSort.SortDirect = sort.SortDirect;
+            }
+
+            CookieHelper.CreateCookieJsonValue(retSort, sortKey, isSecurity: false);
             return Json(new VM_JsonOnlyResult
             {
                 Result = true,

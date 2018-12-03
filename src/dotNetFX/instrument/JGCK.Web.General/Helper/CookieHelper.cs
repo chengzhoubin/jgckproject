@@ -50,9 +50,10 @@ namespace JGCK.Web.General
         /// <param name="expiredTime"></param>
         public static void CreateCookieJsonValue<T>(T cookieObject,
             string key,
-            DateTime? expiredTime = null)
+            DateTime? expiredTime = null,
+            bool isSecurity = true)
         {
-            CreateCookie(cookieObject, key, expiredTime, (obj) => JsonConvert.SerializeObject(obj));
+            CreateCookie(cookieObject, key, expiredTime, (obj) => JsonConvert.SerializeObject(obj), isSecurity);
         }
 
         /// <summary>
