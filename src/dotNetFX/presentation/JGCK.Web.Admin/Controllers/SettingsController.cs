@@ -15,6 +15,7 @@ namespace JGCK.Web.Admin.Controllers
     public class SettingsController : JGCK_MvcController
     {
         private WorktimeManager m_ConfigWorktimeService { get; set; }
+        private DepartmentManager m_DepartmentService { get; set; }
 
         // GET: Settings
         public ActionResult Index()
@@ -107,7 +108,10 @@ namespace JGCK.Web.Admin.Controllers
 
         public ActionResult DepartmentList()
         {
-            return View();
+            var ret = m_DepartmentService.GetDepartments()
+                .Select(dep => new VmDepartment {NagigatedDomainObject = dep})
+                .ToList();
+            return View(ret);
         }
 
         #endregion
