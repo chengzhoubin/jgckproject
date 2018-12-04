@@ -8,15 +8,19 @@
             height: 100%;
             overflow: hidden;
         }
+
         .month-title {
             color: black !important;
         }
+
         .day-header {
             color: black !important;
         }
+
         .day-content {
-            color: black!important;
+            color: black !important;
         }
+
         .buttonFlattening {
             background-color: #ff8c00; /* Green */
             border: none;
@@ -30,7 +34,15 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+
+        .calendar .month-container {
+            height: 250px;
+        }
     </style>
+    <script>
+        var pageUrl = "/Settings/Worktime?year=2018"
+    </script>
+
 }
 
 @{ var selectedYear = Request["year"] ?? DateTime.Now.Year.ToString(); }
@@ -51,10 +63,10 @@
     </div>
 </div>
 <p></p>
-<article >
+<article>
     <div id="calendar"></div>
     <div style="margin-top: 10px;">
-        <input id="btnUpdateRestDays" type="button" value="@($"更新{selectedYear}年全年休息日")" class="buttonFlattening" />&nbsp;
+        <input id="btnUpdateRestDays" type="button" value="@("更新{selectedYear}年全年休息日")" class="buttonFlattening" />&nbsp;
         <input id="btnRefresh" type="button" value="刷新" class="buttonFlattening" />
     </div>
 </article>
@@ -135,7 +147,7 @@
                     location.href = "/settings/worktime?year=" + (@selectedYear - 1);
                 }
             });
-			
+
             $('.calendar-header .next').click(function() {
                 if (!$(this).hasClass('disabled')) {
                     location.href = "/settings/worktime?year=" + (@selectedYear + 1);
