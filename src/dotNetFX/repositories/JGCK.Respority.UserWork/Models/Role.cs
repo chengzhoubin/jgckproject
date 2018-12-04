@@ -9,7 +9,7 @@ namespace JGCK.Respority.UserWork
     using System.Data.Entity.Spatial;
 
     [Table("Role")]
-    public partial class Role : AbstractDomainEntity
+    public partial class Role : AbstractDomainEntity, IEntity<UserDbProxy>
     {
         public Role()
         {

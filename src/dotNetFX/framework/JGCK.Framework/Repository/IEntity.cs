@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JGCK.Framework.Repository
 {
-    public interface IEntity
+    public interface IEntity<TObjectContext>
     {
     }
 }

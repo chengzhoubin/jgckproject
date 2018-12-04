@@ -11,7 +11,7 @@ namespace JGCK.Respority.UserWork
     using System.Data.Entity.Spatial;
 
     [Table("Person")]
-    public partial class Person : AbstractDomainEntity
+    public partial class Person : AbstractDomainEntity, IEntity<UserDbProxy>
     {
         [Required] [StringLength(50)] public string Name { get; set; }
 

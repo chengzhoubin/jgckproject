@@ -106,9 +106,9 @@ namespace JGCK.Web.Admin.Controllers
 
         #region 部门管理
 
-        public ActionResult DepartmentList()
+        public async Task<ActionResult> DepartmentList()
         {
-            var ret = m_DepartmentService.GetDepartments()
+            var ret =  (await m_DepartmentService.GetDepartments())
                 .Select(dep => new VmDepartment {NagigatedDomainObject = dep})
                 .ToList();
             return View(ret);

@@ -10,7 +10,7 @@ using JGCK.Framework.Repository;
 namespace JGCK.Respority.BasicInfo.Models
 {
     [Table("HospitalReference")]
-    public class HospitalReference : AbstractDomainEntity
+    public class HospitalReference : AbstractDomainEntity, IEntity<BasicDbProxy>
     {
         [StringLength(20)]
         public string Receipter { get; set; }

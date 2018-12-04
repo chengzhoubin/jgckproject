@@ -10,10 +10,15 @@ namespace JGCK.Modules.Configuration
 {
     public class DepartmentManager : AbstractConfigurationService
     {
-        public IEnumerable<Department> GetDepartments()
+        public Task<List<Department>> GetDepartments()
         {
             Expression<Func<Department, bool>> exp = dep => !dep.IsDeleted;
-            return basicDbContext.GetObjects(exp);
+            return basicDbContext.GetObjectsAsync(exp);
+        }
+
+        public Task<int> DeleteDepartment(long depId)
+        {
+            return base.LogicObjectDelete<Department, long>(depId, true);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JGCK.Framework.Repository;
 
 namespace JGCK.Framework
 {
@@ -48,13 +49,18 @@ namespace JGCK.Framework
             ((List<IDBProxy>) proxyContrainer).ForEach(act => act.Dispose());
         }
 
-        protected virtual Task<int> LogicObjectDelete<TObjectContext, TEntity, T>(T pkId, bool isAsync = false)
+        protected virtual Task<int> LogicObjectDelete<TEntity, T>(T pkId, bool isAsync = false)
             where TEntity : class
-            where TObjectContext : IDBProxy
         {
+            var typeObjectContext = typeof(TEntity).GetInterface(typeof(IEntity<>).FullName)?.GetGenericArguments()[0];
+            if (typeObjectContext == null)
+            {
+                throw new NotSupportedException("Entity未指定DbContext");
+            }
+
             var propsInTypeInfos = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
             var objectContextPropertyInfo =
-                propsInTypeInfos.FirstOrDefault(p => p.PropertyType == typeof(TObjectContext));
+                propsInTypeInfos.FirstOrDefault(p => p.PropertyType == typeObjectContext);
             var objectContext = (dynamic) objectContextPropertyInfo?.GetValue(this);
             if (objectContext == null)
             {
@@ -73,7 +79,7 @@ namespace JGCK.Framework
             }
 
             entObject.IsDeleted = true;
-            var entDbProxy = (IDBProxy) entObject;
+            var entDbProxy = (IDBProxy) objectContext;
             return isAsync
                 ? Task.FromResult(entDbProxy.Commit())
                 : entDbProxy.CommitAsync();

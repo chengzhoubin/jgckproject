@@ -10,12 +10,11 @@ namespace JGCK.Respority.BasicInfo
     using System.Data.Entity.Spatial;
 
     [Table("Department")]
-    public partial class Department : AbstractDomainEntityWithDeletedProperty
+    public partial class Department : AbstractDomainEntityWithDeletedProperty, IEntity<BasicDbProxy>
     {
-        [Required] [StringLength(150)]
-        public string Name { get; set; }
+        [Required] [StringLength(150)] public string Name { get; set; }
 
-        [StringLength(200)]
-        public string Desc { get; set; }
+        [StringLength(200)] public string Desc { get; set; }
     }
 }
+

@@ -9,7 +9,7 @@ namespace JGCK.Repority.OrderWork
     using System.Data.Entity.Spatial;
 
     [Table("OrderAttachFile")]
-    public partial class OrderAttachFile : AbstractDomainEntity
+    public partial class OrderAttachFile : AbstractDomainEntity, IEntity<OrderDbProxy>
     {
         [StringLength(300)]
         public string FilePath { get; set; }

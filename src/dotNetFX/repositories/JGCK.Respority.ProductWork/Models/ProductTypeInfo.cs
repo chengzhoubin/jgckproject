@@ -9,7 +9,7 @@ namespace JGCK.Respority.ProductWork
     using System.Data.Entity.Spatial;
 
     [Table("ProductTypeInfo")]
-    public partial class ProductTypeInfo : AbstractDomainEntity
+    public partial class ProductTypeInfo : AbstractDomainEntity, IEntity<ProductDbProxy>
     {
         public ProductTypeInfo()
         {

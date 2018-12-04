@@ -9,7 +9,7 @@ namespace JGCK.Repority.OrderWork
     using System.Data.Entity.Spatial;
 
     [Table("OrderTrace")]
-    public partial class OrderTrace : AbstractDomainEntity
+    public partial class OrderTrace : AbstractDomainEntity, IEntity<OrderDbProxy>
     {
         [StringLength(200)]
         public string Comment { get; set; }

@@ -9,7 +9,7 @@ namespace JGCK.Respority.BasicInfo
     using System.Data.Entity.Spatial;
 
     [Table("OffDay")]
-    public partial class OffDay : AbstractDomainEntity
+    public partial class OffDay : AbstractDomainEntity, IEntity<BasicDbProxy>
     {
         public DateTime? NonworkDate { get; set; }
     }

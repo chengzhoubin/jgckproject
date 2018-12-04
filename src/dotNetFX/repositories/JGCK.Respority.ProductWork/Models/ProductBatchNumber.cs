@@ -9,7 +9,7 @@ namespace JGCK.Respority.ProductWork
     using System.Data.Entity.Spatial;
 
     [Table("ProductBatchNumber")]
-    public partial class ProductBatchNumber : AbstractDomainEntity
+    public partial class ProductBatchNumber : AbstractDomainEntity, IEntity<ProductDbProxy>
     {
         public long ProductId { get; set; }
 
