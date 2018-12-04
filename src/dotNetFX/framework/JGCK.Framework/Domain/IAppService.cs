@@ -8,6 +8,9 @@ namespace JGCK.Framework
 {
     public interface IAppService : IDisposable
     {
-
+        /// <summary>
+        /// 是否满足逻辑删除条件
+        /// </summary>
+        Func<object,bool> PreLogicDeleteHandler { get; set; }
     }
 }

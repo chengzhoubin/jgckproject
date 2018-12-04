@@ -10,7 +10,7 @@ using JGCK.Util.Enums;
 
 namespace JGCK.Framework.EF
 {
-    public abstract class AbstractUnitOfWork : DbContext
+    public abstract class AbstractUnitOfWork : DbContext, IDBProxy
     {
         protected AbstractUnitOfWork()
         {
@@ -95,6 +95,16 @@ namespace JGCK.Framework.EF
         public Task<int> DeleteAsync<TEntity>(Expression<Func<TEntity, bool>> deleteExpression) where TEntity : class
         {
             return this.Set<TEntity>().Where(deleteExpression).DeleteAsync();
+        }
+
+        public int Commit()
+        {
+            return this.SaveChanges();
+        }
+
+        public Task<int> CommitAsync()
+        {
+            return this.SaveChangesAsync();
         }
 
         public class Pager

@@ -8,6 +8,8 @@ namespace JGCK.Framework
 {
     public interface IDBProxy : IDisposable
     {
+        int Commit();
 
+        Task<int> CommitAsync();
     }
 }

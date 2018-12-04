@@ -12,6 +12,7 @@ namespace JGCK.Framework
     public class AbstractDefaultAppService : IAppService
     {
         private IList<IDBProxy> proxyContrainer;
+        public Func<object, bool> PreLogicDeleteHandler { get; set; }
 
         public AbstractDefaultAppService()
         {
@@ -29,6 +30,7 @@ namespace JGCK.Framework
             {
                 return;
             }
+
             var spec = specPropsType.Select(p =>
             {
                 var propImplement = p.PropertyType.Assembly.CreateInstance(p.PropertyType.FullName);
@@ -44,6 +46,37 @@ namespace JGCK.Framework
             if (proxyContrainer.Count == 0)
                 return;
             ((List<IDBProxy>) proxyContrainer).ForEach(act => act.Dispose());
+        }
+
+        protected virtual Task<int> LogicObjectDelete<TObjectContext, TEntity, T>(T pkId, bool isAsync = false)
+            where TEntity : class
+            where TObjectContext : IDBProxy
+        {
+            var propsInTypeInfos = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
+            var objectContextPropertyInfo =
+                propsInTypeInfos.FirstOrDefault(p => p.PropertyType == typeof(TObjectContext));
+            var objectContext = (dynamic) objectContextPropertyInfo?.GetValue(this);
+            if (objectContext == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var entObject = objectContext.GetById<TEntity, T>(pkId);
+            var canExcuteDeleted = PreLogicDeleteHandler?.Invoke(entObject);
+            if (canExcuteDeleted != null && !canExcuteDeleted.Value)
+            {
+                return Task.FromResult(0);
+            }
+            if (entObject == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            entObject.IsDeleted = true;
+            var entDbProxy = (IDBProxy) entObject;
+            return isAsync
+                ? Task.FromResult(entDbProxy.Commit())
+                : entDbProxy.CommitAsync();
         }
     }
 }

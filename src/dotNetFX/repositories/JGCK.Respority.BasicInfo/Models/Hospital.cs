@@ -10,7 +10,7 @@ namespace JGCK.Respority.BasicInfo
     using System.Data.Entity.Spatial;
 
     [Table("Hospital")]
-    public partial class Hospital : AbstractDomainEntity
+    public partial class Hospital : AbstractDomainEntityWithDeletedProperty
     {
         public Hospital()
         {

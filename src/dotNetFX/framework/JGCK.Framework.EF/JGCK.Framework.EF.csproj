@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JGCK.Framework\JGCK.Framework.csproj">
+      <Project>{034BDD9A-4061-42DA-B9BB-5B301B2EFEAC}</Project>
+      <Name>JGCK.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JGCK.Util\JGCK.Util.csproj">
       <Project>{1be70373-9665-4166-a57c-61e618ab69cf}</Project>
       <Name>JGCK.Util</Name>
