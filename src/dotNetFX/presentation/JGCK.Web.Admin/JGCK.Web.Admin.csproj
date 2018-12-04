@@ -781,6 +781,7 @@
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.eot" />
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.ttf" />
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.woff" />
+    <Content Include="Config\JGCKAdminWebLog4Net.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

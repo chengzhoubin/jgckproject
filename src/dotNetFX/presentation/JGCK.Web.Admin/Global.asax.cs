@@ -23,13 +23,13 @@ namespace JGCK.Web.Admin
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             FluentValidationModelValidatorProvider.Configure();
             JsonValueProviderConfig.Regist();
+            LogHelper.LogInformation("inital start..");
             //ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<JsonValueProviderFactory>())
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            Trace.WriteLine(e.Exception.ToString());
-            //throw new NotImplementedException();
+            LogHelper.LogError(e.Exception.ToString());
         }
     }
 }
