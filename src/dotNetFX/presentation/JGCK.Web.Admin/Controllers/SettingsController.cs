@@ -8,6 +8,7 @@ using JGCK.Modules.Configuration;
 using JGCK.Respority.BasicInfo;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
+using JGCK.Web.General.Helper;
 using Newtonsoft.Json;
 
 namespace JGCK.Web.Admin.Controllers
@@ -16,6 +17,7 @@ namespace JGCK.Web.Admin.Controllers
     {
         private WorktimeManager m_ConfigWorktimeService { get; set; }
         private DepartmentManager m_DepartmentService { get; set; }
+        private HospitalManager m_HospitalService { get; set; }
 
         // GET: Settings
         public ActionResult Index()
@@ -97,9 +99,30 @@ namespace JGCK.Web.Admin.Controllers
 
         #region 医院管理
 
-        public ActionResult HospitalList()
+        public async Task<ActionResult> HospitalList(string filter, int? p)
         {
-            return View();
+            var hospitalIndex = new VmHospitalIndex() { Filter = filter?.Trim() };
+            var pageIndex = p.HasValue ? p.Value : 1;
+            var searchExp = hospitalIndex.CombineExpression();
+            var entList =
+                await m_HospitalService.GetHospitalListAsync(searchExp, UserSortBy<Hospital, JsonSortValue>(ConfigHelper.KeyModuleHospitalSort),
+                    pageIndex);
+            hospitalIndex.TotalRecordCount = await m_HospitalService.GetHospitalCount(searchExp);
+            hospitalIndex.ViewObjects = entList.Select(item => new VmHospital()
+            {
+                NagigatedDomainObject = item,
+                ResetSettingHandler = () =>
+                {
+                    JsonConvert.DefaultSettings = () =>
+                    {
+                        var js = new JsonSerializerSettings();
+                        js.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                        return js;
+                    };
+                }
+            }).ToList();
+            hospitalIndex.CurrentIndex = pageIndex;
+            return View(hospitalIndex);
         }
 
         #endregion

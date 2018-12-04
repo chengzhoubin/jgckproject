@@ -11,5 +11,7 @@ namespace JGCK.Web.General.Helper
         public static string KeyModuleDoctorSort => "sf_doctorData_sort_keys";
 
         public static string KeyModuleStaffSort => "sf_staffData_sort_keys";
+
+        public static string KeyModuleHospitalSort => "sf_hospitalData_sort_keys";
     }
 }
