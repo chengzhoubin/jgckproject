@@ -43,7 +43,7 @@ namespace JGCK.Web.General
             where T : class
             where TSortValue : ISortValue
         {
-            var keyOfSort = $"{modulename}_sort_keys";
+            var keyOfSort = modulename;//$"{modulename}_sort_keys";
             var jsonSortValue = CookieHelper.GetValue<List<TSortValue>>(keyOfSort, false);
             var orderByExps = new List<AbstractUnitOfWork.OrderByExpression<T>>();
             jsonSortValue?.ForEach(v =>

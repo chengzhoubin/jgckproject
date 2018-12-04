@@ -234,8 +234,8 @@
                 sort_keys:[]
             },
             created: function () {
-                console.log(Cookies.get('sf_doctorData_sort_keys_sort_keys'))
-                if (Cookies.get('sf_doctorData_sort_keys_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys_sort_keys'))
+                console.log(Cookies.get('sf_doctorData_sort_keys'))
+                if (Cookies.get('sf_doctorData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys'))
             },
             mounted: function () {
                 console.log(this.SortDirect_RealName)
