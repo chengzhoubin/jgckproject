@@ -177,6 +177,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Enum\HospitalRank.cs" />
     <Compile Include="Enum\MicroClassFileType.cs" />
     <Compile Include="Enum\MicroClassMsgType.cs" />
