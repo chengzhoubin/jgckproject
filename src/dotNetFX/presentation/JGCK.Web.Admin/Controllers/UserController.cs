@@ -105,7 +105,9 @@ namespace JGCK.Web.Admin.Controllers
             var pageIndex = p.HasValue ? p.Value : 1;
             var searchExp = staffIndex.CombineExpression();
             var entList = 
-                await m_UserManagerService.GetStaffListAsync(searchExp, UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleStaffSort),
+                await m_UserManagerService.GetStaffListAsync(
+                    searchExp, 
+                    UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleStaffSort),
                     pageIndex);
             staffIndex.TotalRecordCount = await m_UserManagerService.GetStaffCount(searchExp);
             staffIndex.ViewObjects = entList.Select(item => new VmStaff()

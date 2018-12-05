@@ -13,7 +13,9 @@ namespace JGCK.Framework
     public class AbstractDefaultAppService : IAppService
     {
         private IList<IDBProxy> proxyContrainer;
+
         public Func<object, bool> PreLogicDeleteHandler { get; set; }
+        public Func<object,bool> PreOnAddHandler { get; set; }
 
         public AbstractDefaultAppService()
         {
@@ -49,24 +51,10 @@ namespace JGCK.Framework
             ((List<IDBProxy>) proxyContrainer).ForEach(act => act.Dispose());
         }
 
-        protected virtual Task<int> LogicObjectDelete<TEntity, T>(T pkId, bool isAsync = false)
+        public virtual Task<int> LogicObjectDelete<TEntity, T>(T pkId, bool isAsync = false)
             where TEntity : class
         {
-            var typeObjectContext = typeof(TEntity).GetInterface(typeof(IEntity<>).FullName)?.GetGenericArguments()[0];
-            if (typeObjectContext == null)
-            {
-                throw new NotSupportedException("Entity未指定DbContext");
-            }
-
-            var propsInTypeInfos = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
-            var objectContextPropertyInfo =
-                propsInTypeInfos.FirstOrDefault(p => p.PropertyType == typeObjectContext);
-            var objectContext = (dynamic) objectContextPropertyInfo?.GetValue(this);
-            if (objectContext == null)
-            {
-                throw new NullReferenceException();
-            }
-
+            var objectContext = GetObjectContextDynamical<TEntity>();
             var entObject = objectContext.GetById<TEntity, T>(pkId);
             var canExcuteDeleted = PreLogicDeleteHandler?.Invoke(entObject);
             if (canExcuteDeleted != null && !canExcuteDeleted.Value)
@@ -83,6 +71,26 @@ namespace JGCK.Framework
             return isAsync
                 ? Task.FromResult(entDbProxy.Commit())
                 : entDbProxy.CommitAsync();
+        }
+
+        private dynamic GetObjectContextDynamical<TEntity>()
+        {
+            var typeObjectContext = typeof(TEntity).GetInterface(typeof(IEntity<>).FullName)?.GetGenericArguments()[0];
+            if (typeObjectContext == null)
+            {
+                throw new NotSupportedException("Entity未指定DbContext");
+            }
+
+            var propsInTypeInfos = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
+            var objectContextPropertyInfo =
+                propsInTypeInfos.FirstOrDefault(p => p.PropertyType == typeObjectContext);
+            var objectContext = (dynamic) objectContextPropertyInfo?.GetValue(this);
+            if (objectContext == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return objectContext;
         }
     }
 }

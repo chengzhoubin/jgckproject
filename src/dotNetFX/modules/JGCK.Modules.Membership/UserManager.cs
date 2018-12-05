@@ -42,7 +42,7 @@ namespace JGCK.Modules.Membership
             int pageIndex)
         {
             var pager = new AbstractUnitOfWork.Pager {CurrentIndex = pageIndex};
-            return userDbContext.GetObjectsAsync(search, pager, true, orderBy);
+            return userDbContext.GetObjectsAsync(search, pager, true, orderBy, p => p.Role);
         }
 
         public Task<int> GetStaffCount(Expression<Func<Person, bool>> search)
