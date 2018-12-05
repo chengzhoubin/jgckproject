@@ -105,7 +105,9 @@ namespace JGCK.Web.Admin.Controllers
             var pageIndex = p.HasValue ? p.Value : 1;
             var searchExp = staffIndex.CombineExpression();
             var entList = 
-                await m_UserManagerService.GetStaffListAsync(searchExp, UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleStaffSort),
+                await m_UserManagerService.GetStaffListAsync(
+                    searchExp, 
+                    UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleStaffSort),
                     pageIndex);
             staffIndex.TotalRecordCount = await m_UserManagerService.GetStaffCount(searchExp);
             staffIndex.ViewObjects = entList.Select(item => new VmStaff()
@@ -123,6 +125,45 @@ namespace JGCK.Web.Admin.Controllers
             }).ToList();
             staffIndex.CurrentIndex = pageIndex;
             return View(staffIndex);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddStaff(VmStaff staff)
+        {
+            var ret = new VM_JsonOnlyResult();
+            if (!ModelState.IsValid)
+            {
+                ret.Value = -1001;
+                ret.Err = string.Join(",", ModelState.SelectMany(m => m.Value.Errors.Select(e => e.ErrorMessage)));
+                return await Task.FromResult(Json(ret));
+            }
+
+            m_UserManagerService.PreOnAddHandler =
+                () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
+            var added = await m_UserManagerService.AddObject(staff.NagigatedDomainObject, true);
+            if (added > 0)
+            {
+                ret.Value = staff.NagigatedDomainObject.ID;
+                ret.Result = true;
+                return Json(ret);
+            }
+
+            return Json(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteStaff(long staffId)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var deleted = await m_UserManagerService.LogicObjectDelete<Person, long>(staffId, true);
+            if (deleted > 0)
+            {
+                ret.Value = staffId;
+                ret.Result = true;
+                return Json(ret);
+            }
+
+            return Json(ret);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace JGCK.Framework
         /// <summary>
         /// 是否满足逻辑删除条件
         /// </summary>
-        Func<object,bool> PreLogicDeleteHandler { get; set; }
+        Func<bool> PreLogicDeleteHandler { get; set; }
+        Func<bool> PreOnAddHandler { get; set; }
+        Func<bool> PreOnUpdateHandler { get; set; }
     }
 }
