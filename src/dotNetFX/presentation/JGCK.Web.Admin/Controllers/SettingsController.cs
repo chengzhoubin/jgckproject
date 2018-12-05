@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HSMY_AdminWeb.Models;
 using JGCK.Modules.Configuration;
 using JGCK.Respority.BasicInfo;
 using JGCK.Web.Admin.Models;
@@ -135,6 +136,69 @@ namespace JGCK.Web.Admin.Controllers
                 .Select(dep => new VmDepartment {NagigatedDomainObject = dep})
                 .ToList();
             return View(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddDepartment(VmDepartment dep)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            if (!ModelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_DepartmentService.PreOnAddHandler =
+                () => !m_DepartmentService.DepartmentExists(dep.NagigatedDomainObject.Name);
+            var addedRet = await m_DepartmentService.AddObject(dep.NagigatedDomainObject, true);
+            if (addedRet > 0)
+            {
+                jsonResult.Value = dep.NagigatedDomainObject.ID;
+                jsonResult.Result = true;
+            }
+
+            return Json(jsonResult);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DelDepartment(long depId)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var deleted = await m_DepartmentService.LogicObjectDelete<Department, long>(depId, true);
+            if (deleted > 0)
+            {
+                ret.Value = depId;
+                ret.Result = true;
+                return Json(ret);
+            }
+
+            return Json(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateDepartment(VmDepartment dep)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            if (!ModelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_DepartmentService.PreOnUpdateHandler =
+                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
+            m_DepartmentService.OnUpdatingHandler = (oDep, nDep) =>
+            {
+                ((Department) oDep).Desc = ((Department) nDep).Desc;
+            };
+            var updatedRet = await m_DepartmentService.UpdateObject(dep.NagigatedDomainObject, true);
+            if (updatedRet > 0)
+            {
+                jsonResult.Value = dep.NagigatedDomainObject.ID;
+                jsonResult.Result = true;
+            }
+
+            return Json(jsonResult);
         }
 
         #endregion

@@ -16,7 +16,8 @@ namespace JGCK.Framework
 
         public Func<bool> PreLogicDeleteHandler { get; set; }
         public Func<bool> PreOnAddHandler { get; set; }
-        public Func<bool> PreOnUpdateHandler { get; set; }
+        public Func<object> PreOnUpdateHandler { get; set; }
+        public Action<object, object> OnUpdatingHandler { get; set; }
 
         public AbstractDefaultAppService()
         {
@@ -88,13 +89,20 @@ namespace JGCK.Framework
 
         public virtual Task<int> UpdateObject<TEntity>(TEntity ent, bool isAsync = false) where TEntity : class
         {
-            var objectContext = GetObjectContextDynamical<TEntity>();
-            var canUpdating = PreOnAddHandler?.Invoke();
-            if (canUpdating.HasValue && canUpdating.Value)
+            if (PreOnUpdateHandler == null || OnUpdatingHandler == null)
             {
+                throw new NullReferenceException("更新事件未注册");
+            }
+
+            var objectContext = GetObjectContextDynamical<TEntity>();
+            var existObject = PreOnUpdateHandler?.Invoke();
+            if (existObject != null)
+            {
+                OnUpdatingHandler?.Invoke(existObject, ent);
                 var entDbProxy = (IDBProxy) objectContext;
                 return isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
             }
+
             return Task.FromResult(0);
         }
 

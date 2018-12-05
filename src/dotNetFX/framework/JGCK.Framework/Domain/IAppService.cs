@@ -13,6 +13,7 @@ namespace JGCK.Framework
         /// </summary>
         Func<bool> PreLogicDeleteHandler { get; set; }
         Func<bool> PreOnAddHandler { get; set; }
-        Func<bool> PreOnUpdateHandler { get; set; }
+        Func<object> PreOnUpdateHandler { get; set; }
+        Action<object,object> OnUpdatingHandler { get; set; } 
     }
 }

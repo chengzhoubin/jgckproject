@@ -15,5 +15,15 @@ namespace JGCK.Modules.Configuration
             Expression<Func<Department, bool>> exp = dep => !dep.IsDeleted;
             return basicDbContext.GetObjectsAsync(exp);
         }
+
+        public bool DepartmentExists(string name)
+        {
+            return basicDbContext.Department.Any(dep => dep.Name == name && !dep.IsDeleted);
+        }
+
+        public Department GetDepartment(string name)
+        {
+            return basicDbContext.Department.FirstOrDefault(dep => dep.Name == name && !dep.IsDeleted);
+        }
     }
 }
