@@ -449,6 +449,24 @@
                 doctor: "",
                 ListPersonType: [
                                     
+                                    @{ 
+                                        string sexContent = "";
+                                        foreach (var j in Model.SexList)
+                                        {
+                                            sexContent = sexContent + ",{id:" + j.Value + ", name:'" + j.Text + "'}";
+
+                                        }
+                                        if (sexContent.IndexOf(',') == 0)
+                                        {
+                                            sexContent = sexContent.Substring(1, sexContent.Length - 1);
+                                        }
+                                        
+                                    }
+                                   @Html.Raw(sexContent)
+                                        
+                                ],
+                ListPersonType: [
+                                    
                                         @{ 
                                             string personContent = "";
                                             foreach (var j in Model.PersonTypeList)
@@ -456,11 +474,11 @@
                                                 personContent = personContent + ",{id:" + j.Value + ", name:'" + j.Text + "'}";
 
                                             }
-                                            if (personContent.IndexOf(',') > 0)
+                                            if (personContent.IndexOf(',') == 0)
                                             {
                                                 personContent = personContent.Substring(1, personContent.Length - 1);
                                             }
-                                            personContent = personContent.Substring(1, personContent.Length - 1);
+                                           
                                           }
                                         @Html.Raw(personContent)
                                         
@@ -474,11 +492,11 @@
                                                     educationTypeContent = educationTypeContent + ",{id:" + e.Value + ", name:'" + e.Text + "'}"; ;
 
                                                 }
-                                                if (educationTypeContent.IndexOf(',') > 0)
+                                                if (educationTypeContent.IndexOf(',') == 0)
                                                 {
-                                                    educationTypeContent = educationTypeContent.Substring(1, personContent.Length - 1);
+                                                    educationTypeContent = educationTypeContent.Substring(1, educationTypeContent.Length - 1);
                                                 }
-                                                educationTypeContent = educationTypeContent.Substring(1, educationTypeContent.Length - 1);
+                                               
                                             }
                                              @Html.Raw(educationTypeContent)
                                    ]

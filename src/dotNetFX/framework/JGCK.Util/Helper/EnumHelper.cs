@@ -85,15 +85,18 @@ namespace JGCK.Util
             return vmList;
         }
 
-        public static IList<SelectListItem> GetSelectHtmlTag<TEnum>()
+        public static IList<SelectListItem> GetSelectHtmlTag<TEnum>(bool defaultSelected=true)
         {
             var items = new List<SelectListItem>();
-            items.Add(new SelectListItem
+            if (defaultSelected)
             {
-                Text = "请选择",
-                Value = "0",
-                Selected = true
-            });
+                items.Add(new SelectListItem
+                {
+                    Text = "请选择",
+                    Value = "0",
+                    Selected = true
+                });
+            }
             Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList()
                 .ForEach(m => items.Add(new SelectListItem
                 {

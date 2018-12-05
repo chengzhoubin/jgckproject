@@ -35,7 +35,7 @@ namespace JGCK.Web.Admin.Models
         public IEnumerable<SelectListItem> SexList {
             get
             {
-                var ret = EnumHelper.GetSelectHtmlTag<Gender>();
+                var ret = EnumHelper.GetSelectHtmlTag<Gender>(false);
                 var selected = ret.FirstOrDefault(s => s.Value == ((int)Sex).ToString());
                 if (selected != null)
                     selected.Selected = true;
@@ -47,7 +47,7 @@ namespace JGCK.Web.Admin.Models
         {
             get
             {
-                var ret = EnumHelper.GetSelectHtmlTag<OnJobType>();
+                var ret = EnumHelper.GetSelectHtmlTag<OnJobType>(false);
                 var selected = ret.FirstOrDefault(s => s.Value == ((int)PersonType).ToString());
                 if (selected != null)
                     selected.Selected = true;
@@ -59,7 +59,7 @@ namespace JGCK.Web.Admin.Models
         {
             get
             {
-                var ret = EnumHelper.GetSelectHtmlTag<EducationType>();
+                var ret = EnumHelper.GetSelectHtmlTag<EducationType>(false);
                 var selected = ret.FirstOrDefault(s => s.Value == ((int)EducationType).ToString());
                 if (selected != null)
                     selected.Selected = true;
