@@ -55,11 +55,11 @@
                     <tr>
                         <th class="sorting_asc"> 序号 </th>
                         <th class="sorting"> 医院编号 </th>
-                        <th class="sorting_desc"> 医院名称 </th>
-                        <th> 医院属性 </th>
-                        <th> 付款方式 </th>
-                        <th class="sorting"> 付款周期 </th>
-                        <th> 折扣系数 </th>
+                        <th @@click="click_setsort('Name')" :class="get_sortCLass('Name')"> 医院名称 </th>
+                        <th @@click="click_setsort('HospitalType')" :class="get_sortCLass('HospitalType')"> 医院属性 </th>
+                        <th @@click="click_setsort('PaymentType')" :class="get_sortCLass('PaymentType')"> 付款方式 </th>
+                        <th @@click="click_setsort('PaymentPeriod')" :class="get_sortCLass('PaymentPeriod')"> 付款周期 </th>
+                        <th @@click="click_setsort('SaleRate')" :class="get_sortCLass('SaleRate')"> 折扣系数 </th>
                         <th> 收件联系人 </th>
                         <th> 联系电话 </th>
                         <th> 操作 </th>
@@ -471,9 +471,7 @@
         <!-- 实例化编辑器 -->
         <script type="text/javascript">
             $(function() {
-                var um = UM.getEditor('container',
-                    {
-                    });
+                var um = UM.getEditor('container',{ });
                 $("#btnSearch").click(function () {
                     if ($("#Filter").val() == "") {
                         location.href = '@Url.Action("HospitalList")';
@@ -483,5 +481,40 @@
                     location.href = reloadUrlWithFilter;
                 });
             });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    hospital: ""
+                },
+                methods: {
+                    get_sortCLass: function (sortName) {
+                        var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
+                        if (_tmp.length === 0) return 'sorting';
+                        return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
+                    },
+                    click_showDoctorPop: function (Obj) {
+                        $('#modelfull').modal('show')                 
+                    },
+                    click_setsort: function (Name) {
+                        var _tmp = _.where(this.sort_keys, { SortProperty: Name });
+                        var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
+                        Cookies.remove('sf_hospitalData_sort_keys');
+                        $.post("/ajaxcommon/setsort/", {
+                            "module": "sf_hospitalData_sort_keys",
+                            "sortby": Name,
+                            "directby": SortDirect
+                        }).then(item => {
+                            window.location.reload();
+                        });
+                    },
+                    click_save: function () {                     
+                    }
+                }
+            })
+
+
+
+
         </script>
     }

@@ -459,7 +459,6 @@
                     console.log(this.doctor)
                 },
                 click_setsort: function (Name) {
-
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
                     Cookies.remove('sf_staffData_sort_keys');
