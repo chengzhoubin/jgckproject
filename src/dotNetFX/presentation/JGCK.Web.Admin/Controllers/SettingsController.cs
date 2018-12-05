@@ -142,9 +142,10 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<JsonResult> AddDepartment(VmDepartment dep)
         {
             var jsonResult = new VM_JsonOnlyResult();
-            if (!ModelState.IsValid)
+            var modelState = (new VmDepartmentValidator()).Validate(dep);
+            if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
 
@@ -179,11 +180,13 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<JsonResult> UpdateDepartment(VmDepartment dep)
         {
             var jsonResult = new VM_JsonOnlyResult();
-            if (!ModelState.IsValid)
+            var modelState = (new VmDepartmentValidator()).Validate(dep);
+            if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
+
 
             m_DepartmentService.PreOnUpdateHandler =
                 () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);

@@ -18,6 +18,7 @@ namespace JGCK.Framework.EF
 
         protected AbstractUnitOfWork(string aliasName) : base(aliasName)
         {
+            //base.Configuration.
         }
 
         public virtual TEntity GetById<TEntity, TPKey>(TPKey pkey) where TEntity : class

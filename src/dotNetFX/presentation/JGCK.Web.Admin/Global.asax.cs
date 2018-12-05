@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using FluentValidation;
+using FluentValidation.Attributes;
 using FluentValidation.Mvc;
 
 namespace JGCK.Web.Admin
@@ -21,10 +23,8 @@ namespace JGCK.Web.Admin
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-            FluentValidationModelValidatorProvider.Configure();
-            JsonValueProviderConfig.Regist();
+            FluentValidationModelValidatorProvider.Configure((v) => { v.AddImplicitRequiredValidator = false; });
             LogHelper.LogInformation("inital start..");
-            //ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<JsonValueProviderFactory>())
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

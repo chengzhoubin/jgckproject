@@ -12,7 +12,7 @@ namespace JGCK.Web.Admin.Models
         {
             this.RuleFor(dep => dep.NagigatedDomainObject)
                 .NotNull()
-                .OverridePropertyName("部门对象");
+                .WithMessage("部门对象不能为空");
             this.RuleFor(dep => dep.NagigatedDomainObject.Name)
                 .NotEmpty()
                 .When(dep => dep.NagigatedDomainObject != null)
