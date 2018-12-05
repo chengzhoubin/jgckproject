@@ -49,5 +49,10 @@ namespace JGCK.Modules.Membership
         {
             return userDbContext.Person.CountAsync(search);
         }
+
+        public bool UserIsExists(string name)
+        {
+            return userDbContext.Person.Any(p => p.Name == name && !p.IsDeleted);
+        }
     }
 }

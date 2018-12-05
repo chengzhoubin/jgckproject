@@ -18,6 +18,9 @@ namespace JGCK.Web.General
     {
         //protected virtual string m_ModuleName => "";
 
+        protected IEnumerable<string> VModelErrorCollect =>
+            ModelState.SelectMany(m => m.Value.Errors.Select(e => e.ErrorMessage));
+
         public JGCK_MvcController()
         {
             var propsInController = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);

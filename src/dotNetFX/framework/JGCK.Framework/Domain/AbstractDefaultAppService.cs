@@ -14,7 +14,7 @@ namespace JGCK.Framework
     {
         private IList<IDBProxy> proxyContrainer;
 
-        public Func<object, bool> PreLogicDeleteHandler { get; set; }
+        public Func<bool> PreLogicDeleteHandler { get; set; }
         public Func<bool> PreOnAddHandler { get; set; }
         public Func<bool> PreOnUpdateHandler { get; set; }
 
@@ -57,7 +57,7 @@ namespace JGCK.Framework
         {
             var objectContext = GetObjectContextDynamical<TEntity>();
             var entObject = objectContext.GetById<TEntity, T>(pkId);
-            var canExcuteDeleted = PreLogicDeleteHandler?.Invoke(entObject);
+            var canExcuteDeleted = PreLogicDeleteHandler?.Invoke();
             if (canExcuteDeleted != null && !canExcuteDeleted.Value)
             {
                 return Task.FromResult(0);
