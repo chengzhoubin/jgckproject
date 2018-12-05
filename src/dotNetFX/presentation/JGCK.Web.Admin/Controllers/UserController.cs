@@ -131,10 +131,11 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<JsonResult> AddStaff(VmStaff staff)
         {
             var ret = new VM_JsonOnlyResult();
-            if (!ModelState.IsValid)
+            var modelState = (new VmStaffValidator()).Validate(staff);
+            if (!modelState.IsValid)
             {
                 ret.Value = -1001;
-                ret.Err = string.Join(",", ModelState.SelectMany(m => m.Value.Errors.Select(e => e.ErrorMessage)));
+                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
                 return await Task.FromResult(Json(ret));
             }
 
