@@ -277,7 +277,7 @@
                                 <li> <strong>学历:</strong>
                                     @{
                                         var educationHtml = new Dictionary<string, object>();
-                                        educationHtml.Add("v-model", "doctor.EducationType");
+                                        educationHtml.Add("v-model", "doctor.Education");
 
                                     }
                                     @Html.DropDownListFor(m => m.EducationType, Model.EducationTypeList, educationHtml)

@@ -103,10 +103,11 @@
                         </div>
                     </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn green" @@click="click_save()">保存</button>
-                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
-                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green pull-left" @@click="click_delete()">删除</button>
+                <button type="button" class="btn green" @@click="click_save()">保存</button>
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+            </div>
             </div>
         <!-- /.modal-content -->
     </div>
@@ -117,12 +118,22 @@
     <script>
         var pageUrl = "/Settings/DepartmentList"
     </script>
+    <style>
+        .bootbox-confirm {
+            position: fixed !important;
+            z-index: 1000000;
+            height: 100% !important;
+            top: 0 !important;
+            width: 100%;
+            padding-right: 0 !important;
+        }
+    </style>
 }
 
 
 
 @section scripts{
-
+    <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
   
 
 
@@ -155,16 +166,30 @@
                         $('#modelbasic').modal('show')
 
                     },
-                    click_setsort: function (Name) {                        
+                    click_delete: function (Name) {   
+                        bootbox.confirm("确定要删除吗?", function (result) {                           
+                            if (result) {
+                               $.post("/Settings/DelDepartment", {
+                                depId: this.Model.ID
+                                }).then(item => {
+                                    console.log(item)
+                                    // window.location.reload();
+                                });
+                            }
+                        });                  
                     },
                     click_save: function () {
                         console.log(this.Model)
-                        //$.post("/user/updatedoctor", {
-                        //    NagigatedDomainObject: this.Model
-                        //}).then(item => {
-                        //    console.log(item)
-                        //    // window.location.reload();
-                        //});
+                        var apiUrl = "/Settings/UpdateDepartment"                 
+                        if (!this.Model.ID) {
+                            apiUrl = "/Settings/AddDepartment"
+                        }
+                        $.post(apiUrl, {
+                            NagigatedDomainObject: this.Model
+                        }).then(item => {
+                            console.log(item)
+                            // window.location.reload();
+                        });
                     }
                 }
             })
