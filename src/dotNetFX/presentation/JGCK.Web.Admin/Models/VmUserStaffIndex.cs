@@ -28,7 +28,44 @@ namespace JGCK.Web.Admin.Models
 
         public Gender Sex { get; set; }
 
-        public IEnumerable<SelectListItem> SexList => EnumHelper.GetSelectItemByEnum<Gender>(true);
+        public OnJobType PersonType { get; set; }
+
+        public EducationType EducationType { get; set; }
+
+        public IEnumerable<SelectListItem> SexList {
+            get
+            {
+                var ret = EnumHelper.GetSelectHtmlTag<Gender>();
+                var selected = ret.FirstOrDefault(s => s.Value == ((int)Sex).ToString());
+                if (selected != null)
+                    selected.Selected = true;
+                return ret;
+            }
+        }
+
+        public IEnumerable<SelectListItem> PersonTypeList
+        {
+            get
+            {
+                var ret = EnumHelper.GetSelectHtmlTag<OnJobType>();
+                var selected = ret.FirstOrDefault(s => s.Value == ((int)PersonType).ToString());
+                if (selected != null)
+                    selected.Selected = true;
+                return ret;
+            }
+        }
+
+        public IEnumerable<SelectListItem> EducationTypeList
+        {
+            get
+            {
+                var ret = EnumHelper.GetSelectHtmlTag<EducationType>();
+                var selected = ret.FirstOrDefault(s => s.Value == ((int)EducationType).ToString());
+                if (selected != null)
+                    selected.Selected = true;
+                return ret;
+            }
+        }
     }
 
     [Validator(typeof(VmStaffValidator))]

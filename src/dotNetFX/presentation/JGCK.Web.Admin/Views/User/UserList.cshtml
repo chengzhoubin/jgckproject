@@ -100,14 +100,14 @@
 
                     <div>
                         @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
-                        {
-                            PageIndexParameterName = "p",
-                            ContainerTagName = "ul",
-                            CssClass = "pagination pagination-sm",
-                            CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
-                            DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
-                            PagerItemTemplate = "<li>{0}</li>"
-                        })
+                   {
+                       PageIndexParameterName = "p",
+                       ContainerTagName = "ul",
+                       CssClass = "pagination pagination-sm",
+                       CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
+                       DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
+                       PagerItemTemplate = "<li>{0}</li>"
+                   })
                     </div>
                 </div>
             </div>
@@ -157,10 +157,12 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>员工类型:</strong>
-                                    {{doctor.PersonType}}
-                                    <select v-model="doctor.PersonType">
-                                        <option v-for="(item,index) in ListPersonType" :value="item.id">{{item.name}}</option>
-                                    </select>
+                                    @{ 
+                                        var jobTypeHtml = new Dictionary<string, object>();
+                                        jobTypeHtml.Add("v-model", "doctor.PersonType");
+
+                                    }
+                                    @Html.DropDownListFor(m => m.PersonType, Model.PersonTypeList, jobTypeHtml)
                                 </li>
                             </ul>
                         </div>
@@ -177,12 +179,11 @@
                                         var sexHtmlAttribute = new Dictionary<string, object>();
                                         sexHtmlAttribute.Add("v-model", "doctor.Sex");
                                     }
-                                    @Html.DropDownListFor(m=>m.Sex,Model.SexList, sexHtmlAttribute)
+                                    @Html.DropDownListFor(m => m.Sex, Model.SexList, sexHtmlAttribute)
                                     @*<select v-model="doctor.Sex">
                                         <option value="1">男</option>
                                         <option value="2">女</option>
                                     </select>*@
-                                    {{doctor.Sex}}
                                 </li>
                             </ul>
                         </div>
@@ -273,7 +274,14 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>学历:</strong> <input type="text" v-model="doctor.Education" /> </li>
+                                <li> <strong>学历:</strong>
+                                    @{
+                                        var educationHtml = new Dictionary<string, object>();
+                                        educationHtml.Add("v-model", "doctor.EducationType");
+
+                                    }
+                                    @Html.DropDownListFor(m => m.EducationType, Model.EducationTypeList, educationHtml)
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
@@ -445,11 +453,45 @@
             el: '#app',
             data: {
                 doctor: "",
-                ListPersonType: [{ id: 1, name: '在职' }, { id: 2, name: '离职' }, { id: 4, name: '其他' }]
+                ListPersonType: [
+                                    
+                                        @{ 
+                                            string personContent = "";
+                                            foreach (var j in Model.PersonTypeList)
+                                            {
+                                                personContent = personContent + ",{id:" + j.Value + ", name:'" + j.Text + "'}";
+
+                                            }
+                                            if (personContent.IndexOf(',') > 0)
+                                            {
+                                                personContent = personContent.Substring(1, personContent.Length - 1);
+                                            }
+                                            personContent = personContent.Substring(1, personContent.Length - 1);
+                                          }
+                                        @Html.Raw(personContent)
+                                        
+                               ],
+                ListEducationType: [
+                                        
+                                            @{ 
+                                                string educationTypeContent = "";
+                                                foreach (var e in Model.EducationTypeList)
+                                                {
+                                                    educationTypeContent = educationTypeContent + ",{id:" + e.Value + ", name:'" + e.Text + "'}"; ;
+
+                                                }
+                                                if (educationTypeContent.IndexOf(',') > 0)
+                                                {
+                                                    educationTypeContent = educationTypeContent.Substring(1, personContent.Length - 1);
+                                                }
+                                                educationTypeContent = educationTypeContent.Substring(1, educationTypeContent.Length - 1);
+                                            }
+                                             @Html.Raw(educationTypeContent)
+                                   ]
             },
             methods: {
                 click_showDoctorPop: function (doctorObj) {
-                    if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
+                                if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
                     if (doctorObj.NagigatedDomainObject.LeaveDate) doctorObj.NagigatedDomainObject.LeaveDate = formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
                     if (doctorObj.NagigatedDomainObject.PracticeBeginDate) doctorObj.NagigatedDomainObject.PracticeBeginDate = formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
                     if (doctorObj.NagigatedDomainObject.PracticeEndDate) doctorObj.NagigatedDomainObject.PracticeEndDate = formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
@@ -459,26 +501,26 @@
                 },
                 click_setsort: function (Name) {
                     $.post("/ajaxcommon/setsort/", {
-                        "module": "sf_doctorData_sort_keys",
+                                    "module": "sf_doctorData_sort_keys",
                         "sortby": Name,    //ID, RealName, Doctor.DoctorCode, Doctor.AuditStatus
                         "directby": "Asc"  //Asc或者Desc
                     }).then(item => {
                         console.log(item)
                         // window.location.reload();
                     });
-                },
+                            },
                 click_save: function () {
-                    console.log(this.doctor)
+                                console.log(this.doctor)
                     $.post("/user/updatedoctor   ", {
-                        NagigatedDomainObject: this.doctor
+                                    NagigatedDomainObject: this.doctor
                     }).then(item => {
                         console.log(item)
                         // window.location.reload();
                     });
-                }
+                            }
 
-            }
-        })
+                        }
+                        })
 
             </script>
         }
