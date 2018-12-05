@@ -28,42 +28,42 @@
                             margin: 10px;
                         }
 
-                        .ul-person li .item {
-                            display: inline-block;
-                            height: 50px;
-                            color: #fff;
-                            background-color: #ff8666;
-                            padding: 15px;
-                            border-radius: 5px !important;
-                            overflow: hidden;
-                        }
+                            .ul-person li .item {
+                                display: inline-block;
+                                height: 50px;
+                                color: #fff;
+                                background-color: #ff8666;
+                                padding: 15px;
+                                border-radius: 5px !important;
+                                overflow: hidden;
+                            }
                     </style>
                     <table class="table table-striped table-bordered table-hover dataTable" id="sample_1">
                         <thead>
-                        <tr>
-                            <th> 序号 </th>
-                            <th> 部门名称 </th>
-                            <th> 备注 </th>
-                            <th> 操作 </th>
-                        </tr>
+                            <tr>
+                                <th> 序号 </th>
+                                <th> 部门名称 </th>
+                                <th> 备注 </th>
+                                <th> 操作 </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @{
-                            if (Model != null)
-                            {
-                                var itemIndex = 1;
-                                foreach (var item in Model)
+                            @{
+                                if (Model != null)
                                 {
-                                    <tr>
-                                        <td> @(itemIndex) </td>
-                                        <td> @item.NagigatedDomainObject.Name </td>
-                                        <td> @item.NagigatedDomainObject.Desc </td>
-                                        <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')" data-json="@(item.HiddenJsonString)"> 操作 </button> </td>
-                                    </tr>
-                                    itemIndex++;
+                                    var itemIndex = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td> @(itemIndex) </td>
+                                            <td> @item.NagigatedDomainObject.Name </td>
+                                            <td> @item.NagigatedDomainObject.Desc </td>
+                                            <td> <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')" data-json="@(item.HiddenJsonString)"> 操作 </button> </td>
+                                        </tr>
+                                        itemIndex++;
+                                    }
                                 }
                             }
-                        }
                         </tbody>
                     </table>
                 </div>
@@ -72,3 +72,11 @@
         </div>
     </div>
 </div>
+
+
+@section referenceHeader{
+    <script>
+        var pageUrl = "/Settings/DepartmentList"
+    </script>
+  
+    }

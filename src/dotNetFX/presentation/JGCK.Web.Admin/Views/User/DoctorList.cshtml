@@ -38,14 +38,14 @@
                     <table class="table table-striped table-bordered table-hover dataTable" id="sample_1">
                         <thead>
                             <tr>
-                                @*class="sorting_asc"
-                                    class="sorting_desc"*@
+                                @*class="sorting_asc"{'sorting_asc':SortDirect_RealName=='Asc','sorting_desc':SortDirect_RealName=='Desc','sorting':SortDirect_RealName==''}{'sorting_asc':SortDirect_AuditStatus=='Asc','sorting_desc':SortDirect_AuditStatus=='Desc','sorting':SortDirect_AuditStatus==''}
+        class="sorting_desc"*@
                                 <th> 序号 </th>
-                                <th @@click="click_setsort('RealName')" :class="{'sorting_asc':SortDirect_RealName=='Asc','sorting_desc':SortDirect_RealName=='Desc','sorting':SortDirect_RealName==''}"> 医生姓名 </th>
+                                <th @@click="click_setsort('RealName')" :class="get_sortCLass('RealName')"> 医生姓名 </th>
                                 <th> 医生编号 </th>
                                 <th> 固定电话 </th>
                                 <th> 手机 </th>
-                                <th @@click="click_setsort('Doctor.AuditStatus')" :class="{'sorting_asc':SortDirect_AuditStatus=='Asc','sorting_desc':SortDirect_AuditStatus=='Desc','sorting':SortDirect_AuditStatus==''}"> 审核状态 </th>
+                                <th @@click="click_setsort('Doctor.AuditStatus')" :class="get_sortCLass('Doctor.AuditStatus')"> 审核状态 </th>
                                 <th> 审核时间 </th>
                                 <th> 操作 </th>
                             </tr>
@@ -233,27 +233,20 @@
                 doctorObj: "",
                 sort_keys:[]
             },
-            created: function () {
-                console.log(Cookies.get('sf_doctorData_sort_keys'))
+            created: function () {              
                 if (Cookies.get('sf_doctorData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys'))
             },
             mounted: function () {
-                console.log(this.SortDirect_RealName)
-                console.log(this.SortDirect_AuditStatus)
+                console.log(Cookies.get('sf_doctorData_sort_keys'))
+                console.log(this.sort_keys)
             },
-            computed: {
-                SortDirect_RealName: function () {
-                    var _tmp = _.where(this.sort_keys, { SortProperty: "RealName" });
-                    if (!_tmp && _tmp.length === 0) return '';
-                    return(_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                },
-                SortDirect_AuditStatus: function () {
-                    var _tmp = _.where(this.sort_keys, { SortProperty: "Doctor.AuditStatus" });
-                    if (!_tmp && _tmp.length === 0) return '';
-                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                }
-            },
+            computed: {},
             methods: {
+                get_sortCLass: function (sortName) {
+                    var _tmp = _.where(this.sort_keys, { SortProperty: sortName});
+                    if (_tmp.length === 0) return 'sorting';
+                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");                   
+                },
                 click_showDoctorPop: function (doctorObj) {
                     this.doctorObj = doctorObj.NagigatedDomainObject
                     console.log(this.doctorObj)
@@ -261,7 +254,8 @@
                 },
                 click_setsort: function (Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
-                    var SortDirect = (_tmp && _tmp.length>0 && _tmp[0].SortDirect===1 ? "Desc" : "Asc");
+                    var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
+                    Cookies.remove('sf_doctorData_sort_keys');
                     $.post("/ajaxcommon/setsort/", {
                         "ModuleName": "sf_doctorData_sort_keys",
                         "SortProperty": Name,     //ID, RealName, Doctor.DoctorCode, Doctor.AuditStatus
