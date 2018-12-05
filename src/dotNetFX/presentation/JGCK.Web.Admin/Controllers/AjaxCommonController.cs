@@ -52,6 +52,11 @@ namespace JGCK.Web.Admin.Controllers
             return Json(new VM_JsonOnlyResult {Result = true});
         }
 
+        /// <summary>
+        /// 上传接口
+        /// </summary>
+        /// <param name="uploadType">format:region:module1:module2</param>
+        /// <returns></returns>
         [HttpPost]
         public Task<JsonResult> UploadFile(string uploadType = "resources")
         {
@@ -73,38 +78,27 @@ namespace JGCK.Web.Admin.Controllers
                     ret.Err = "File length is more than max limit.";
                     return Json(ret);
                 }
-
-                var toUploadFileInfo = new FileInfo(toUploadFile.FileName ?? "");
-                var isToTranscoding = string.Compare(
-                                          toUploadFileInfo.Extension, ".webm",
-                                          StringComparison.OrdinalIgnoreCase) == 0;
-                if (!isToTranscoding)
-                {
-                    var genFileName = uploadType + "_" + Guid.NewGuid().ToString() + toUploadFileInfo.Extension;
-                    toUploadFile.SaveAs(SaveFilePath + genFileName);
-                    ret.Value = VisitResUrl + genFileName;
-                    ret.Result = true;
-                    var qiniuUrl = QiniuStorageHelper.UploadFile(SaveFilePath + genFileName, uploadType, (file) =>
-                    {
-                        if (System.IO.File.Exists(file))
-                        {
-                            System.IO.File.Delete(file);
-                        }
-                    });
-                    if (!string.IsNullOrEmpty(qiniuUrl))
-                    {
-                        ret.Value = qiniuUrl;
-                    }
-                }
-                else
-                {
-                    var buffer = new byte[toUploadFile.ContentLength];
-                    toUploadFile.InputStream.Read(buffer, 0, buffer.Length);
-                    ret.Result = true;
-                    ret.Value = QiniuStorageHelper.PutAudioFile(buffer, uploadType, Guid.NewGuid().ToString());
-                }
+                toUploadFile.SaveAs("");
                 return Json(ret);
             });
+        }
+
+        private static readonly object lockWithCreateDir = new object();
+        
+        public string GetOrCreateStorageDir(string rootPath, string type)
+        {
+            var fileStorageDir = Path.Combine(rootPath, type.Replace(":", @"\"));
+            if (!Directory.Exists(fileStorageDir))
+                return fileStorageDir;
+
+            lock (lockWithCreateDir)
+            {
+                if (!Directory.Exists(fileStorageDir))
+                    return fileStorageDir;
+
+                Directory.CreateDirectory(fileStorageDir);
+                return fileStorageDir;
+            }
         }
     }
 }
