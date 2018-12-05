@@ -15,7 +15,8 @@ namespace JGCK.Framework
         private IList<IDBProxy> proxyContrainer;
 
         public Func<object, bool> PreLogicDeleteHandler { get; set; }
-        public Func<object,bool> PreOnAddHandler { get; set; }
+        public Func<bool> PreOnAddHandler { get; set; }
+        public Func<bool> PreOnUpdateHandler { get; set; }
 
         public AbstractDefaultAppService()
         {
@@ -71,6 +72,30 @@ namespace JGCK.Framework
             return isAsync
                 ? Task.FromResult(entDbProxy.Commit())
                 : entDbProxy.CommitAsync();
+        }
+
+        public virtual Task<int> AddObject<TEntity>(TEntity ent, bool isAsync = false) where TEntity : class
+        {
+            var objectContext = GetObjectContextDynamical<TEntity>();
+            var canAdding = PreOnAddHandler?.Invoke();
+            if (canAdding.HasValue && canAdding.Value)
+            {
+                return isAsync ? Task.FromResult(objectContext.Add(ent)) : objectContext.AddAsync(ent);
+            }
+
+            return Task.FromResult(0);
+        }
+
+        public virtual Task<int> UpdateObject<TEntity>(TEntity ent, bool isAsync = false) where TEntity : class
+        {
+            var objectContext = GetObjectContextDynamical<TEntity>();
+            var canUpdating = PreOnAddHandler?.Invoke();
+            if (canUpdating.HasValue && canUpdating.Value)
+            {
+                var entDbProxy = (IDBProxy) objectContext;
+                return isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
+            }
+            return Task.FromResult(0);
         }
 
         private dynamic GetObjectContextDynamical<TEntity>()

@@ -255,7 +255,7 @@
                 click_setsort: function (Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                    Cookies.remove('sf_doctorData_sort_keys');
+                    //Cookies.remove('sf_doctorData_sort_keys');
                     $.post("/ajaxcommon/setsort/", {
                         "ModuleName": "sf_doctorData_sort_keys",
                         "SortProperty": Name,     //ID, RealName, Doctor.DoctorCode, Doctor.AuditStatus
