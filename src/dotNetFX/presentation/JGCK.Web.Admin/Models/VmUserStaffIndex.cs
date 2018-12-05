@@ -19,8 +19,8 @@ namespace JGCK.Web.Admin.Models
             var exp = PredicateBuilder.Create<Person>(p => !p.IsDoctor && !p.IsDeleted);
             if (!string.IsNullOrEmpty(this.Filter))
             {
-                exp = exp.And(p => p.RealName.Contains(Filter)
-                                   || p.Phone.Contains(Filter));
+                exp = exp.And(p => (!string.IsNullOrEmpty(p.RealName) && p.RealName.Contains(Filter))
+                                   || (!string.IsNullOrEmpty(p.Phone) && p.Phone.Contains(Filter)));
             }
 
             return exp;

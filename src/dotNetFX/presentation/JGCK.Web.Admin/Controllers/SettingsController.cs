@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HSMY_AdminWeb.Models;
 using JGCK.Modules.Configuration;
 using JGCK.Respority.BasicInfo;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
+using JGCK.Web.General.Helper;
 using Newtonsoft.Json;
 
 namespace JGCK.Web.Admin.Controllers
@@ -15,6 +17,8 @@ namespace JGCK.Web.Admin.Controllers
     public class SettingsController : JGCK_MvcController
     {
         private WorktimeManager m_ConfigWorktimeService { get; set; }
+        private DepartmentManager m_DepartmentService { get; set; }
+        private HospitalManager m_HospitalService { get; set; }
 
         // GET: Settings
         public ActionResult Index()
@@ -96,18 +100,105 @@ namespace JGCK.Web.Admin.Controllers
 
         #region 医院管理
 
-        public ActionResult HospitalList()
+        public async Task<ActionResult> HospitalList(string filter, int? p)
         {
-            return View();
+            var hospitalIndex = new VmHospitalIndex() { Filter = filter?.Trim() };
+            var pageIndex = p.HasValue ? p.Value : 1;
+            var searchExp = hospitalIndex.CombineExpression();
+            var entList =
+                await m_HospitalService.GetHospitalListAsync(searchExp, UserSortBy<Hospital, JsonSortValue>(ConfigHelper.KeyModuleHospitalSort),
+                    pageIndex);
+            hospitalIndex.TotalRecordCount = await m_HospitalService.GetHospitalCount(searchExp);
+            hospitalIndex.ViewObjects = entList.Select(item => new VmHospital()
+            {
+                NagigatedDomainObject = item,
+                ResetSettingHandler = () =>
+                {
+                    JsonConvert.DefaultSettings = () =>
+                    {
+                        var js = new JsonSerializerSettings();
+                        js.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                        return js;
+                    };
+                }
+            }).ToList();
+            hospitalIndex.CurrentIndex = pageIndex;
+            return View(hospitalIndex);
         }
 
         #endregion
 
         #region 部门管理
 
-        public ActionResult DepartmentList()
+        public async Task<ActionResult> DepartmentList()
         {
-            return View();
+            var ret =  (await m_DepartmentService.GetDepartments())
+                .Select(dep => new VmDepartment {NagigatedDomainObject = dep})
+                .ToList();
+            return View(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddDepartment(VmDepartment dep)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            if (!ModelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_DepartmentService.PreOnAddHandler =
+                () => !m_DepartmentService.DepartmentExists(dep.NagigatedDomainObject.Name);
+            var addedRet = await m_DepartmentService.AddObject(dep.NagigatedDomainObject, true);
+            if (addedRet > 0)
+            {
+                jsonResult.Value = dep.NagigatedDomainObject.ID;
+                jsonResult.Result = true;
+            }
+
+            return Json(jsonResult);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DelDepartment(long depId)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var deleted = await m_DepartmentService.LogicObjectDelete<Department, long>(depId, true);
+            if (deleted > 0)
+            {
+                ret.Value = depId;
+                ret.Result = true;
+                return Json(ret);
+            }
+
+            return Json(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateDepartment(VmDepartment dep)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            if (!ModelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", this.VModelErrorCollect);
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_DepartmentService.PreOnUpdateHandler =
+                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
+            m_DepartmentService.OnUpdatingHandler = (oDep, nDep) =>
+            {
+                ((Department) oDep).Desc = ((Department) nDep).Desc;
+            };
+            var updatedRet = await m_DepartmentService.UpdateObject(dep.NagigatedDomainObject, true);
+            if (updatedRet > 0)
+            {
+                jsonResult.Value = dep.NagigatedDomainObject.ID;
+                jsonResult.Result = true;
+            }
+
+            return Json(jsonResult);
         }
 
         #endregion

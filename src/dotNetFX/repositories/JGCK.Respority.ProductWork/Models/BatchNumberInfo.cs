@@ -9,7 +9,7 @@ namespace JGCK.Respority.ProductWork
     using System.Data.Entity.Spatial;
 
     [Table("BatchNumberInfo")]
-    public partial class BatchNumberInfo : AbstractDomainEntity
+    public partial class BatchNumberInfo : AbstractDomainEntity, IEntity<ProductDbProxy>
     {
         public BatchNumberInfo()
         {

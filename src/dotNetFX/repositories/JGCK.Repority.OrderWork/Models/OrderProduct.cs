@@ -9,7 +9,7 @@ namespace JGCK.Repority.OrderWork
     using System.Data.Entity.Spatial;
 
     [Table("OrderProduct")]
-    public partial class OrderProduct : AbstractDomainEntity
+    public partial class OrderProduct : AbstractDomainEntity, IEntity<OrderDbProxy>
     {
         public long? ProductCount { get; set; }
 

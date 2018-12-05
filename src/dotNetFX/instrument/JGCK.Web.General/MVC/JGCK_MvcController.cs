@@ -18,6 +18,9 @@ namespace JGCK.Web.General
     {
         //protected virtual string m_ModuleName => "";
 
+        protected IEnumerable<string> VModelErrorCollect =>
+            ModelState.SelectMany(m => m.Value.Errors.Select(e => e.ErrorMessage));
+
         public JGCK_MvcController()
         {
             var propsInController = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
@@ -43,7 +46,7 @@ namespace JGCK.Web.General
             where T : class
             where TSortValue : ISortValue
         {
-            var keyOfSort = $"{modulename}_sort_keys";
+            var keyOfSort = modulename;//$"{modulename}_sort_keys";
             var jsonSortValue = CookieHelper.GetValue<List<TSortValue>>(keyOfSort, false);
             var orderByExps = new List<AbstractUnitOfWork.OrderByExpression<T>>();
             jsonSortValue?.ForEach(v =>

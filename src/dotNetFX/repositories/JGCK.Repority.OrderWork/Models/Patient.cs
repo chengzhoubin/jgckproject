@@ -9,7 +9,7 @@ namespace JGCK.Repority.OrderWork
     using System.Data.Entity.Spatial;
 
     [Table("Patient")]
-    public partial class Patient : AbstractDomainEntity
+    public partial class Patient : AbstractDomainEntity, IEntity<OrderDbProxy>
     {
         public Patient()
         {

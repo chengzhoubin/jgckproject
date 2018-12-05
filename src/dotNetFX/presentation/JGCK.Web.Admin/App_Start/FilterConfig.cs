@@ -9,6 +9,7 @@ namespace JGCK.Web.Admin
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new GlobalUserAuthorizationFilterAttribute());
+            filters.Add(new GlobalExceptionHandlerAttribute());
             //filters.Add(new GlobalDisposeFilterAttribute());
         }
     }

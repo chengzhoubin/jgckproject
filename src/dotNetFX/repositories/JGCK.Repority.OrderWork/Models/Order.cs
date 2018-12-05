@@ -8,7 +8,7 @@ namespace JGCK.Repority.OrderWork
     using System.Data.Entity.Spatial;
 
     [Table("Order")]
-    public partial class Order : AbstractDomainEntity
+    public partial class Order : AbstractDomainEntity, IEntity<OrderDbProxy>
     {
         public Order()
         {

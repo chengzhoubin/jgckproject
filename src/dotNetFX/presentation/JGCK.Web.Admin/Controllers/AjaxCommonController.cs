@@ -22,7 +22,7 @@ namespace JGCK.Web.Admin.Controllers
 
         public JsonResult SetSort(JsonSortRequest sort)
         {
-            var sortKey = $"{sort.ModuleName}_sort_keys";
+            var sortKey = sort.ModuleName;//$"{sort.ModuleName}_sort_keys";
             var retSort = CookieHelper.GetValue<List<JsonSortValue>>(sortKey, false) ?? new List<JsonSortValue>();
             var existSort = retSort.FirstOrDefault(j => j.SortProperty == sort.SortProperty);
             if (existSort == null)

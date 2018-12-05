@@ -9,7 +9,7 @@ namespace JGCK.Respority.ContentWork
     using System.Data.Entity.Spatial;
 
     [Table("PortalColumn")]
-    public partial class PortalColumn : AbstractDomainEntity
+    public partial class PortalColumn : AbstractDomainEntity, IEntity<ContentDbProxy>
     {
         [Required]
         [StringLength(150)]

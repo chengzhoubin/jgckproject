@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using JGCK.Framework.Repository;
 using JGCK.Respority.BasicInfo.Models;
 
@@ -10,7 +11,7 @@ namespace JGCK.Respority.BasicInfo
     using System.Data.Entity.Spatial;
 
     [Table("Hospital")]
-    public partial class Hospital : AbstractDomainEntity
+    public partial class Hospital : AbstractDomainEntityWithDeletedProperty, IEntity<BasicDbProxy>
     {
         public Hospital()
         {
@@ -62,21 +63,25 @@ namespace JGCK.Respority.BasicInfo
         /// <summary>
         /// 公立
         /// </summary>
+        [Description("公立")]
         Public = 1,
 
         /// <summary>
         /// 私立
         /// </summary>
+        [Description("私立")]
         Private,
 
         /// <summary>
         /// 集团
         /// </summary>
+        [Description("集团")]
         Group,
 
         /// <summary>
         /// 其他
         /// </summary>
+        [Description("其他")]
         Other
     }
 
@@ -89,16 +94,19 @@ namespace JGCK.Respority.BasicInfo
         /// <summary>
         /// 基本账号
         /// </summary>
+        [Description("基本账号")]
         Basic = 2,
 
         /// <summary>
         /// 支付宝
         /// </summary>
+        [Description("Alipay")]
         Alipay,
 
         /// <summary>
         /// 其他
         /// </summary>
+        [Description("其他")]
         Other
     }
 
@@ -108,16 +116,19 @@ namespace JGCK.Respority.BasicInfo
         /// <summary>
         /// 一个月
         /// </summary>
+        [Description("一个月")]
         OneMonth = 2,
 
         /// <summary>
         /// 预付
         /// </summary>
+        [Description("预付")]
         PrePay,
 
         /// <summary>
         /// 其他
         /// </summary>
+        [Description("其他")]
         Other
     }
 

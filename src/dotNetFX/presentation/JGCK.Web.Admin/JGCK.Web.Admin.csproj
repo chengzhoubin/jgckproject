@@ -177,6 +177,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Enum\HospitalRank.cs" />
     <Compile Include="Enum\MicroClassFileType.cs" />
     <Compile Include="Enum\MicroClassMsgType.cs" />
@@ -185,10 +186,13 @@
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
+    <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
+    <Compile Include="Models\Validator\VmHospitalValidator.cs" />
     <Compile Include="Models\Validator\VmStaffValidator.cs" />
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmDepartment.cs" />
+    <Compile Include="Models\VmHospitalIndex.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Models\VmUserStaffIndex.cs" />
@@ -781,6 +785,7 @@
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.eot" />
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.ttf" />
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\fonts\icomoon.woff" />
+    <Content Include="Config\JGCKAdminWebLog4Net.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

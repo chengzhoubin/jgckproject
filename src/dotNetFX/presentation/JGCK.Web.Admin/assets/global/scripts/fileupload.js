@@ -4,7 +4,7 @@
 
 
 $(function () {
-    var url = 'ajax/UploadFile',
+    var url = '/ajaxcommon/uploadfile?uploadtype=',
         uploadButton = $('<button type="button"/>')
             .addClass('btn btn-primary btnUpload')
             .prop('disabled', true)

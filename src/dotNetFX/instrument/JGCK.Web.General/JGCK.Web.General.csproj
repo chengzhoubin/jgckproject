@@ -95,6 +95,7 @@
     <Compile Include="HttpModules\DynamicBindServiceModules.cs" />
     <Compile Include="HttpModules\ModuleConfiguration.cs" />
     <Compile Include="HttpModules\PreApplicationStartCode.cs" />
+    <Compile Include="MVC\GlobalExceptionHandlerAttribute.cs" />
     <Compile Include="MVC\GlobalUserAuthorizationFilterAttribute.cs" />
     <Compile Include="MVC\JGCKUserToken.cs" />
     <Compile Include="MVC\JsonNetValueProviderFactory.cs" />

@@ -23,4 +23,9 @@ namespace JGCK.Framework.Repository
 
         public DateTime CreateDate { get; set; } = DateTime.Now;
     }
+
+    public abstract class AbstractDomainEntityWithDeletedProperty : AbstractDomainEntity
+    {
+        public bool IsDeleted { get; set; }
+    }
 }

@@ -1,4 +1,7 @@
-﻿<div class="page-bar">
+﻿@using JGCK.Util
+@using Webdiyer.WebControls.Mvc
+@model JGCK.Web.Admin.Models.VmHospitalIndex
+<div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <a href="index.html">基础管理</a>
@@ -9,8 +12,8 @@
         </li>
     </ul>
     <div class="page-toolbar">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn green btn-sm btn-outline"> 新增 </button>
+        <div class="btn-group pull-right">         
+            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showPop()"> 新增 </button>
         </div>
     </div>
 </div>
@@ -22,224 +25,79 @@
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <div class="row">
-    <div class="col-md-12">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet light">
-            <!--<div class="portlet-title">-->
-            <!--<div class="caption font-dark">-->
-            <!--<i class="icon-settings font-dark"></i>-->
-            <!--<span class="caption-subject bold uppercase">医生列表</span>-->
-            <!--</div>-->
-            <!--<div class="tools"> </div>-->
-            <!--</div>-->
-            <div class="portlet-body">
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <!--<label>Small Input Default Group</label>-->
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="医院编号、医院名称">
-                                    <span class="input-group-btn">
-                                        <button class="btn green" type="button">搜索</button>
-                                    </span>
-                                </div>
+<div class="col-md-12">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet light">
+        <!--<div class="portlet-title">-->
+        <!--<div class="caption font-dark">-->
+        <!--<i class="icon-settings font-dark"></i>-->
+        <!--<span class="caption-subject bold uppercase">医生列表</span>-->
+        <!--</div>-->
+        <!--<div class="tools"> </div>-->
+        <!--</div>-->
+        <div class="portlet-body">
+            <div class="table-toolbar">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!--<label>Small Input Default Group</label>-->
+                            <div class="input-group input-group-sm">
+                                @Html.TextBoxFor(m=>m.Filter,new{@class="form-control",placeholder= "医院编号、医院名称" })
+                                <span class="input-group-btn">
+                                    <button id="btnSearch" class="btn green" type="button">搜索</button>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <!--<div class="">-->
-                    <!--<ul class="ul-person">-->
-                    <!--<li>-->
-                    <!--<a class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelbasic').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item" onclick="$('#modelfull').modal('show')">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<span class="item">-->
-                    <!--<span aria-hidden="true" class="icon-user"></span>-->
-                    <!--用户用户（啊啊）-->
-                    <!--</span>-->
-                    <!--</li>-->
-                    <!--</ul>-->
-                    <!--</div>-->
                 </div>
-                <!--<style>-->
-                <!--.ul-person li{-->
-                <!--list-style: none;-->
-                <!--float: left;-->
-                <!--margin: 10px;-->
-                <!--}-->
-                <!--.ul-person li .item{-->
-                <!--display: inline-block;-->
-                <!--height: 50px;-->
-                <!--color:#fff;-->
-                <!--background-color: #ff8666;-->
-                <!--padding: 15px;-->
-                <!--border-radius: 5px !important;-->
-                <!--overflow: hidden;-->
-                <!--}-->
-                <!--</style>-->
                 <table class="table table-striped table-bordered table-hover dataTable" id="sample_1">
                     <thead>
-                        <tr>
-                            <th class="sorting_asc"> 序号 </th>
-                            <th class="sorting"> 医院编号 </th>
-                            <th class="sorting_desc"> 医院名称 </th>
-                            <th> 医院属性 </th>
-                            <th> 付款方式 </th>
-                            <th class="sorting"> 付款周期 </th>
-                            <th> 折扣系数 </th>
-                            <th> 收件联系人 </th>
-                            <th> 联系电话 </th>
-                            <th> 操作 </th>
-                        </tr>
+                    <tr>
+                        <th class="sorting_asc"> 序号 </th>
+                        <th class="sorting"> 医院编号 </th>
+                        <th @@click="click_setsort('Name')" :class="get_sortCLass('Name')"> 医院名称 </th>
+                        <th @@click="click_setsort('HospitalType')" :class="get_sortCLass('HospitalType')"> 医院属性 </th>
+                        <th @@click="click_setsort('PaymentType')" :class="get_sortCLass('PaymentType')"> 付款方式 </th>
+                        <th @@click="click_setsort('PaymentPeriod')" :class="get_sortCLass('PaymentPeriod')"> 付款周期 </th>
+                        <th @@click="click_setsort('SaleRate')" :class="get_sortCLass('SaleRate')"> 折扣系数 </th>
+                        <th> 收件联系人 </th>
+                        <th> 联系电话 </th>
+                        <th> 操作 </th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
-                        <tr>
-                            <td> 1 </td>
-                            <td> BABC001 </td>
-                            <td> 扬州贝恩口腔医院有限公司 </td>
-                            <td> 民营 </td>
-                            <td> 基本帐号 </td>
-                            <td> 1个月 </td>
-                            <td> 	1.0 </td>
-                            <td> 陈梅兰 </td>
-                            <td> 13912345678</td>
-                            <td>  <button type="button" class="btn green btn-sm" onclick="$('#modelfull').modal('show')"> 操作 </button> </td>
-                        </tr>
+                    @if (Model?.ViewObjects != null)
+                    {
+                        var itemIndex = 1;
+                        foreach (var item in Model.ViewObjects)
+                        {
+                            <tr>
+                                <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
+                                <td> @item.NagigatedDomainObject.HCode </td>
+                                <td> @item.NagigatedDomainObject.Name </td>
+                                <td> @item.NagigatedDomainObject.HospitalType.ToDescription() </td>
+                                <td> @item.NagigatedDomainObject.PaymentType.ToDescription() </td>
+                                <td> @item.NagigatedDomainObject.PaymentPeriod.ToDescription() </td>
+                                <td> @($"{item.NagigatedDomainObject.SaleRate:0.00}") </td>
+                                <td> @item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.Receipter </td>
+                                <td> @item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.ReceipterPhone </td>
+                                <td> <button type="button" class="btn green btn-sm" onclick="click_showPop()"> 操作 </button> </td>
+                            </tr>
+                            itemIndex++;
+                        }
+                    }
                     </tbody>
                 </table>
-
-
-
                 <div>
-                    <ul class="pagination pagination-sm">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"> 1 </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"> 2 </a>
-                        </li>
-                        <li class="active">
-                            <a href="javascript:;"> 3 </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"> 4 </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"> 5 </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"> 6 </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
+                    {
+                        PageIndexParameterName = "p",
+                        ContainerTagName = "ul",
+                        CssClass = "pagination pagination-sm",
+                        CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
+                        DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
+                        PagerItemTemplate = "<li>{0}</li>"
+                    })
                 </div>
             </div>
         </div>
@@ -612,9 +470,51 @@
 
         <!-- 实例化编辑器 -->
         <script type="text/javascript">
-            $(function () {
-                var um = UM.getEditor('container', {
+            $(function() {
+                var um = UM.getEditor('container',{ });
+                $("#btnSearch").click(function () {
+                    if ($("#Filter").val() == "") {
+                        location.href = '@Url.Action("HospitalList")';
+                        return;
+                    }
+                    var reloadUrlWithFilter = '@Url.Action("HospitalList")?filter=' + encodeURI($("#Filter").val());
+                    location.href = reloadUrlWithFilter;
                 });
             });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    hospital: ""
+                },
+                methods: {
+                    get_sortCLass: function (sortName) {
+                        var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
+                        if (_tmp.length === 0) return 'sorting';
+                        return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
+                    },
+                    click_showPop: function (Obj) {
+                        $('#modelfull').modal('show')                 
+                    },
+                    click_setsort: function (Name) {
+                        var _tmp = _.where(this.sort_keys, { SortProperty: Name });
+                        var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
+                        Cookies.remove('sf_hospitalData_sort_keys');
+                        $.post("/ajaxcommon/setsort/", {
+                            "module": "sf_hospitalData_sort_keys",
+                            "sortby": Name,
+                            "directby": SortDirect
+                        }).then(item => {
+                            window.location.reload();
+                        });
+                    },
+                    click_save: function () {                     
+                    }
+                }
+            })
+
+
+
+
         </script>
     }

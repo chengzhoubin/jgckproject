@@ -11,7 +11,7 @@ using JGCK.Framework.Repository;
 namespace JGCK.Respority.UserWork
 {
     [Table("PersonDoctor")]
-    public class PersonDoctor : AbstractDomainEntity
+    public class PersonDoctor : AbstractDomainEntity, IEntity<UserDbProxy>
     {
         public PersonDoctor()
         {
