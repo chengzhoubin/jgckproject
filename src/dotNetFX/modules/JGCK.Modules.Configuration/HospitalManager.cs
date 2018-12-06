@@ -32,5 +32,10 @@ namespace JGCK.Modules.Configuration
         {
             return basicDbContext.Hospital.CountAsync(search);
         }
+
+        public bool HospitalExists(string hospitalName)
+        {
+            return basicDbContext.Hospital.Any(h => h.Name == hospitalName && !h.IsDeleted);
+        }
     }
 }

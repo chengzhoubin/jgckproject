@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using FluentValidation;
 using FluentValidation.Attributes;
-using JGCK.Web.Admin.Models.Validator;
 
 namespace JGCK.Web.Admin.Models
 {

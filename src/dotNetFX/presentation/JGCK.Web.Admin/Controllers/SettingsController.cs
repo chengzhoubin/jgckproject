@@ -128,6 +128,29 @@ namespace JGCK.Web.Admin.Controllers
             return View(hospitalIndex);
         }
 
+        public async Task<JsonResult> AddHospital(VmHospital vm)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            var val = new VmHospitalValidator();
+            var modelState = val.Validate(vm);
+            if (!modelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_HospitalService.PreOnAddHandler = () => !m_HospitalService.HospitalExists(vm.NagigatedDomainObject.Name);
+            var addResult = await m_HospitalService.AddObject(vm.NagigatedDomainObject, true);
+            if (addResult == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+
+            jsonResult.Err = addResult.ToDescription();
+            return Json(jsonResult);
+        }
+
         #endregion
 
         #region 部门管理

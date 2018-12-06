@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using FluentValidation;
 
-namespace JGCK.Web.Admin.Models.Validator
+namespace JGCK.Web.Admin.Models
 {
     public class VmHospitalValidator : AbstractValidator<VmHospital>
     {
