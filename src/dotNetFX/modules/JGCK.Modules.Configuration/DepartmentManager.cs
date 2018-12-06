@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using JGCK.Framework.EF;
 using JGCK.Respority.BasicInfo;
+using JGCK.Util.Enums;
 
 namespace JGCK.Modules.Configuration
 {
@@ -13,7 +15,15 @@ namespace JGCK.Modules.Configuration
         public Task<List<Department>> GetDepartments()
         {
             Expression<Func<Department, bool>> exp = dep => !dep.IsDeleted;
-            return basicDbContext.GetObjectsAsync(exp);
+            var orderExps = new AbstractUnitOfWork.OrderByExpression<Department>[]
+            {
+                new AbstractUnitOfWork.OrderByExpression<Department>
+                {
+                    OrderByExpressionMember = "ID",
+                    SortBy = AscOrDesc.Desc
+                }
+            };
+            return basicDbContext.GetObjectsAsync(exp, orderByExpressions: orderExps);
         }
 
         public bool DepartmentExists(string name)

@@ -16,13 +16,13 @@ namespace JGCK.Modules.Membership
         public async Task<CheckUserPwdResult> CheckAsync(string userName, string pwd,
             Func<string, string> pwdMd5HashHandler = null)
         {
-            var anUser = await userDbContext.Person.FirstOrDefaultAsync(user => user.Name == userName);
+            var anUser = await userDbContext.Person.FirstOrDefaultAsync(user => user.Name == userName && !user.IsDoctor);
             return GetCheckingResult(anUser, pwd, pwdMd5HashHandler);
         }
 
         public CheckUserPwdResult Check(string userName, string pwd, Func<string, string> pwdMd5HashHandler = null)
         {
-            var anUser = userDbContext.Person.FirstOrDefault(user => user.Name == userName);
+            var anUser = userDbContext.Person.FirstOrDefault(user => user.Name == userName && !user.IsDoctor);
             return GetCheckingResult(anUser, pwd, pwdMd5HashHandler);
         }
 
