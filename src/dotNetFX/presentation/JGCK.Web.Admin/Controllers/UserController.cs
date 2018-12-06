@@ -13,10 +13,12 @@ using JGCK.Respority.UserWork;
 using JGCK.Util;
 using JGCK.Util.Enums;
 using JGCK.Web.Admin.Models;
+using JGCK.Web.Admin.Models.Mapper;
 using JGCK.Web.General;
 using JGCK.Web.General.Helper;
 using JGCK.Web.General.MVC;
 using Newtonsoft.Json;
+using JGCK.Web.Admin.Models.Mapper;
 
 namespace JGCK.Web.Admin.Controllers
 {
@@ -92,10 +94,43 @@ namespace JGCK.Web.Admin.Controllers
         [HttpPost]
         public async Task<JsonResult> UpdateDoctor(VmUserDoctor doctor)
         {
-            var vm = new VM_JsonOnlyResult();
-            var ret = await m_DoctorManagerService.UpdateDoctorInfo(doctor.NagigatedDomainObject);
-            vm.Result = ret > 0;
-            return Json(vm);
+            var jsonResult = new VM_JsonOnlyResult();
+            var val = new VmDoctorValidator();
+            var modelState = val.Validate(doctor);
+            if (!modelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_DoctorManagerService.PreOnUpdateHandler =
+                () => m_DoctorManagerService.GetDoctor(doctor.NagigatedDomainObject.ID);
+            m_DoctorManagerService.OnUpdatingHandler = (o, n) => { ((Person) n).MapTo((Person) o); };
+            var updateStatus = await m_DoctorManagerService.UpdateObject(doctor.NagigatedDomainObject);
+            if (updateStatus == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+
+            jsonResult.Err = updateStatus.ToDescription();
+            return Json(jsonResult);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteDoctor(long doctorId)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            m_DoctorManagerService.PreLogicDeleteHandler = () => m_DoctorManagerService.GetDoctor(doctorId) != null;
+            var deleteStatus = await m_DoctorManagerService.LogicObjectDelete<Person, long>(doctorId);
+            if (deleteStatus == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+
+            jsonResult.Err = deleteStatus.ToDescription();
+            return Json(jsonResult);
         }
 
         #endregion
@@ -168,6 +203,36 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             ret.Err = deleted.ToDescription();
+            return Json(ret);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateStaff(VmStaff staff)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var modelState = (new VmStaffValidator()).Validate(staff);
+            if (!modelState.IsValid)
+            {
+                ret.Value = -1001;
+                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                return await Task.FromResult(Json(ret));
+            }
+
+            m_UserManagerService.PreOnUpdateHandler =
+                () => m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
+            m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
+            {
+                ((Person)newObject).MapTo((Person)existOject);
+            };
+            var updatedRet = await m_UserManagerService.UpdateObject(staff.NagigatedDomainObject, true);
+            if (updatedRet == AppServiceExecuteStatus.Success)
+            {
+                ret.Value = staff.NagigatedDomainObject.ID;
+                ret.Result = true;
+                return Json(ret);
+            }
+
+            ret.Err = updatedRet.ToDescription();
             return Json(ret);
         }
     }
