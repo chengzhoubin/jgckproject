@@ -84,8 +84,9 @@ namespace JGCK.Web.Admin.Controllers
 
                 var saveFileDir = GetOrCreateStorageDir(
                     LocalStorageConfiguration.Instance.UploadRootPath, uploadType);
-                
-                var allowed = IsAllowedExtension(toUploadFile, saveFileDir, out string outputFullFileName);
+
+                string outputFullFileName;
+                var allowed = IsAllowedExtension(toUploadFile, saveFileDir, out outputFullFileName);
                 if (!allowed)
                 {
                     ret.Err = "File type is not allowed to upload.";
