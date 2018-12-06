@@ -16,7 +16,7 @@
     <AssemblyName>JGCK.Web.Admin</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -580,6 +580,7 @@
     <Content Include="assets\global\scripts\app.min.js" />
     <Content Include="assets\global\scripts\datatable.js" />
     <Content Include="assets\global\scripts\datatable.min.js" />
+    <Content Include="assets\global\scripts\fileupload.js" />
     <Content Include="assets\layouts\layout\css\custom.css" />
     <Content Include="assets\layouts\layout\css\layout.css" />
     <Content Include="assets\layouts\layout\css\themes\blue.css" />
@@ -598,7 +599,6 @@
     <Content Include="assets\layouts\layout\img\logo-invert.png" />
     <Content Include="assets\layouts\layout\scripts\demo.min.js" />
     <Content Include="assets\layouts\layout\scripts\layout.min.js" />
-    <Content Include="assets\pages\scripts\table-datatables-editable.js" />
     <Content Include="assets\scripts\promise.js" />
     <Content Include="assets\img\apple-icon.png" />
     <Content Include="assets\img\favicon.png" />
@@ -654,19 +654,6 @@
     <Content Include="assets\layouts\layout\img\sidebar_toggler_icon_light2.png" />
     <Content Include="assets\layouts\layout\scripts\demo.js" />
     <Content Include="assets\layouts\layout\scripts\layout.js" />
-    <Content Include="assets\pages\css\host.css" />
-    <Content Include="assets\pages\scripts\0ad.js" />
-    <Content Include="assets\pages\scripts\0chatlist.js" />
-    <Content Include="assets\pages\scripts\0classlist.js" />
-    <Content Include="assets\pages\scripts\0departmentlist.js" />
-    <Content Include="assets\pages\scripts\0diseaseClass-list.js" />
-    <Content Include="assets\pages\scripts\0doctor-list.js" />
-    <Content Include="assets\pages\scripts\0hostpital-list.js" />
-    <Content Include="assets\pages\scripts\0pt.js" />
-    <Content Include="assets\pages\scripts\0rss-list.js" />
-    <Content Include="assets\pages\scripts\0rss-update.js" />
-    <Content Include="assets\pages\scripts\0addclass.js" />
-    <Content Include="assets\pages\scripts\0host.js" />
     <Content Include="assets\scripts\klorofil-common.js" />
     <Content Include="assets\vendor\bootstrap\css\bootstrap-theme.css" />
     <Content Include="assets\vendor\bootstrap\css\bootstrap-theme.min.css" />
@@ -834,7 +821,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
+    <Folder Include="assets\pages\css\" />
     <Folder Include="assets\pages\img\" />
+    <Folder Include="assets\pages\scripts\" />
     <Folder Include="Models\Mapper\" />
   </ItemGroup>
   <ItemGroup>

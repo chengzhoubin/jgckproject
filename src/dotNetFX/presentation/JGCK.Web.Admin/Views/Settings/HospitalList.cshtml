@@ -480,6 +480,10 @@
                     var reloadUrlWithFilter = '@Url.Action("HospitalList")?filter=' + encodeURI($("#Filter").val());
                     location.href = reloadUrlWithFilter;
                 });
+
+                fileuploadModule('#fileupload1', '#files_preview1', false, function (data) { }, 'hospital:license',100, 100);
+                fileuploadModule('#fileupload2', '#files_preview2', false, function (data) { }, 'hospital:license',100, 100);
+                fileuploadModule('#fileupload3', '#files_preview3', false, function (data) { }, 'hospital:license',100, 100);
             });
 
             var app = new Vue({
