@@ -97,7 +97,6 @@
                             }
                         </tbody>
                     </table>
-
                     <div>
                         @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
                    {
@@ -157,12 +156,11 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>员工类型:</strong>
-                                    @{ 
-                                        var jobTypeHtml = new Dictionary<string, object>();
-                                        jobTypeHtml.Add("v-model", "doctor.PersonType");
+                                    <select v-model="doctor.PersonType">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="item in ListPersonType">{{item.name}}</option>
+                                    </select>
 
-                                    }
-                                    @Html.DropDownListFor(m => m.PersonType, Model.PersonTypeList, jobTypeHtml)
                                 </li>
                             </ul>
                         </div>
@@ -175,15 +173,10 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>性别:</strong>
-                                    @{
-                                        var sexHtmlAttribute = new Dictionary<string, object>();
-                                        sexHtmlAttribute.Add("v-model", "doctor.Sex");
-                                    }
-                                    @Html.DropDownListFor(m => m.Sex, Model.SexList, sexHtmlAttribute)
-                                    @*<select v-model="doctor.Sex">
-                                        <option value="1">男</option>
-                                        <option value="2">女</option>
-                                    </select>*@
+                                    <select v-model="doctor.Sex">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
+                                    </select>
                                 </li>
                             </ul>
                         </div>
@@ -274,13 +267,12 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>学历:</strong>
-                                    @{
-                                        var educationHtml = new Dictionary<string, object>();
-                                        educationHtml.Add("v-model", "doctor.Education");
-
-                                    }
-                                    @Html.DropDownListFor(m => m.EducationType, Model.EducationTypeList, educationHtml)
+                                <li>
+                                    <strong>学历:</strong>
+                                    <select v-model="doctor.Education">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
+                                    </select>
                                 </li>
                             </ul>
                         </div>
@@ -327,55 +319,54 @@
                                     </script>
                                 </li>
                             </ul>
-                            </d
-                            <hr />
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <strong>备注:</strong>
-                                            注：
-
-                                            1。员工类型，只做显示，不做操作。<br />
-
-                                            判定规则 ：<br />
-
-                                            ａ）正式在职：有入职时间 ，没有离职时间<br />
-
-                                            ｂ）正式离职：有入职时间，有离职时间<br />
-
-                                            Ｃ）实习在职：没有入职时间，没有离职时间。有实习开始时间，没有实习结束时间<br />
-                                            Ｄ）实习离职：没有入职时间，没有离职时间。有实习开始时间，有实习结束时间<br />
-
-                                            Ｆ）实习转正：有入职时间，没有离职时间。有实习开始时间，没有实习结束时间<br />
-
-                                            ２。密码操作：<br />
-
-                                            ａ）密码为空时，不作密码修改<br />
-
-                                            ｂ）输入新密码时，作密码修改<br />
-
-                                            3。删除操作：（具体等我和用户讨论在定）<br />
-
-
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
                         </div>
 
-
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn green" @@click="click_save">保存</button>
-                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>备注:</strong>
+                                    注：
+
+                                    1。员工类型，只做显示，不做操作。<br />
+
+                                    判定规则 ：<br />
+
+                                    ａ）正式在职：有入职时间 ，没有离职时间<br />
+
+                                    ｂ）正式离职：有入职时间，有离职时间<br />
+
+                                    Ｃ）实习在职：没有入职时间，没有离职时间。有实习开始时间，没有实习结束时间<br />
+                                    Ｄ）实习离职：没有入职时间，没有离职时间。有实习开始时间，有实习结束时间<br />
+
+                                    Ｆ）实习转正：有入职时间，没有离职时间。有实习开始时间，没有实习结束时间<br />
+
+                                    ２。密码操作：<br />
+
+                                    ａ）密码为空时，不作密码修改<br />
+
+                                    ｂ）输入新密码时，作密码修改<br />
+
+                                    3。删除操作：（具体等我和用户讨论在定）<br />
+
+
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
+            <div class="modal-footer">
+                <button type="button" class="btn green" @@click="click_save">保存</button>
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+            </div>
         </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 
 
@@ -448,7 +439,7 @@
             el: '#app',
             data: {
                 doctor: "",
-                ListPersonType: [
+                ListSexList: [
                                     
                                     @{ 
                                         string sexContent = "";
