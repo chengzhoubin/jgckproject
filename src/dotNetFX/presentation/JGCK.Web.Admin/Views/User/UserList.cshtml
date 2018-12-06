@@ -189,6 +189,68 @@
                         </div>
                     </div>
                     <hr />
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>学历:</strong>
+                                    <select v-model="doctor.Education">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li> <strong>毕业学校:</strong> <input type="text" v-model="doctor.GraduateInstitution" /></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>专业:</strong><input type="text" v-model="doctor.Major" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>Email:</strong><input type="text" v-model="doctor.Email" />
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li> <strong>联系电话:</strong> <input type="text" v-model="doctor.Phone" /> </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li> <strong>紧急联系人:</strong> <input type="text" v-model="doctor.EmergencyContact" /></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>紧急联系人电话:</strong><input type="text" v-model="doctor.EmergencyPhone" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>地址:</strong><input type="text" v-model="doctor.FamliyAddress" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
@@ -259,52 +321,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>学历:</strong>
-                                    <select v-model="doctor.Education">
-                                        <option value="">请选择</option>
-                                        <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
-                                    </select>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li> <strong>毕业学校:</strong> <input type="text" v-model="doctor.GraduateInstitution" /></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>专业:</strong><input type="text" v-model="doctor.Major" />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li> <strong>联系电话:</strong> <input type="text" v-model="doctor.Phone" /> </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li> <strong>紧急联系人:</strong> <input type="text" v-model="doctor.EmergencyContact" /></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>紧急联系人电话:</strong><input type="text" v-model="doctor.EmergencyPhone" />
                                 </li>
                             </ul>
                         </div>
@@ -523,13 +539,13 @@
                             },
                 click_save: function () {
                                 console.log(this.doctor)
-                    $.post("/user/updatedoctor   ", {
+                    $.post("/user/UpdateStaff   ", {
                                     NagigatedDomainObject: this.doctor
                     }).then(item => {
                         console.log(item)
                         // window.location.reload();
                     });
-                            }
+                 }
 
             }
         })
