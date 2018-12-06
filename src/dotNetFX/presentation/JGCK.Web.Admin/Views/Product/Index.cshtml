@@ -1,1 +1,194 @@
 ﻿
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#">产品管理</a>   
+        </li>
+        
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showPop()"> 新增 </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet light">
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group input-group-sm">
+                                   <input type="text" class="form-control" placeholder="产品名称、产品类型、产品型号、产品规格" />
+                                    <span class="input-group-btn">
+                                        <button id="btnSearch" class="btn green" type="button">搜索</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-bordered table-hover dataTable" id="sample_1">
+                        <thead>
+                            <tr>
+                                <th> 序号 </th>
+                                <th> 产品名称 </th>
+                                <th> 产品类型 </th>
+                                <th> 产品型号 </th>
+                                <th> 产品规格 </th>
+                                <th> 操作 </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> 11 </td>
+                                <td> 产品名称 </td>
+                                <td> 11 </td>
+                                <td> 22 </td>
+                                <td>33 </td>
+                                <td> 
+                                    <button type="button" class="btn green btn-sm" @@click="click_showPop()">
+                                        编辑
+                                    </button></td>  
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END SAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modelbasic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">产品信息</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">名称</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-md-4 control-label">备注</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green pull-left" @@click="click_delete()">删除</button>
+                <button type="button" class="btn green" @@click="click_save()">保存</button>
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section referenceHeader{
+    <script>
+        var pageUrl = "/Product"
+    </script>
+    <style>
+        .bootbox-confirm {
+            position: fixed !important;
+            z-index: 1000000;
+            height: 100% !important;
+            top: 0 !important;
+            width: 100%;
+            padding-right: 0 !important;
+        }
+    </style>
+}
+
+
+
+@section scripts{
+    <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
+
+
+
+
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    Model: "",
+                    List:""
+                },
+                methods: {
+                    get_sortCLass: function (sortName) {
+                        var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
+                        if (_tmp.length === 0) return 'sorting';
+                        return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
+                    },
+                    click_showPop: function (Obj) {
+                        console.log(Obj)
+                        if (Obj) {
+                            this.Model = Obj.NagigatedDomainObject
+                        } else {
+                            this.Model = {
+                                ID:'',
+                                Name: '',
+                                Desc:""
+                            }
+                        }
+                        $('#modelbasic').modal('show')
+
+                    },
+                    click_delete: function () {
+                        var that = this
+                        bootbox.confirm("确定要删除吗?", function (result) {
+                            if (result) {
+                               // console.log(this.Model);
+                               //$.post("/Settings/DelDepartment", {
+                               //    depId: that.Model.ID
+                               // }).then(item => {
+                               //     window.location.reload();
+                               // });
+                            }
+                        });
+                    },
+                    click_save: function () {
+                        //console.log(this.Model)
+                        //var apiUrl = "/Settings/UpdateDepartment"
+                        //if (!this.Model.ID) {
+                        //    apiUrl = "/Settings/AddDepartment"
+                        //}
+                        //$.post(apiUrl, {
+                        //    NagigatedDomainObject: this.Model
+                        //}).then(item => {
+                        //    console.log(item);
+                        //    window.location.reload();
+                        //});
+                    }
+                }
+            })
+
+
+
+
+    </script>
+}
