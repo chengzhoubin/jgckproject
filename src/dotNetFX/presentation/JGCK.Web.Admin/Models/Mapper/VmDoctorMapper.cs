@@ -11,7 +11,7 @@ namespace JGCK.Web.Admin.Models.Mapper
         static VmDoctorMapper()
         {
             if (!ExpressMapper.Mapper.MapExists(typeof(Person), typeof(Person)))
-                ExpressMapper.Mapper.Register<Person, Person>();
+                ExpressMapper.Mapper.Register<Person, Person>().Before((s, t) => t.Role?.Person?.Clear()); ;
             if (!ExpressMapper.Mapper.MapExists(typeof(PersonDoctor), typeof(PersonDoctor)))
                 ExpressMapper.Mapper.Register<PersonDoctor, PersonDoctor>().Before((s, t) => { t.InHospital?.Clear(); });
             if (!ExpressMapper.Mapper.MapExists(typeof(DoctorInHospital), typeof(DoctorInHospital)))

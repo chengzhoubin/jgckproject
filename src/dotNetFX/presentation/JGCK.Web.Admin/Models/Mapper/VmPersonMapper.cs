@@ -11,7 +11,7 @@ namespace JGCK.Web.Admin.Models.Mapper
         static VmPersonMapper()
         {
             if (!ExpressMapper.Mapper.MapExists(typeof(Person), typeof(Person)))
-                ExpressMapper.Mapper.Register<Person, Person>();
+                ExpressMapper.Mapper.Register<Person, Person>().Before((s, t) => t.Role?.Person?.Clear());
         }
 
         public static Person MapTo(this Person existPerson, Person targetPerson)

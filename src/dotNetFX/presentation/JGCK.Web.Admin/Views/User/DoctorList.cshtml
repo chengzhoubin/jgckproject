@@ -58,7 +58,7 @@
                                     foreach (var item in Model.ViewObjects)
                                     {
                                         <tr>
-                                            <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
+                                            <td> @((Model.CurrentIndex - 1 ) * Model.PageSize + itemIndex) </td>
                                             <td> @item.NagigatedDomainObject.RealName </td>
                                             <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
                                             <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>

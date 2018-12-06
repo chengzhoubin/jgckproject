@@ -78,7 +78,7 @@
                                     foreach (var item in Model.ViewObjects)
                                     {
                                         <tr>
-                                            <td> @(Model.CurrentIndex * Model.PageSize + itemIndex) </td>
+                                            <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
                                             <td> @item.NagigatedDomainObject.Role.Name </td>
                                             <td> @item.NagigatedDomainObject.DepartmentName </td>
                                             <td> @item.NagigatedDomainObject.PersonType.ToDescription() </td>
