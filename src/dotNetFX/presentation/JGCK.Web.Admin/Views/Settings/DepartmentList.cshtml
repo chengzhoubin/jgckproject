@@ -166,15 +166,15 @@
                         $('#modelbasic').modal('show')
 
                     },
-                    click_delete: function (Name) {   
+                    click_delete: function () {   
+                        var that = this
                         bootbox.confirm("确定要删除吗?", function (result) {                           
                             if (result) {
                                 console.log(this.Model);
                                $.post("/Settings/DelDepartment", {
-                                depId: this.Model.ID
+                                   depId: that.Model.ID
                                 }).then(item => {
-                                    console.log(item)
-                                    // window.location.reload();
+                                    window.location.reload();
                                 });
                             }
                         });                  
