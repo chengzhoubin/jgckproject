@@ -44,6 +44,9 @@
                                 <th @@click="click_setsort('RealName')" :class="get_sortCLass('RealName')"> 医生姓名 </th>
                                 <th> 医生编号 </th>
                                 <th> 固定电话 </th>
+                                <th> 出生日期 </th>
+                                <th> 身份证 </th>
+                                <th> 邮 箱 </th>
                                 <th> 手机 </th>
                                 <th @@click="click_setsort('Doctor.AuditStatus')" :class="get_sortCLass('Doctor.AuditStatus')"> 审核状态 </th>
                                 <th> 审核时间 </th>
@@ -57,16 +60,19 @@
                                     var itemIndex = 1;
                                     foreach (var item in Model.ViewObjects)
                                     {
-                                        <tr>
-                                            <td> @((Model.CurrentIndex - 1 ) * Model.PageSize + itemIndex) </td>
-                                            <td> @item.NagigatedDomainObject.RealName </td>
-                                            <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
-                                            <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
-                                            <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
-                                            <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
-                                            <td> @item.NagigatedDomainObject.Doctor.AuditDate </td>
-                                            <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
-                                        </tr>
+                            <tr>
+                                <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
+                                <td> @item.NagigatedDomainObject.RealName </td>
+                                <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
+                                <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
+                                <td></td>
+                                <td></td>
+                                <td>@item.NagigatedDomainObject.Doctor.Email</td>
+                                <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
+                                <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
+                                <td> @item.NagigatedDomainObject.Doctor.AuditDate </td>
+                                <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
+                            </tr>
                                         itemIndex++;
                                     }
                                 }
@@ -125,6 +131,27 @@
                             <button type="button" class="btn green">通过</button>
                             <button type="button" class="btn yellow">不通过</button>
                             <button type="button" class="btn red">删除</button>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li> <strong>出生日期:</strong>  {{doctorObj.RealName}} </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li> <strong>身份证:</strong> {{doctorObj.IdCard}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>邮 箱:</strong> {{doctorObj.Email}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
                         </div>
                     </div>
                     <hr />

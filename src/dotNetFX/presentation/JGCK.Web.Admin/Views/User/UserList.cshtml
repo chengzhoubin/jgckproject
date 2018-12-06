@@ -13,7 +13,7 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <button type="button" class="btn green btn-sm btn-outline"> 新增 </button>
+            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showDoctorPop()"> 新增 </button>
         </div>
     </div>
 </div>
@@ -259,7 +259,7 @@
                                     @*<input type="text" v-model="doctor.HireDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" size="16" type="text" v-model="doctor.HireDate" />
+                                            <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button">
                                                     <i class="fa fa-calendar"></i>
@@ -277,7 +277,7 @@
                                     @*<input type="text" v-model="doctor.LeaveDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" size="16" type="text" v-model="doctor.LeaveDate" />
+                                            <input class="form-control" readonly="readonly" id="LeaveDate" size="16" type="text" v-model="doctor.LeaveDate" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button">
                                                     <i class="fa fa-calendar"></i>
@@ -295,7 +295,7 @@
                                     @*<input type="text" v-model="doctor.PracticeBeginDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" />
+                                            <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button">
                                                     <i class="fa fa-calendar"></i>
@@ -313,7 +313,7 @@
                                     @*<input type="text" v-model="doctor.PracticeEndDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" size="16" type="text" v-model="doctor.PracticeEndDate" />
+                                            <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button">
                                                     <i class="fa fa-calendar"></i>
@@ -327,21 +327,18 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-xs-12">
-                            <ul class="list-unstyled">
-                                <li>
+                        <div class="col-xs-12">                            
                                     <strong style="float:left;">备注:</strong>
-                                    <script id="container" name="content" type="text/plain" style="width: 1024px;height:250px">
+                                    <script id="container" name="content" type="text/plain" style="height:250px">
                                     </script>
-                                </li>
-                            </ul>
+                               
                         </div>
-
-                    </div>
-                    <hr />
+                    </div>                 
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
+                <span style="color:red;font-size:13px;">{{errMsg}}</span>
                 <button type="button" class="btn green" @@click="click_save">保存</button>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
@@ -371,6 +368,7 @@
                 .edui-container {
                     display: inline-block;
                     border: 2px solid #d4d4d4;
+                    width:100% !important;
                 }
             </style>
         }
@@ -422,6 +420,7 @@
             el: '#app',
             data: {
                 doctor: "",
+                errMsg:"",
                 ListSexList: [
                                     
                                     @{ 
@@ -482,15 +481,51 @@
                     if (_tmp.length === 0) return 'sorting';
                     return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
-                click_showDoctorPop: function (doctorObj) {
-                                if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
-                    if (doctorObj.NagigatedDomainObject.LeaveDate) doctorObj.NagigatedDomainObject.LeaveDate = formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
-                    if (doctorObj.NagigatedDomainObject.PracticeBeginDate) doctorObj.NagigatedDomainObject.PracticeBeginDate = formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
-                    if (doctorObj.NagigatedDomainObject.PracticeEndDate) doctorObj.NagigatedDomainObject.PracticeEndDate = formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
-                    this.doctor = doctorObj.NagigatedDomainObject
+                click_showDoctorPop: function (doctorObj) {              
+                    if (doctorObj) {
+                        if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
+                        if (doctorObj.NagigatedDomainObject.LeaveDate) doctorObj.NagigatedDomainObject.LeaveDate = formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
+                        if (doctorObj.NagigatedDomainObject.PracticeBeginDate) doctorObj.NagigatedDomainObject.PracticeBeginDate = formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
+                        if (doctorObj.NagigatedDomainObject.PracticeEndDate) doctorObj.NagigatedDomainObject.PracticeEndDate = formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
+                        this.doctor = doctorObj.NagigatedDomainObject
+                    } else {
+                        this.doctor = {}
+                    }                   
                     $('#modelfull').modal('show')
-
                     console.log(this.doctor)
+                },
+                click_delete: function () {
+                    var that = this
+
+                    bootbox.confirm({
+                        message: "确定要删除吗?",
+                        size: "small",
+                        buttons: {
+                            confirm: {
+                                label: '删除',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: '关闭',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                console.log(this.doctor);
+                                $.post("/user/DeleteStaff", {
+                                    staffId: that.doctor.ID
+                                }).then(item => {
+                                    if (item.Result) {
+                                        window.location.reload();
+                                        that.errMsg = "删除成功"
+                                    } else {
+                                        that.errMsg = item.Err
+                                    }
+                                });
+                            }
+                        }
+                    });
                 },
                 click_setsort: function (Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
@@ -504,14 +539,37 @@
                          window.location.reload();
                     });
                             },
-                click_save: function () {
-                                console.log(this.doctor)
-                    $.post("/user/UpdateStaff   ", {
-                                    NagigatedDomainObject: this.doctor
+                click_save: function () {      
+                    console.log(this.doctor)
+                    var that = this;
+                    var apiUrl = "/user/UpdateStaff"
+                    if (!this.doctor.ID) {
+                        this.doctor.Pwd = "123456";
+                        apiUrl = "/user/AddStaff"
+                    } else {
+                      
+                    }
+
+                    if ($("#HireDate").val()) this.doctor.HireDate = $("#HireDate").val()
+                    if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
+                    if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
+                    if ($("#PracticeEndDate").val()) this.doctor.PracticeEndDate = $("#PracticeEndDate").val()                 
+
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    $.post(apiUrl, {
+                        NagigatedDomainObject: this.doctor
                     }).then(item => {
-                        //console.log(item)
-                         window.location.reload();
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            that.errMsg = "操作成功"
+                            window.location.reload();
+                        } else {
+                            that.errMsg = item.Err
+                        }
                     });
+
                  }
 
             }
