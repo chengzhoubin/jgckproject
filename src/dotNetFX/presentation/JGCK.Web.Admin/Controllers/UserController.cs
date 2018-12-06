@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using HSMY_AdminWeb.Models;
+﻿using HSMY_AdminWeb.Models;
 using JGCK.Framework;
-using JGCK.Framework.EF;
 using JGCK.Modules.Membership;
 using JGCK.Respority.UserWork;
 using JGCK.Util;
-using JGCK.Util.Enums;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.Admin.Models.Mapper;
 using JGCK.Web.General;
 using JGCK.Web.General.Helper;
 using JGCK.Web.General.MVC;
 using Newtonsoft.Json;
-using JGCK.Web.Admin.Models.Mapper;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace JGCK.Web.Admin.Controllers
 {
