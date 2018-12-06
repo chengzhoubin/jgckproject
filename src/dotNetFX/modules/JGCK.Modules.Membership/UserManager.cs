@@ -57,7 +57,7 @@ namespace JGCK.Modules.Membership
 
         public Person GetUser(long userId)
         {
-            return basicDbContext.GetById<Person, long>(userId);
+            return userDbContext.GetById<Person, long>(userId);
         }
     }
 }
