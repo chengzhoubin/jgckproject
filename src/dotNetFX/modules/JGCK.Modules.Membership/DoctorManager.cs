@@ -34,5 +34,13 @@ namespace JGCK.Modules.Membership
             orignalDoctor.Doctor = doctor.Doctor;
             return await userDbContext.SaveChangesAsync();
         }
+
+        public Person GetDoctor(long docId)
+        {
+            return userDbContext.Person
+                .Include(p => p.Doctor)
+                .Include(p => p.Doctor.InHospital)
+                .FirstOrDefault(p => p.ID == docId);
+        }
     }
 }

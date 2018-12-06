@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
+    <Compile Include="Models\Mapper\VmDoctorMapper.cs" />
     <Compile Include="Models\Mapper\VmHospitalMapper.cs" />
     <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
