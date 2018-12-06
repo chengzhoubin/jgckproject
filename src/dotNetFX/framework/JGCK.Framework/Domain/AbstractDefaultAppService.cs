@@ -53,7 +53,7 @@ namespace JGCK.Framework
             ((List<IDBProxy>) proxyContrainer).ForEach(act => act.Dispose());
         }
 
-        public virtual Task<int> LogicObjectDelete<TEntity, T>(T pkId, bool isAsync = false)
+        public virtual Task<AppServiceExecuteStatus> LogicObjectDelete<TEntity, T>(T pkId, bool isAsync = false)
             where TEntity : class
         {
             var objectContext = GetObjectContextDynamical<TEntity>();
@@ -61,7 +61,7 @@ namespace JGCK.Framework
             var canExcuteDeleted = PreLogicDeleteHandler?.Invoke();
             if (canExcuteDeleted != null && !canExcuteDeleted.Value)
             {
-                return Task.FromResult(0);
+                return Task.FromResult(AppServiceExecuteStatus.DoNotContinue);
             }
             if (entObject == null)
             {
@@ -70,24 +70,30 @@ namespace JGCK.Framework
 
             entObject.IsDeleted = true;
             var entDbProxy = (IDBProxy) objectContext;
-            return isAsync
-                ? Task.FromResult(entDbProxy.Commit())
-                : entDbProxy.CommitAsync();
+            var taskExec = isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
+            return taskExec.ContinueWith(
+                t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public virtual Task<int> AddObject<TEntity>(TEntity ent, bool isAsync = false) where TEntity : class
+        public virtual Task<AppServiceExecuteStatus> AddObject<TEntity>(TEntity ent, bool isAsync = false)
+            where TEntity : class
         {
             var objectContext = GetObjectContextDynamical<TEntity>();
             var canAdding = PreOnAddHandler?.Invoke();
             if (canAdding.HasValue && canAdding.Value)
             {
-                return isAsync ? Task.FromResult(objectContext.Add(ent)) : objectContext.AddAsync(ent);
+                var taskAddObject = isAsync ? Task.FromResult(objectContext.Add(ent)) : objectContext.AddAsync(ent);
+                return ((Task<int>) taskAddObject).ContinueWith(
+                    t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                    TaskContinuationOptions.OnlyOnRanToCompletion);
             }
 
-            return Task.FromResult(0);
+            return Task.FromResult(AppServiceExecuteStatus.DoNotContinue);
         }
 
-        public virtual Task<int> UpdateObject<TEntity>(TEntity ent, bool isAsync = false) where TEntity : class
+        public virtual Task<AppServiceExecuteStatus> UpdateObject<TEntity>(TEntity ent, bool isAsync = false)
+            where TEntity : class
         {
             if (PreOnUpdateHandler == null || OnUpdatingHandler == null)
             {
@@ -100,10 +106,13 @@ namespace JGCK.Framework
             {
                 OnUpdatingHandler?.Invoke(existObject, ent);
                 var entDbProxy = (IDBProxy) objectContext;
-                return isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
+                var taskUpdateObject = isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
+                return taskUpdateObject.ContinueWith(
+                    t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                    TaskContinuationOptions.OnlyOnRanToCompletion);
             }
 
-            return Task.FromResult(0);
+            return Task.FromResult(AppServiceExecuteStatus.DoNotContinue);
         }
 
         private dynamic GetObjectContextDynamical<TEntity>()

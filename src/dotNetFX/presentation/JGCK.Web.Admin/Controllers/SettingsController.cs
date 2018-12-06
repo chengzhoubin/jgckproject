@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HSMY_AdminWeb.Models;
+using JGCK.Framework;
 using JGCK.Modules.Configuration;
 using JGCK.Respority.BasicInfo;
+using JGCK.Util;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
 using JGCK.Web.General.Helper;
@@ -152,12 +154,14 @@ namespace JGCK.Web.Admin.Controllers
             m_DepartmentService.PreOnAddHandler =
                 () => !m_DepartmentService.DepartmentExists(dep.NagigatedDomainObject.Name);
             var addedRet = await m_DepartmentService.AddObject(dep.NagigatedDomainObject, true);
-            if (addedRet > 0)
+            if (addedRet == AppServiceExecuteStatus.Success)
             {
                 jsonResult.Value = dep.NagigatedDomainObject.ID;
                 jsonResult.Result = true;
+                return Json(jsonResult);
             }
 
+            jsonResult.Err = addedRet.ToDescription();
             return Json(jsonResult);
         }
 
@@ -166,13 +170,14 @@ namespace JGCK.Web.Admin.Controllers
         {
             var ret = new VM_JsonOnlyResult();
             var deleted = await m_DepartmentService.LogicObjectDelete<Department, long>(depId, true);
-            if (deleted > 0)
+            if (deleted == AppServiceExecuteStatus.Success)
             {
                 ret.Value = depId;
                 ret.Result = true;
                 return Json(ret);
             }
 
+            ret.Err = deleted.ToDescription();
             return Json(ret);
         }
 
@@ -195,12 +200,13 @@ namespace JGCK.Web.Admin.Controllers
                 ((Department) oDep).Desc = ((Department) nDep).Desc;
             };
             var updatedRet = await m_DepartmentService.UpdateObject(dep.NagigatedDomainObject, true);
-            if (updatedRet > 0)
+            if (updatedRet == AppServiceExecuteStatus.Success)
             {
                 jsonResult.Value = dep.NagigatedDomainObject.ID;
                 jsonResult.Result = true;
             }
 
+            jsonResult.Err = updatedRet.ToDescription();
             return Json(jsonResult);
         }
 

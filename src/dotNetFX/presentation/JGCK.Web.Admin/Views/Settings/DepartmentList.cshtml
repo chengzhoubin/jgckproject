@@ -169,6 +169,7 @@
                     click_delete: function (Name) {   
                         bootbox.confirm("确定要删除吗?", function (result) {                           
                             if (result) {
+                                console.log(this.Model);
                                $.post("/Settings/DelDepartment", {
                                 depId: this.Model.ID
                                 }).then(item => {

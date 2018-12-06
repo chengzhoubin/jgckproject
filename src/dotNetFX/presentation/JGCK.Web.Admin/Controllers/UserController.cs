@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HSMY_AdminWeb.Models;
+using JGCK.Framework;
 using JGCK.Framework.EF;
 using JGCK.Modules.Membership;
 using JGCK.Respority.UserWork;
+using JGCK.Util;
 using JGCK.Util.Enums;
 using JGCK.Web.Admin.Models;
 using JGCK.Web.General;
@@ -142,13 +144,14 @@ namespace JGCK.Web.Admin.Controllers
             m_UserManagerService.PreOnAddHandler =
                 () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
             var added = await m_UserManagerService.AddObject(staff.NagigatedDomainObject, true);
-            if (added > 0)
+            if (added == AppServiceExecuteStatus.Success)
             {
                 ret.Value = staff.NagigatedDomainObject.ID;
                 ret.Result = true;
                 return Json(ret);
             }
 
+            ret.Err = added.ToDescription();
             return Json(ret);
         }
 
@@ -157,13 +160,14 @@ namespace JGCK.Web.Admin.Controllers
         {
             var ret = new VM_JsonOnlyResult();
             var deleted = await m_UserManagerService.LogicObjectDelete<Person, long>(staffId, true);
-            if (deleted > 0)
+            if (deleted == AppServiceExecuteStatus.Success)
             {
                 ret.Value = staffId;
                 ret.Result = true;
                 return Json(ret);
             }
 
+            ret.Err = deleted.ToDescription();
             return Json(ret);
         }
     }
