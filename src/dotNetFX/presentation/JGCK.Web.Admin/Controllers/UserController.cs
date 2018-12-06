@@ -105,7 +105,7 @@ namespace JGCK.Web.Admin.Controllers
 
             m_DoctorManagerService.PreOnUpdateHandler =
                 () => m_DoctorManagerService.GetDoctor(doctor.NagigatedDomainObject.ID);
-            m_DoctorManagerService.OnUpdatingHandler = (o, n) => { ((Person) n).MapTo((Person) o); };
+            m_DoctorManagerService.OnUpdatingHandler = (o, n) => { VmDoctorMapper.MapTo(((Person) n), (Person) o); };
             var updateStatus = await m_DoctorManagerService.UpdateObject(doctor.NagigatedDomainObject);
             if (updateStatus == AppServiceExecuteStatus.Success)
             {
@@ -221,9 +221,9 @@ namespace JGCK.Web.Admin.Controllers
             m_UserManagerService.PreOnUpdateHandler =
                 () => m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
             m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
-            {
-                ((Person)newObject).MapTo((Person)existOject);
-            };
+                {
+                    VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                };
             var updatedRet = await m_UserManagerService.UpdateObject(staff.NagigatedDomainObject, true);
             if (updatedRet == AppServiceExecuteStatus.Success)
             {
