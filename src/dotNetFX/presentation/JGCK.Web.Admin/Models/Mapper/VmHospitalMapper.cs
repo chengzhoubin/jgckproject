@@ -18,10 +18,9 @@ namespace JGCK.Web.Admin.Models.Mapper
             });
         }
 
-        public static Hospital MapTo(this Hospital existHospital)
+        public static Hospital MapTo(this Hospital existHospital, Hospital targetHospital)
         {
-            //ExpressMapper.Mapper.Map<Hospital,Hospital>(existHospital)
-            return null;
+            return ExpressMapper.Mapper.Map(existHospital, targetHospital);
         }
     }
 }

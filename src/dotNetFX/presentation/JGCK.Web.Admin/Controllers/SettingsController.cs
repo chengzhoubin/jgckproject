@@ -11,6 +11,7 @@ using JGCK.Modules.Membership;
 using JGCK.Respority.BasicInfo;
 using JGCK.Util;
 using JGCK.Web.Admin.Models;
+using JGCK.Web.Admin.Models.Mapper;
 using JGCK.Web.General;
 using JGCK.Web.General.Helper;
 using Newtonsoft.Json;
@@ -172,6 +173,33 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             jsonResult.Err = deleteResult.ToDescription();
+            return Json(jsonResult);
+        }
+
+        public async Task<JsonResult> UpdateHospital(VmHospital vm)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            var val = new VmHospitalValidator();
+            var modelState = val.Validate(vm);
+            if (!modelState.IsValid)
+            {
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            m_HospitalService.PreOnUpdateHandler = () => m_HospitalService.GetHospital(vm.NagigatedDomainObject.ID);
+            m_HospitalService.OnUpdatingHandler = (existOject, newObject) =>
+            {
+                ((Hospital) newObject).MapTo((Hospital) existOject);
+            };
+            var updateStatus = await m_HospitalService.UpdateObject<Hospital>(vm.NagigatedDomainObject, true);
+            if (updateStatus == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+
+            jsonResult.Err = updateStatus.ToDescription();
             return Json(jsonResult);
         }
 

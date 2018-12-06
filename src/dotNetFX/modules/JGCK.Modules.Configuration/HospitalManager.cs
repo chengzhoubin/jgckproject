@@ -37,5 +37,13 @@ namespace JGCK.Modules.Configuration
         {
             return basicDbContext.Hospital.Any(h => h.Name == hospitalName && !h.IsDeleted);
         }
+
+        public Hospital GetHospital(long hid)
+        {
+            return basicDbContext.Hospital
+                .Include(h => h.HospitalInvoices)
+                .Include(h => h.HospitalReferences)
+                .FirstOrDefault(h => h.ID == hid);
+        }
     }
 }
