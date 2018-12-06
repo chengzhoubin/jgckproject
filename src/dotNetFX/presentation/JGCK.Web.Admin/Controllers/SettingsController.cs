@@ -194,9 +194,10 @@ namespace JGCK.Web.Admin.Controllers
 
 
             m_DepartmentService.PreOnUpdateHandler =
-                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
+                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
             m_DepartmentService.OnUpdatingHandler = (oDep, nDep) =>
             {
+                ((Department)oDep).Name = ((Department)nDep).Name;
                 ((Department) oDep).Desc = ((Department) nDep).Desc;
             };
             var updatedRet = await m_DepartmentService.UpdateObject(dep.NagigatedDomainObject, true);
