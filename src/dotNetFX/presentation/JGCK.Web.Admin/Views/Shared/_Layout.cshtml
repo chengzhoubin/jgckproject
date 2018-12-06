@@ -147,13 +147,13 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a href="doctor.html" class="nav-link ">
+                                    <a class="nav-link ">
                                         <span class="title">产品类型管理</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="#" class="nav-link ">
+                                    <a href="@Url.Action("Index", "Product")" class="nav-link ">
                                         <span class="title">产品管理</span>
                                     </a>
                                 </li>
@@ -267,7 +267,7 @@
             $(function () {
                 if (typeof pageUrl != "undefined" && pageUrl) {
                     $(".page-sidebar-menu  a").each(function (i, item) {
-                        if ($(this).attr("href").toLowerCase() == pageUrl.toLowerCase()) {
+                        if ($(this).attr("href")&&$(this).attr("href").toLowerCase() == pageUrl.toLowerCase()) {
                             $(this).parent().addClass("active");
                             $(this).closest(".sub-menu").closest(".nav-item").addClass("active open");
                         }
