@@ -118,12 +118,12 @@ namespace JGCK.Web.Admin.Controllers
         private string GetOrCreateStorageDir(string rootPath, string type)
         {
             var fileStorageDir = Path.Combine(rootPath, type.Replace(":", @"\"));
-            if (!Directory.Exists(fileStorageDir))
+            if (Directory.Exists(fileStorageDir))
                 return fileStorageDir;
 
             lock (LockWithCreateDir)
             {
-                if (!Directory.Exists(fileStorageDir))
+                if (Directory.Exists(fileStorageDir))
                     return fileStorageDir;
 
                 Directory.CreateDirectory(fileStorageDir);
