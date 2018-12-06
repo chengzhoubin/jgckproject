@@ -54,5 +54,10 @@ namespace JGCK.Modules.Membership
         {
             return userDbContext.Person.Any(p => p.Name == name && !p.IsDeleted);
         }
+
+        public Person GetUser(long userId)
+        {
+            return basicDbContext.GetById<Person, long>(userId);
+        }
     }
 }
