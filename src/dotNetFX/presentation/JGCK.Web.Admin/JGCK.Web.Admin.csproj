@@ -17,7 +17,7 @@
     <AssemblyName>JGCK.Web.Admin</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -57,6 +57,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressMapper, Version=1.9.1.0, Culture=neutral, PublicKeyToken=ac363faa09311ba0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Expressmapper.1.9.1\lib\net45\ExpressMapper.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentValidation.8.0.100\lib\net45\FluentValidation.dll</HintPath>
@@ -178,6 +181,7 @@
     <Compile Include="Controllers\AjaxCommonController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Enum\HospitalRank.cs" />
@@ -188,6 +192,7 @@
     </Compile>
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
+    <Compile Include="Models\Mapper\VmHospitalMapper.cs" />
     <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
     <Compile Include="Models\Validator\VmHospitalValidator.cs" />
@@ -818,6 +823,7 @@
     <Content Include="Views\Settings\HospitalList.cshtml" />
     <Content Include="Views\Settings\DepartmentList.cshtml" />
     <Content Include="Views\User\UserList.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -825,7 +831,6 @@
     <Folder Include="assets\pages\css\" />
     <Folder Include="assets\pages\img\" />
     <Folder Include="assets\pages\scripts\" />
-    <Folder Include="Models\Mapper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
