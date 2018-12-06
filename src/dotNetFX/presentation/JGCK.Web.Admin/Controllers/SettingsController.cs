@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using HSMY_AdminWeb.Models;
 using JGCK.Framework;
 using JGCK.Modules.Configuration;
+using JGCK.Modules.Membership;
 using JGCK.Respority.BasicInfo;
 using JGCK.Util;
 using JGCK.Web.Admin.Models;
@@ -21,6 +22,8 @@ namespace JGCK.Web.Admin.Controllers
         private WorktimeManager m_ConfigWorktimeService { get; set; }
         private DepartmentManager m_DepartmentService { get; set; }
         private HospitalManager m_HospitalService { get; set; }
+
+        private DoctorManager m_DoctorService { get; set; }
 
         // GET: Settings
         public ActionResult Index()
@@ -148,6 +151,27 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             jsonResult.Err = addResult.ToDescription();
+            return Json(jsonResult);
+        }
+
+        public async Task<JsonResult> DeleteHospital(long hId)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            m_HospitalService.PreLogicDeleteHandler = () =>
+            {
+                var hospitalExists = m_HospitalService.GetHospitalCount(m => m.ID == hId).Result > 0;
+                var hospitalHasDoctor = m_DoctorService.GetDoctorCount(p =>
+                    p.IsDoctor && p.Doctor.InHospital.Any(h => h.HospitalId == hId)).Result > 0;
+                return !hospitalExists || !hospitalHasDoctor;
+            };
+            var deleteResult = await m_HospitalService.LogicObjectDelete<Hospital, long>(hId);
+            if (deleteResult == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+
+            jsonResult.Err = deleteResult.ToDescription();
             return Json(jsonResult);
         }
 
