@@ -25,5 +25,10 @@ namespace JGCK.Modules.Configuration
         {
             return basicDbContext.Department.FirstOrDefault(dep => dep.Name == name && !dep.IsDeleted);
         }
+
+        public Department GetDepartment(long depId)
+        {
+            return basicDbContext.GetById<Department, long>(depId);
+        }
     }
 }
