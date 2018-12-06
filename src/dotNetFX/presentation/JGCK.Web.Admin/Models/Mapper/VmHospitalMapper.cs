@@ -11,11 +11,14 @@ namespace JGCK.Web.Admin.Models.Mapper
     {
         static VmHospitalMapper()
         {
-            ExpressMapper.Mapper.Register<Hospital, Hospital>().Before((h, t) =>
+            if (!ExpressMapper.Mapper.MapExists(typeof(Hospital), typeof(Hospital)))
             {
-                t.HospitalInvoices?.Clear();
-                t.HospitalReferences?.Clear();
-            });
+                ExpressMapper.Mapper.Register<Hospital, Hospital>().Before((h, t) =>
+                {
+                    t.HospitalInvoices?.Clear();
+                    t.HospitalReferences?.Clear();
+                });
+            }
         }
 
         public static Hospital MapTo(this Hospital existHospital, Hospital targetHospital)
