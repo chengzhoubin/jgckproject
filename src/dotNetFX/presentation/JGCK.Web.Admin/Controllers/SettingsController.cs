@@ -272,10 +272,10 @@ namespace JGCK.Web.Admin.Controllers
                 () =>
                 {
                     var existDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
+                    if (existDep == null)
+                        return null;
                     var otherDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
-                    if (otherDep == null)
-                        return existDep;
-                    if (otherDep.ID == dep.NagigatedDomainObject.ID)
+                    if (otherDep == null || otherDep.ID == dep.NagigatedDomainObject.ID)
                         return existDep;
                     return null;
                 };

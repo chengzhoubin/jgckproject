@@ -222,10 +222,19 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             m_UserManagerService.PreOnUpdateHandler =
-                () => m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
+                () =>
+                {
+                    var selfUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
+                    if (selfUser == null)
+                        return null;
+                    var otherUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.Name);
+                    if (otherUser == null || otherUser.ID == selfUser.ID)
+                        return selfUser;
+                    return null;
+                };
             m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
                 {
-                    var n = VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                    var n = VmPersonMapper.MapTo(((Person)newObject), (Person)existOject);
                     var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
                     n.DepartmentId = dep?.ID;
 
