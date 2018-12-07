@@ -88,8 +88,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" v-if="Model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
-                <span style="color:red;font-size:13px;">{{errMsg}}</span>
-                <button type="button" class="btn green" @@click="click_save()">保存</button>
+                <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
+                <button id="btnSave" type="button" class="btn green" @@click="click_save()">保存</button>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -161,6 +161,7 @@
                             Desc: ""
                         }
                     }
+                    $("#btnSave").show();
                     $('#modelbasic').modal('show');
                     this.errMsg = "";
                 },
@@ -188,9 +189,10 @@
                                 }).then(item => {
                                     if (item.Result) {
                                         window.location.reload();
-                                        that.errMsg = "删除成功"
+                                        //that.errMsg = "删除成功"
                                     } else {
-                                        that.errMsg = item.Err
+                                        that.errMsg = item.Err;
+                                        $("#btnSave").hide();
                                     } 
                                 });
                             }
@@ -212,10 +214,12 @@
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
-                            that.errMsg = "操作成功"
+                            //that.errMsg = "操作成功"
                             window.location.reload();
                         } else {
-                            that.errMsg = item.Err                   
+                            that.errMsg = item.Err;
+                            $("#btnSave").hide();
+
                         } 
                     });
                 }

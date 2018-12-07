@@ -87,8 +87,8 @@ namespace JGCK.Respority.UserWork
 
     public enum OnJobType
     {
-        [Description("无")] Null,
-        [Description("在职")] OnWork,
+        //[Description("无")] Null,
+        [Description("在职")] OnWork = 1,
         [Description("离职")] Fired,
         [Description("实习期中")] OnPractice,
         [Description("实习结束")] OverPractice
@@ -96,7 +96,7 @@ namespace JGCK.Respority.UserWork
 
     public enum EducationType
     {
-        [Description("无")] Null,
+        //[Description("无")] Null,
 
         /// <summary>
         /// 初中
