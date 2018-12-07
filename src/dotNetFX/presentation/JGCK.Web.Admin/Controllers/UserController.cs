@@ -10,6 +10,7 @@ using JGCK.Web.General;
 using JGCK.Web.General.Helper;
 using JGCK.Web.General.MVC;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -125,6 +126,37 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             jsonResult.Err = string.Format(deleteStatus.ToDescription(), "医生不存在");
+            return Json(jsonResult);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AuditDoctor(JsonDoctorAudit audit)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            var modelState = (new JsonDoctorAuditValidator()).Validate(audit);
+            if (!modelState.IsValid)
+            {
+                jsonResult.Value = -1001;
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            var expDoctor = m_DoctorManagerService.GetDoctor(audit.DoctorId);
+            if(expDoctor == null)
+            {
+                jsonResult.Value = -1002;
+                jsonResult.Err = "无法获取医生信息";
+                return await Task.FromResult(Json(jsonResult));
+            }
+            expDoctor.Doctor.AuditStatus = audit.IsPass ? DoctorAuditStatus.Pass : DoctorAuditStatus.Fail;
+            expDoctor.Doctor.AuditDate = DateTime.Now;
+            var updatedStatus = await m_DepartmentManagerService.UpdateObject<Person>(expDoctor);
+            if(updatedStatus == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+            jsonResult.Err = string.Format(updatedStatus.ToDescription(), "审核失败");
             return Json(jsonResult);
         }
 
