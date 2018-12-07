@@ -1,5 +1,6 @@
 ﻿using HSMY_AdminWeb.Models;
 using JGCK.Framework;
+using JGCK.Modules.Configuration;
 using JGCK.Modules.Membership;
 using JGCK.Respority.UserWork;
 using JGCK.Util;
@@ -19,6 +20,7 @@ namespace JGCK.Web.Admin.Controllers
     {
         private UserManager m_UserManagerService { get; set; }
         private DoctorManager m_DoctorManagerService { get; set; }
+        private DepartmentManager m_DepartmentManagerService { get; set; }
 
         [HttpGet]
         public ActionResult Login()
@@ -171,6 +173,14 @@ namespace JGCK.Web.Admin.Controllers
 
             m_UserManagerService.PreOnAddHandler =
                 () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
+
+            var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
+            staff.NagigatedDomainObject.DepartmentId = dep?.ID;
+
+            var role = m_UserManagerService.GetRole(staff.NagigatedDomainObject.Role.Name);
+            staff.NagigatedDomainObject.Role = role;
+            staff.NagigatedDomainObject.RoleId = role?.ID;
+
             var added = await m_UserManagerService.AddObject(staff.NagigatedDomainObject, true);
             if (added == AppServiceExecuteStatus.Success)
             {
@@ -215,7 +225,13 @@ namespace JGCK.Web.Admin.Controllers
                 () => m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
             m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
                 {
-                    VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                    var n = VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                    var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
+                    n.DepartmentId = dep?.ID;
+
+                    var role = m_UserManagerService.GetRole(staff.NagigatedDomainObject.Role.Name);
+                    n.Role = role;
+                    n.RoleId = role?.ID;
                 };
             var updatedRet = await m_UserManagerService.UpdateObject(staff.NagigatedDomainObject, true);
             if (updatedRet == AppServiceExecuteStatus.Success)
