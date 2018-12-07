@@ -269,7 +269,16 @@ namespace JGCK.Web.Admin.Controllers
 
 
             m_DepartmentService.PreOnUpdateHandler =
-                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
+                () =>
+                {
+                    var existDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
+                    var otherDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
+                    if (otherDep == null)
+                        return existDep;
+                    if (otherDep.ID == dep.NagigatedDomainObject.ID)
+                        return existDep;
+                    return null;
+                };
             m_DepartmentService.OnUpdatingHandler = (oDep, nDep) =>
             {
                 ((Department)oDep).Name = ((Department)nDep).Name;
