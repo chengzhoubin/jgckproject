@@ -151,7 +151,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = addResult.ToDescription();
+            jsonResult.Err = string.Format(addResult.ToDescription(), "医院已经存在");
             return Json(jsonResult);
         }
 
@@ -172,7 +172,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = deleteResult.ToDescription();
+            jsonResult.Err = string.Format(deleteResult.ToDescription(), "医院不存在");
             return Json(jsonResult);
         }
 
@@ -199,7 +199,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = updateStatus.ToDescription();
+            jsonResult.Err = string.Format(updateStatus.ToDescription(), "修改医院信息失败");
             return Json(jsonResult);
         }
 
@@ -236,7 +236,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = addedRet.ToDescription();
+            jsonResult.Err = string.Format(addedRet.ToDescription(), "部门已存在");
             return Json(jsonResult);
         }
 
@@ -252,7 +252,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(ret);
             }
 
-            ret.Err = deleted.ToDescription();
+            ret.Err = string.Format(deleted.ToDescription(), "部门不存在");
             return Json(ret);
         }
 
@@ -282,7 +282,7 @@ namespace JGCK.Web.Admin.Controllers
                 jsonResult.Result = true;
             }
 
-            jsonResult.Err = updatedRet.ToDescription();
+            jsonResult.Err = string.Format(updatedRet.ToDescription(), "更新部门信息失败");
             return Json(jsonResult);
         }
 
