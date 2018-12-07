@@ -72,7 +72,7 @@ namespace JGCK.Framework
             var entDbProxy = (IDBProxy) objectContext;
             var taskExec = isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
             return taskExec.ContinueWith(
-                t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                t => t.Result >= 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
                 TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
@@ -85,7 +85,7 @@ namespace JGCK.Framework
             {
                 var taskAddObject = isAsync ? Task.FromResult(objectContext.Add(ent)) : objectContext.AddAsync(ent);
                 return ((Task<int>) taskAddObject).ContinueWith(
-                    t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                    t => t.Result >= 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
                     TaskContinuationOptions.OnlyOnRanToCompletion);
             }
 
@@ -108,7 +108,7 @@ namespace JGCK.Framework
                 var entDbProxy = (IDBProxy) objectContext;
                 var taskUpdateObject = isAsync ? Task.FromResult(entDbProxy.Commit()) : entDbProxy.CommitAsync();
                 return taskUpdateObject.ContinueWith(
-                    t => t.Result > 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
+                    t => t.Result >= 0 ? AppServiceExecuteStatus.Success : AppServiceExecuteStatus.Fail,
                     TaskContinuationOptions.OnlyOnRanToCompletion);
             }
 
