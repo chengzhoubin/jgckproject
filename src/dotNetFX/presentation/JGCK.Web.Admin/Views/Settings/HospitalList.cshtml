@@ -67,7 +67,7 @@
                                     <td> @($"{item.NagigatedDomainObject.SaleRate:0.00}") </td>
                                     <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.Receipter) </td>
                                     <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.ReceipterPhone) </td>
-                                    <td> <button type="button" class="btn green btn-sm" @@click="click_showPop()"> 操作 </button> </td>
+                                    <td> <button type="button" class="btn green btn-sm" @@click="click_showPop(@(item.HiddenJsonString))"> 操作 </button> </td>
                                 </tr>
                                 itemIndex++;
                             }
