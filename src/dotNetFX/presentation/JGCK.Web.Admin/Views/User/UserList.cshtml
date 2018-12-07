@@ -550,12 +550,9 @@
                     var that = this;
                     var apiUrl = "/user/UpdateStaff"
                     if (!this.doctor.ID) {
-                        this.doctor.Pwd = "123456";
+                        if (!this.doctor.Pwd)this.doctor.Pwd = "123456";
                         apiUrl = "/user/AddStaff"
-                    } else {
-
-                    }
-
+                    } 
                     if ($("#HireDate").val()) this.doctor.HireDate = $("#HireDate").val()
                     if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
                     if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
