@@ -79,7 +79,7 @@
                                     {
                                         <tr>
                                             <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
-                                            <td> @item.NagigatedDomainObject.Role.Name </td>
+                                            <td> @(item.NagigatedDomainObject.Role?.Name) </td>
                                             <td> @item.NagigatedDomainObject.DepartmentName </td>
                                             <td> @item.NagigatedDomainObject.PersonType.ToDescription() </td>
                                             <td> @item.NagigatedDomainObject.Name </td>
@@ -143,7 +143,7 @@
                             </ul>
                         </div>
                         <div class="col-xs-3">
-                            <ul class="list-unstyled" style="display:none">
+                            <ul class="list-unstyled">
                                 <li>
                                     <strong>密码:</strong> <input type="text" />
                                 </li>
