@@ -57,7 +57,7 @@
                         <thead>
                             <tr>
                                 <th> 序号 </th>
-                                <th @@click="click_setsort('RealName')" :class="get_sortCLass('Role.Name')"> 角色 </th>
+                                <th @@click="click_setsort('Role.Name')" :class="get_sortCLass('Role.Name')"> 角色 </th>
                                 <th @@click="click_setsort('DepartmentName')" :class="get_sortCLass('DepartmentName')"> 所属部门 </th>
                                 <th @@click="click_setsort('PersonType')" :class="get_sortCLass('PersonType')"> 员工类型	 </th>
                                 <th @@click="click_setsort('Name')" :class="get_sortCLass('Name')"> 用户名 </th>
@@ -127,7 +127,7 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>角色:</strong> <input type="text" v-model="doctor.RealName" /></li>
+                                <li> <strong>角色:</strong> <input type="text" v-model="doctor.Role.Name" /></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
@@ -327,13 +327,13 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-xs-12">                            
-                                    <strong style="float:left;">备注:</strong>
-                                    <script id="container" name="content" type="text/plain" style="height:250px">
-                                    </script>
-                               
+                        <div class="col-xs-12">
+                            <strong style="float:left;">备注:</strong>
+                            <script id="container" name="content" type="text/plain" style="height:250px">
+                            </script>
+
                         </div>
-                    </div>                 
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -350,37 +350,38 @@
 
 
 
-        @section referenceHeader{
-            <script>
-                var pageUrl = "/User/UserList"
-            </script>
-            <link href="~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
-            <link href="~/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
-            <link href="~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
-            <link href="~/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" href="~/assets/global/plugins/umeditor/themes/default/css/umeditor.css">
-            <style>
-                .FormBody li strong {
-                    width: 140px;
-                    display: inline-block;
-                }
-
-                .edui-container {
-                    display: inline-block;
-                    border: 2px solid #d4d4d4;
-                    width:100% !important;
-                }
-            </style>
+@section referenceHeader{
+    <script>
+        var pageUrl = "/User/UserList"
+    </script>
+    <link href="~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/assets/global/plugins/umeditor/themes/default/css/umeditor.css">
+    <style>
+        .FormBody li strong {
+            width: 140px;
+            display: inline-block;
         }
 
-        @section scripts
+        .edui-container {
+            display: inline-block;
+            border: 2px solid #d4d4d4;
+            width: 100% !important;
+        }
+    </style>
+}
+
+@section scripts
 {
-            <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-            <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-            <script type="text/javascript" src="~/assets/global/plugins/umeditor/third-party/template.min.js"></script>
-            <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
-            <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.js"></script>
-            <script>
+    <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/umeditor/third-party/template.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.js"></script>
+    <script>
         $(function() {
             $("#btnSearch").click(function () {
                 if ($("#Filter").val() == "") {
@@ -419,11 +420,11 @@
         var app = new Vue({
             el: '#app',
             data: {
-                doctor: "",
+                doctor: {Role:""},
                 errMsg:"",
                 ListSexList: [
-                                    
-                                    @{ 
+
+                                    @{
                                         string sexContent = "";
                                         foreach (var j in Model.SexList)
                                         {
@@ -434,14 +435,14 @@
                                         {
                                             sexContent = sexContent.Substring(1, sexContent.Length - 1);
                                         }
-                                        
+
                                     }
                                    @Html.Raw(sexContent)
-                                        
+
                                 ],
                 ListPersonType: [
-                                    
-                                        @{ 
+
+                                        @{
                                             string personContent = "";
                                             foreach (var j in Model.PersonTypeList)
                                             {
@@ -452,14 +453,14 @@
                                             {
                                                 personContent = personContent.Substring(1, personContent.Length - 1);
                                             }
-                                           
+
                                           }
                                         @Html.Raw(personContent)
-                                        
+
                                ],
                 ListEducationType: [
-                                        
-                                            @{ 
+
+                                            @{
                                                 string educationTypeContent = "";
                                                 foreach (var e in Model.EducationTypeList)
                                                 {
@@ -470,10 +471,13 @@
                                                 {
                                                     educationTypeContent = educationTypeContent.Substring(1, educationTypeContent.Length - 1);
                                                 }
-                                               
+
                                             }
                                              @Html.Raw(educationTypeContent)
                                    ]
+            },
+            created: function () {
+                if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
             },
             methods: {
                 get_sortCLass: function (sortName) {
@@ -481,16 +485,18 @@
                     if (_tmp.length === 0) return 'sorting';
                     return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
-                click_showDoctorPop: function (doctorObj) {              
+                click_showDoctorPop: function (doctorObj) {
                     if (doctorObj) {
                         if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
                         if (doctorObj.NagigatedDomainObject.LeaveDate) doctorObj.NagigatedDomainObject.LeaveDate = formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
                         if (doctorObj.NagigatedDomainObject.PracticeBeginDate) doctorObj.NagigatedDomainObject.PracticeBeginDate = formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
                         if (doctorObj.NagigatedDomainObject.PracticeEndDate) doctorObj.NagigatedDomainObject.PracticeEndDate = formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
+                        if (!doctorObj.NagigatedDomainObject.Role) doctorObj.NagigatedDomainObject.Role = {}
                         this.doctor = doctorObj.NagigatedDomainObject
                     } else {
-                        this.doctor = {}
-                    }                   
+                        this.doctor = {
+                            Role: {} }
+                    }
                     $('#modelfull').modal('show')
                     console.log(this.doctor)
                 },
@@ -530,7 +536,7 @@
                 click_setsort: function (Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                    //Cookies.remove('sf_staffData_sort_keys');
+                    Cookies.remove('sf_staffData_sort_keys');
                     $.post("/ajaxcommon/setsort/", {
                         "ModuleName": "sf_staffData_sort_keys",
                         "SortProperty": Name,
@@ -539,7 +545,7 @@
                          window.location.reload();
                     });
                             },
-                click_save: function () {      
+                click_save: function () {
                     console.log(this.doctor)
                     var that = this;
                     var apiUrl = "/user/UpdateStaff"
@@ -547,13 +553,13 @@
                         this.doctor.Pwd = "123456";
                         apiUrl = "/user/AddStaff"
                     } else {
-                      
+
                     }
 
                     if ($("#HireDate").val()) this.doctor.HireDate = $("#HireDate").val()
                     if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
                     if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
-                    if ($("#PracticeEndDate").val()) this.doctor.PracticeEndDate = $("#PracticeEndDate").val()                 
+                    if ($("#PracticeEndDate").val()) this.doctor.PracticeEndDate = $("#PracticeEndDate").val()
 
                     if (this.isRuning) return;
                     this.isRuning = true;
@@ -574,7 +580,7 @@
 
             }
         })
-            </script>
+    </script>
 
-            
-        }
+
+}
