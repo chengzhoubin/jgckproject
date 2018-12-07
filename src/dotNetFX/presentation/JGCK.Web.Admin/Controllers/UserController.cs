@@ -22,6 +22,7 @@ namespace JGCK.Web.Admin.Controllers
         private UserManager m_UserManagerService { get; set; }
         private DoctorManager m_DoctorManagerService { get; set; }
         private DepartmentManager m_DepartmentManagerService { get; set; }
+        private RoleManager m_RoleManagerService { get; set; }
 
         [HttpGet]
         public ActionResult Login()
@@ -165,12 +166,12 @@ namespace JGCK.Web.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> UserList(string filter, int? p)
         {
-            var staffIndex = new VmUserStaffIndex() { Filter = filter?.Trim() };
+            var staffIndex = new VmUserStaffIndex() {Filter = filter?.Trim()};
             var pageIndex = p.HasValue ? p.Value : 1;
             var searchExp = staffIndex.CombineExpression();
-            var entList = 
+            var entList =
                 await m_UserManagerService.GetStaffListAsync(
-                    searchExp, 
+                    searchExp,
                     UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleStaffSort),
                     pageIndex);
             staffIndex.TotalRecordCount = await m_UserManagerService.GetStaffCount(searchExp);
@@ -188,6 +189,12 @@ namespace JGCK.Web.Admin.Controllers
                 }
             }).ToList();
             staffIndex.CurrentIndex = pageIndex;
+            staffIndex.DepartmentNameList = (await m_DepartmentManagerService.GetDepartments()).Select(d => d.Name);
+            staffIndex.RoleNameList = (await m_RoleManagerService.GetRoles()).Select(r => r.Name);
+            staffIndex.DepartmentNameListJsonString =
+                JsonConvert.SerializeObject(staffIndex.DepartmentNameList.Select(n => new {id = n, name = n}).ToList());
+            staffIndex.RoleNameListJsonString =
+                JsonConvert.SerializeObject(staffIndex.RoleNameList.Select(n => new { id = n, name = n }).ToList());
             return View(staffIndex);
         }
 

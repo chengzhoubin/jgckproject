@@ -1,5 +1,7 @@
-﻿@using Webdiyer.WebControls.Mvc
+﻿@using JGCK.Respority.UserWork
+@using Webdiyer.WebControls.Mvc
 @using JGCK.Util
+@using JGCK.Web.Admin.Models
 @model JGCK.Web.Admin.Models.VmUserStaffIndex
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,7 +15,18 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showDoctorPop()"> 新增 </button>
+            @{
+                var nullStaff = new VmStaff();
+                nullStaff.NagigatedDomainObject = new Person();
+                nullStaff.NagigatedDomainObject.HireDate = DateTime.Now;
+                nullStaff.NagigatedDomainObject.PersonType = OnJobType.OnWork;
+                nullStaff.NagigatedDomainObject.Education = EducationType.Junior;
+                nullStaff.NagigatedDomainObject.Sex = Gender.Male;
+                nullStaff.NagigatedDomainObject.Role = new Role {Name = Model.RoleNameList.FirstOrDefault()};
+                nullStaff.NagigatedDomainObject.DepartmentName = Model.DepartmentNameList.FirstOrDefault();
+                var initalJsonValue = nullStaff.HiddenJsonString;
+            }
+            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showDoctorPop(@initalJsonValue)"> 新增 </button>
         </div>
     </div>
 </div>
@@ -127,12 +140,22 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>角色:</strong> <input type="text" v-model="doctor.Role.Name" /></li>
+                                <li> <strong>角色:</strong> 
+                                    @*<input type="text" v-model="doctor.Role.Name" />*@
+                                    <select v-model="doctor.Role.Name">
+                                        <option :value="item.id" v-for="item in ListRoleName">{{item.name}}</option>
+                                    </select>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>所属部门:</strong>  <input type="text" v-model="doctor.DepartmentName" /></li>
+                                <li> <strong>所属部门:</strong>  
+                                    @*<input type="text" v-model="doctor.DepartmentName" />*@
+                                    <select v-model="doctor.DepartmentName">
+                                        <option :value="item.id" v-for="item in ListDepartment">{{item.name}}</option>
+                                    </select>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
@@ -157,7 +180,7 @@
                                 <li>
                                     <strong>员工类型:</strong>
                                     <select v-model="doctor.PersonType">
-                                        <option value="">请选择</option>
+                                        @*<option value="">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListPersonType">{{item.name}}</option>
                                     </select>
 
@@ -174,7 +197,7 @@
                                 <li>
                                     <strong>性别:</strong>
                                     <select v-model="doctor.Sex">
-                                        <option value="">请选择</option>
+                                        @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -196,7 +219,7 @@
                                 <li>
                                     <strong>学历:</strong>
                                     <select v-model="doctor.Education">
-                                        <option value="">请选择</option>
+                                        @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -403,9 +426,10 @@
             }
             var date = new Date();
             $(".form_datetime").datetimepicker({
+                minView: "month",
                 autoclose: true,
                 isRTL: App.isRTL(),
-                format: " yyyy-mm-dd hh:ii",
+                format: " yyyy-mm-dd",
                 startDate: '2018-1-1',
                 todayHighlight: true,
                 language: "zh-CN",
@@ -474,7 +498,9 @@
 
                                             }
                                              @Html.Raw(educationTypeContent)
-                                   ]
+                ],
+                ListDepartment: @Html.Raw(Model.DepartmentNameListJsonString),
+                ListRoleName: @Html.Raw(Model.RoleNameListJsonString)
             },
             created: function () {
                 if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
