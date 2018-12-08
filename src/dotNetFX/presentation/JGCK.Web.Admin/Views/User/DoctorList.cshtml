@@ -99,6 +99,7 @@
 </div>
 
 
+
 <div class="modal fade" id="modelfull" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
@@ -128,11 +129,11 @@
                             </ul>
                         </div>
                         <div class="col-xs-3">
-                            <button type="button" class="btn green">通过</button>
-                            <button type="button" class="btn yellow">不通过</button>
-                            <button type="button" class="btn red">删除</button>
+                            <button type="button" class="btn green" @@click="click_update(true)">通过</button>
+                            <button type="button" class="btn yellow" @@click="click_update(false)">不通过</button>
+                            <button type="button" class="btn red" @@click="click_delete()">删除</button>
                         </div>
-                    </div>  
+                    </div>
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
@@ -155,62 +156,78 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> 所属医院 </th>
-                                        <th class="hidden-xs"> 所属科室 </th>
-                                        <th class="hidden-xs"> 科室地址 </th>
-                                        <th class="hidden-xs"> 固定电话 </th>
-                                        <th> 手机 </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> 扬州贝恩口腔医院有限公司 </td>
-                                        <td class="hidden-xs"> 所属科室</td>
-                                        <td class="hidden-xs"> 科室地址科室地址科室地址科室地址科室地址 </td>
-                                        <td class="hidden-xs"> 12345667899</td>
-                                        <td> 123456789012 </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 2 </td>
-                                        <td> 海宁通策口腔医院有限公司 </td>
-                                        <td class="hidden-xs"> 所属科室</td>
-                                        <td class="hidden-xs"> 科室地址科室地址科室地址科室地址科室地址 </td>
-                                        <td class="hidden-xs"> 123456789012</td>
-                                        <td> 123456789012 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12"><strong>医生资格证:</strong></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                        </div>
-                        <div class="col-xs-3">
-                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                        </div>
-                        <div class="col-xs-3">
-                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                        </div>
-                    </div>
-                    <hr />
 
-                </div>
+
+                    @*<div class="row" v-if="doctorObj.InHospital&&doctorObj.InHospital.length>0">*@
+                      <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th> # </th>
+                                            <th> 所属医院 </th>
+                                            <th class="hidden-xs"> 所属科室 </th>
+                                            <th class="hidden-xs"> 科室地址 </th>
+                                            <th class="hidden-xs"> 固定电话 </th>
+                                            <th> 手机 </th>
+                                            <th> 绑定 </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr v-for="(item,index) in doctorObj.InHospital">
+                                            <td> {{index}}</td>
+                                            <td>
+                                                {{item.HospitalName}}
+                                            </td>
+                                            <td class="hidden-xs"> {{item.HospitalDepartment}}</td>
+                                            <td class="hidden-xs"> {{item.HosDepAddress}} </td>
+                                            <td class="hidden-xs"> </td>
+                                            <td>  </td>
+                                            <td>  </td>
+                                        </tr>*@
+                                        <tr>
+                                            <td> 2</td>
+                                            <td> 海宁通策口腔医院有限公司 </td>
+                                            <td class="hidden-xs"> 所属科室</td>
+                                            <td class="hidden-xs"> 科室地址科室地址科室地址科室地址科室地址 </td>
+                                            <td class="hidden-xs"> 123456789012</td>
+                                            <td> 123456789012 </td>
+                                            <td>
+                                                <select v-model="Model.Hospital">
+                                                    <option value="1">医院1</option>
+                                                    <option value="2">医院2</option>
+                                                </select>
+                                                <button id="btnSave" type="button" class="btn green" @@click="click_savebing()">绑定</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12"><strong>医生资格证:</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                            </div>
+                            <div class="col-xs-3">
+                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                            </div>
+                            <div class="col-xs-3">
+                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                            </div>
+                        </div>
+                        <hr />
+
+                    </div>
 
 
             </div>
             <div class="modal-footer">
-
+                @*<button type="button" class="btn green pull-left" @@click="click_popSelectHospital()">选择绑定医院</button>*@
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -218,6 +235,73 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+@*<div class="modal fade" id="modelbasic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">医院绑定</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">医院选择</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">                
+                                    <select v-model="Model.Hospital">
+                                        <option value="1">医院1</option>
+                                        <option value="2">医院2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">医院科室名称</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control" v-model="Model.DepName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">科室地址</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control" v-model="Model.DepAddress">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">	固定电话</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control" v-model="Model.Tel">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">手机</label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control" v-model="Model.Mobile">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
+                <button id="btnSave" type="button" class="btn green" @@click="click_savebing()">绑定</button>
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
 
 @section referenceHeader{
     <script>
@@ -243,7 +327,16 @@
             el: '#app',
             data: {
                 doctorObj: "",
-                sort_keys:[]
+                sort_keys: [],
+                isRuning: false,
+                Model: {
+                    HospitalId:1,
+                    DepName: 'test',
+                    DepAddress: "add",
+                    Tel: "123",
+                    Mobile:"456"
+                },
+                errMsg:""
             },
             created: function () {              
                 if (Cookies.get('sf_doctorData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys'))
@@ -264,6 +357,9 @@
                     console.log(this.doctorObj)
                    $('#modelfull').modal('show')
                 },
+                click_popSelectHospital: function () {                
+                    $('#modelbasic').modal('show');
+                },
                 click_setsort: function (Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
@@ -276,8 +372,71 @@
                         console.log(item)
                         window.location.reload();
                       });
+                },
+                click_update: function (state) {
+                    console.log(this.doctorObj)
+                    var that = this;
+                    var apiUrl = "/User/AuditDoctor"
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    var _param = {
+                        DoctorId: this.doctorObj.Doctor.ID,
+                        IsPass: state
+                    }
+                    $.post(apiUrl, {
+                        audit: _param
+                    }).then(item => {
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            //that.errMsg = "操作成功"
+                            //window.location.reload();
+                        } else {
+                            that.errMsg = item.Err
+                        }
+                    });
+                },
+                click_delete: function (state) {
+                    console.log(this.doctorObj)
+                    var that = this;
+                    var apiUrl = "/User/DeleteDoctor"
+                    if (this.isRuning) return;
+                    this.isRuning = true;                   
+                    $.post(apiUrl, {
+                        doctorId: this.doctorObj.Doctor.ID
+                    }).then(item => {
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            //that.errMsg = "操作成功"
+                            //window.location.reload();
+                        } else {
+                            that.errMsg = item.Err
+                        }
+                    });
+                },
+                click_savebing: function () {
+                    var that = this;
+                    var apiUrl = ""
+                    console.log('绑定');
+                    $('#modelbasic').modal('hide');
+                    return;
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    $.post(apiUrl, {
+                        doctorId: '',
+                        Infor:""
+                    }).then(item => {
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            //that.errMsg = "操作成功"
+                            //window.location.reload();
+                        } else {
+                            that.errMsg = item.Err
+                        }
+                    });
                 }
-
             }
         })
     </script>
