@@ -162,7 +162,7 @@ namespace JGCK.Web.Admin.Controllers
             {
                 var hospitalExists = m_HospitalService.GetHospitalCount(m => m.ID == hId).Result > 0;
                 var hospitalHasDoctor = m_DoctorService.GetDoctorCount(p =>
-                    p.IsDoctor && p.Doctor.InHospital.Any(h => h.HospitalId == hId)).Result > 0;
+                    p.IsDoctor && p.Doctor.InHospital.Any(h => h.BindedHospitalId == hId)).Result > 0;
                 return !hospitalExists || !hospitalHasDoctor;
             };
             var deleteResult = await m_HospitalService.LogicObjectDelete<Hospital, long>(hId);

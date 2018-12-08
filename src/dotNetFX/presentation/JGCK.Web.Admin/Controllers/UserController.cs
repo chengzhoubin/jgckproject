@@ -37,6 +37,7 @@ namespace JGCK.Web.Admin.Controllers
             {
                 return View(userLogin);
             }
+
             var ret = await m_UserManagerService.CheckAsync(userLogin.UserName, userLogin.Pwd);
             if (ret == CheckUserPwdResult.Success)
             {
@@ -64,11 +65,12 @@ namespace JGCK.Web.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> DoctorList(string filter, int? p)
         {
-            var doctorIndex = new VmUserDoctorIndex() { Filter = filter?.Trim() };
+            var doctorIndex = new VmUserDoctorIndex() {Filter = filter?.Trim()};
             var pageIndex = p.HasValue ? p.Value : 1;
             var searchExp = doctorIndex.CombineExpression();
             var entList =
-                await m_DoctorManagerService.GetDoctorListAsync(searchExp, UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleDoctorSort),
+                await m_DoctorManagerService.GetDoctorListAsync(searchExp,
+                    UserSortBy<Person, JsonSortValue>(ConfigHelper.KeyModuleDoctorSort),
                     pageIndex);
             doctorIndex.TotalRecordCount = await m_DoctorManagerService.GetDoctorCount(searchExp);
             doctorIndex.ViewObjects = entList.Select(item => new VmUserDoctor
@@ -118,15 +120,26 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<JsonResult> DeleteDoctor(long doctorId)
         {
             var jsonResult = new VM_JsonOnlyResult();
-            m_DoctorManagerService.PreLogicDeleteHandler = () => m_DoctorManagerService.GetDoctor(doctorId) != null;
-            var deleteStatus = await m_DoctorManagerService.LogicObjectDelete<Person, long>(doctorId);
+            var selectedDoctor = m_DoctorManagerService.GetDoctor(doctorId);
+            var parentPersonId = selectedDoctor?.Doctor.WithPerson.ID ?? 0L;
+            m_DoctorManagerService.PreLogicDeleteHandler = () =>
+            {
+                if (selectedDoctor != null && selectedDoctor.Doctor.AuditStatus == DoctorAuditStatus.Pending)
+                {
+                    parentPersonId = selectedDoctor.ID;
+                    return true;
+                }
+
+                return false;
+            };
+            var deleteStatus = await m_DoctorManagerService.LogicObjectDelete<Person, long>(parentPersonId);
             if (deleteStatus == AppServiceExecuteStatus.Success)
             {
                 jsonResult.Result = true;
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = string.Format(deleteStatus.ToDescription(), "医生不存在");
+            jsonResult.Err = string.Format(deleteStatus.ToDescription(), "当前审核状态不是待审核");
             return Json(jsonResult);
         }
 
@@ -142,26 +155,26 @@ namespace JGCK.Web.Admin.Controllers
                 return await Task.FromResult(Json(jsonResult));
             }
 
-            var expDoctor = m_DoctorManagerService.GetDoctor(audit.DoctorId);
-            if(expDoctor == null)
+            m_DoctorManagerService.PreOnUpdateHandler = () => m_DoctorManagerService.GetDoctor(audit.DoctorId);
+            m_DoctorManagerService.OnUpdatingHandler = (expDoctor, a) =>
             {
-                jsonResult.Value = -1002;
-                jsonResult.Err = "无法获取医生信息";
-                return await Task.FromResult(Json(jsonResult));
-            }
-            expDoctor.Doctor.AuditStatus = audit.IsPass ? DoctorAuditStatus.Pass : DoctorAuditStatus.Fail;
-            expDoctor.Doctor.AuditDate = DateTime.Now;
-            var updatedStatus = await m_DepartmentManagerService.UpdateObject<Person>(expDoctor);
-            if(updatedStatus == AppServiceExecuteStatus.Success)
+                ((Person)expDoctor).Doctor.AuditStatus = audit.IsPass ? DoctorAuditStatus.Pass : DoctorAuditStatus.Fail;
+                ((Person)expDoctor).Doctor.AuditDate = DateTime.Now;
+            };
+            var updatedStatus = await m_DoctorManagerService.UpdateObject<Person>(isAsync: true);
+            if (updatedStatus == AppServiceExecuteStatus.Success)
             {
                 jsonResult.Result = true;
                 return Json(jsonResult);
             }
+
             jsonResult.Err = string.Format(updatedStatus.ToDescription(), "审核失败");
             return Json(jsonResult);
         }
 
         #endregion
+
+        #region 员工管理
 
         [HttpGet]
         public async Task<ActionResult> UserList(string filter, int? p)
@@ -194,7 +207,7 @@ namespace JGCK.Web.Admin.Controllers
             staffIndex.DepartmentNameListJsonString =
                 JsonConvert.SerializeObject(staffIndex.DepartmentNameList.Select(n => new {id = n, name = n}).ToList());
             staffIndex.RoleNameListJsonString =
-                JsonConvert.SerializeObject(staffIndex.RoleNameList.Select(n => new { id = n, name = n }).ToList());
+                JsonConvert.SerializeObject(staffIndex.RoleNameList.Select(n => new {id = n, name = n}).ToList());
             return View(staffIndex);
         }
 
@@ -272,15 +285,15 @@ namespace JGCK.Web.Admin.Controllers
                     return null;
                 };
             m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
-                {
-                    var n = VmPersonMapper.MapTo(((Person)newObject), (Person)existOject);
-                    var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
-                    n.DepartmentId = dep?.ID;
+            {
+                var n = VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
+                n.DepartmentId = dep?.ID;
 
-                    var role = m_UserManagerService.GetRole(staff.NagigatedDomainObject.Role.Name);
-                    n.Role = role;
-                    n.RoleId = role?.ID;
-                };
+                var role = m_UserManagerService.GetRole(staff.NagigatedDomainObject.Role.Name);
+                n.Role = role;
+                n.RoleId = role?.ID;
+            };
             var updatedRet = await m_UserManagerService.UpdateObject(staff.NagigatedDomainObject, true);
             if (updatedRet == AppServiceExecuteStatus.Success)
             {
@@ -292,5 +305,7 @@ namespace JGCK.Web.Admin.Controllers
             ret.Err = string.Format(updatedRet.ToDescription(), "更新员工信息失败");
             return Json(ret);
         }
+
+        #endregion
     }
 }

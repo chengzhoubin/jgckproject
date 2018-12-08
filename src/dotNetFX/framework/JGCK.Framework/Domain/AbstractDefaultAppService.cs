@@ -92,7 +92,7 @@ namespace JGCK.Framework
             return Task.FromResult(AppServiceExecuteStatus.DoNotContinue);
         }
 
-        public virtual Task<AppServiceExecuteStatus> UpdateObject<TEntity>(TEntity ent, bool isAsync = false)
+        public virtual Task<AppServiceExecuteStatus> UpdateObject<TEntity>(TEntity ent = null, bool isAsync = false)
             where TEntity : class
         {
             if (PreOnUpdateHandler == null || OnUpdatingHandler == null)
