@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using JGCK.Framework.EF;
 using JGCK.Respority.BasicInfo;
 using JGCK.Respority.UserWork;
+using JGCK.Util;
 
 namespace JGCK.Modules.Configuration
 {
@@ -44,6 +45,13 @@ namespace JGCK.Modules.Configuration
                 .Include(h => h.HospitalInvoices)
                 .Include(h => h.HospitalReferences)
                 .FirstOrDefault(h => h.ID == hid);
+        }
+
+        public Task<List<Hospital>> GetHospitals(string name, bool isFuzzyQuery = true)
+        {
+            var exp = PredicateBuilder.Create<Hospital>(h => !h.IsDeleted);
+            exp = isFuzzyQuery ? exp.And(h => h.Name.Contains(name)) : exp.And(h => h.Name == name);
+            return basicDbContext.Hospital.Where(exp).ToListAsync();
         }
     }
 }

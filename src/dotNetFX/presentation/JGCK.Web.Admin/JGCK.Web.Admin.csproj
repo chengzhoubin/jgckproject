@@ -206,6 +206,7 @@
     <Compile Include="Models\VmDepartment.cs" />
     <Compile Include="Models\VmDoctorBind.cs" />
     <Compile Include="Models\VmHospitalIndex.cs" />
+    <Compile Include="Models\VmSmartHospitalSelector.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Models\VmUserStaffIndex.cs" />

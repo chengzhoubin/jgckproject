@@ -203,6 +203,16 @@ namespace JGCK.Web.Admin.Controllers
             return Json(jsonResult);
         }
 
+        public async Task<JsonResult> GetSmartHospitals(string search)
+        {
+            var ret = (await m_HospitalService.GetHospitals(search)).Select(v => new VmSmartHospitalSelector
+            {
+                HospitalId = v.ID,
+                HospitalName = v.Name
+            });
+            return Json(ret);
+        }
+
         #endregion
 
         #region 部门管理
