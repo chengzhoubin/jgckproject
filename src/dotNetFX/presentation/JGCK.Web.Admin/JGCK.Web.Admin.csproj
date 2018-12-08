@@ -198,11 +198,13 @@
     <Compile Include="Models\Mapper\VmPersonMapper.cs" />
     <Compile Include="Models\Validator\JsonDoctorAuditValidator.cs" />
     <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
+    <Compile Include="Models\Validator\VmDoctorBindValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
     <Compile Include="Models\Validator\VmHospitalValidator.cs" />
     <Compile Include="Models\Validator\VmStaffValidator.cs" />
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmDepartment.cs" />
+    <Compile Include="Models\VmDoctorBind.cs" />
     <Compile Include="Models\VmHospitalIndex.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />

@@ -23,6 +23,7 @@ namespace JGCK.Web.Admin.Controllers
         private DoctorManager m_DoctorManagerService { get; set; }
         private DepartmentManager m_DepartmentManagerService { get; set; }
         private RoleManager m_RoleManagerService { get; set; }
+        private HospitalManager m_HospitalManagerService { get; set; }
 
         [HttpGet]
         public ActionResult Login()
@@ -169,6 +170,48 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             jsonResult.Err = string.Format(updatedStatus.ToDescription(), "审核失败");
+            return Json(jsonResult);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> BindHospital(VmDoctorBind preBind)
+        {
+            var jsonResult = new VM_JsonOnlyResult();
+            var modelState = (new VmDoctorBindValidator()).Validate(preBind);
+            if (!modelState.IsValid)
+            {
+                jsonResult.Value = -1001;
+                jsonResult.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                return await Task.FromResult(Json(jsonResult));
+            }
+
+            var toBindHospital = m_HospitalManagerService.GetHospital(preBind.HospitalId);
+            if (toBindHospital == null)
+            {
+                jsonResult.Value = -1002;
+                jsonResult.Err = "绑定医院不存在";
+                return await Task.FromResult(Json(jsonResult));
+            }
+            m_DoctorManagerService.PreOnUpdateHandler = () => m_DoctorManagerService.GetDoctor(preBind.DoctorId);
+            m_DoctorManagerService.OnUpdatingHandler = (doctor, newDoctor) =>
+            {
+                var expDoctor = (Person) doctor;
+                var preBindInfo = expDoctor.Doctor.InHospital?.FirstOrDefault(h =>
+                    h.ID == preBind.PreBindId && h.PersonDoctorId == preBind.DoctorId);
+                if (preBindInfo != null)
+                {
+                    preBindInfo.BindedHospitalId = toBindHospital.ID;
+                    preBindInfo.BindedHospitalName = toBindHospital.Name;
+                    preBindInfo.IsBinded = true;
+                }
+            };
+            var updatedStatus = await m_DoctorManagerService.UpdateObject<Person>(isAsync: true);
+            if (updatedStatus == AppServiceExecuteStatus.Success)
+            {
+                jsonResult.Result = true;
+                return Json(jsonResult);
+            }
+            jsonResult.Err = string.Format(updatedStatus.ToDescription(), "医院绑定失败");
             return Json(jsonResult);
         }
 
