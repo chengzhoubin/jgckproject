@@ -50,7 +50,8 @@ namespace JGCK.Modules.Configuration
         public Task<List<Hospital>> GetHospitals(string name, bool isFuzzyQuery = true)
         {
             var exp = PredicateBuilder.Create<Hospital>(h => !h.IsDeleted);
-            exp = isFuzzyQuery ? exp.And(h => h.Name.Contains(name)) : exp.And(h => h.Name == name);
+            if (!string.IsNullOrEmpty(name))
+                exp = isFuzzyQuery ? exp.And(h => h.Name.Contains(name)) : exp.And(h => h.Name == name);
             return basicDbContext.Hospital.Where(exp).ToListAsync();
         }
     }

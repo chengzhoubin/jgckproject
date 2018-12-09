@@ -187,7 +187,7 @@
                                             <select class="form-control js-data-ajax" v-model="item.BindedHospitalId">
                                                 <option :value="item.BindedHospitalId">{{item.BindedHospitalName}}</option>
                                             </select>
-                                            <button id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
+                                            <button v-if="!item.IsBinded" id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -391,14 +391,14 @@
                     this.isRuning = true;
                     $.post(apiUrl, {
                         HospitalId: $(".js-data-ajax").eq(item).val(),
-                        DoctorId: this.doctorObj.ID,
+                        DoctorId: this.doctorObj.Doctor.ID,
                         PreBindId: this.doctorObj.Doctor.InHospital[item].ID
                     }).then(item => {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            //window.location.reload();
+                            window.location.reload();
                         } else {
                             that.errMsg = item.Err
                         }
