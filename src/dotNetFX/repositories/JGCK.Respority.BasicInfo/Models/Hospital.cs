@@ -51,6 +51,8 @@ namespace JGCK.Respority.BasicInfo
         public PaymentPeriod PaymentPeriod { get; set; }
 
         public string PaymentPeriodNote { get; set; }
+
+        public string HospitalComments { get; set; }
     }
 
     #region √∂æŸ¿‡–Õ
