@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group has-error">
+                                            <div class="form-group">
                                                 <label class="control-label">医院名称</label>
                                                 <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name">
                                             </div>
@@ -153,7 +153,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">折扣系数</label>
-                                                <input type="number" class="form-control" placeholder="" id="zk" v-model="model.SaleRate">
+                                                <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate">
                                             </div>
                                         </div>
                                     </div>
@@ -349,7 +349,7 @@
                                     <div class="form-group">
                                         <label class="control-label">医疗机构执业许可证</label>
                                         <div>
-                                            <img v-if="model.BusinessLicensePic&&!imgTempUpLoad2" :src="model.BusinessLicensePic" style="max-width:100px;max-height:100%;" id="img2" />
+                                            <img v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :src="model.MedicalInstitutionLicensePic" style="max-width:100px;max-height:100%;" id="img2" />
 
                                             <span class="btn btn-success fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
@@ -367,7 +367,7 @@
                                     <div class="form-group">
                                         <label class="control-label">其他证明文件</label>
                                         <div>
-                                            <img v-if="model.BusinessLicensePic&&!imgTempUpLoad3" :src="model.BusinessLicensePic" style="max-width:100px;max-height:100%;" id="img3" />
+                                            <img v-if="model.CertificationPic&&!imgTempUpLoad3" :src="model.CertificationPic" style="max-width:100px;max-height:100%;" id="img3" />
 
                                             <span class="btn btn-success fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
@@ -384,13 +384,14 @@
                         <div class="tab-pane" id="tab_15_3">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <script id="container" name="content" type="text/plain">
+                                    <script id="myEditor" name="content" type="text/plain">
                                     </script>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @*has-error*@
 
                 <div class="modal-footer">
                     @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
@@ -436,8 +437,9 @@
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-            $(function() {
-                var um = UM.getEditor('container',{ });
+        var um;
+        $(function () {     
+                um = UM.getEditor('myEditor');
                 $("#btnSearch").click(function () {
                     if ($("#Filter").val() == "") {
                         location.href = '@Url.Action("HospitalList")';
@@ -448,13 +450,13 @@
                 });
 
                 fileuploadModule('#fileupload1', '#files_preview1', false, function (data) {                    
-                    app.model.imgTempUpLoad1 = data.result.Value
+                    app.imgTempUpLoad1 = data.result.Value
                 }, 'business:license', 100, 100);
                 fileuploadModule('#fileupload2', '#files_preview2', false, function (data) {
-                    app.model.imgTempUpLoad2 = data.result.Value
+                    app.imgTempUpLoad2 = data.result.Value
                     }, 'medicalinstitution:license',100, 100);
                 fileuploadModule('#fileupload3', '#files_preview3', false, function (data) {
-                    app.model.imgTempUpLoad3 = data.result.Value           
+                    app.imgTempUpLoad3 = data.result.Value           
                 }, 'certification:license', 100, 100);
             });
 
@@ -484,11 +486,17 @@
                             this.model = Obj.NagigatedDomainObject
                         } else {
                             this.model = {
+                                HospitalComments:'',
                                 HospitalInvoices: [{}],
                                 HospitalReferences: [{}]
                             };
                         }
                         console.log(Obj)
+                        if (this.model.HospitalComments) {
+                            UM.getEditor('myEditor').setContent(Obj.NagigatedDomainObject.HospitalComments);
+                        } else {
+                            UM.getEditor('myEditor').setContent("");
+                        }
                         $('#modelfull').modal('show');
                     },
                     click_setsort: function (Name) {
@@ -542,10 +550,10 @@
                         if (!this.model.ID) {
                             apiUrl = "/Settings/AddHospital"
                         } 
-                        if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1
-                        if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2
-                        if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3
-
+                        if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1;
+                        if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2;
+                        if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3;
+                        app.model.HospitalComments = UM.getEditor('myEditor').getContent();
                         if (this.isRuning) return;
                         this.isRuning = true;
                         $.post(apiUrl, {
@@ -555,7 +563,7 @@
                             console.log(item);
                             if (item.Result) {
                                 //that.errMsg = "操作成功"
-                                window.location.reload();
+                               // window.location.reload();
                             } else {
                                 that.errMsg = item.Err
                             }

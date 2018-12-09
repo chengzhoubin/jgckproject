@@ -129,9 +129,9 @@
                             </ul>
                         </div>
                         <div class="col-xs-3">
-                            <button type="button" class="btn green" @@click="click_update(true)">通过</button>
-                            <button type="button" class="btn yellow" @@click="click_update(false)">不通过</button>
-                            <button type="button" class="btn red" @@click="click_delete()">删除</button>
+                            <button type="button" class="btn green" @@click="click_update(true)" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==1">通过</button>
+                            <button type="button" class="btn yellow" @@click="click_update(false)" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==-1001">不通过</button>
+                            <button type="button" class="btn red" @@click="click_delete()" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==1">删除</button>
                         </div>
                     </div>
                     <div class="row">
@@ -158,8 +158,7 @@
                     <hr />
 
 
-                    @*<div class="row" v-if="doctorObj.InHospital&&doctorObj.InHospital.length>0">*@
-                    <div class="row">
+                    <div class="row" v-if="doctorObj.Doctor&&doctorObj.Doctor.InHospital&&doctorObj.Doctor.InHospital.length>0">            
                         <div class="col-xs-12">
                             <table class="table table-striped table-hover">
                                 <thead>
@@ -174,8 +173,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(item,index) in doctorObj.InHospital">
-                                    <td> {{index}}</td>
+                                <tr v-for="(item,index) in doctorObj.Doctor.InHospital">
+                                    <td> {{index+1}}</td>
                                     <td>
                                         {{item.CustomHospitalName}}
                                     </td>
