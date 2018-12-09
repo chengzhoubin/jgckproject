@@ -256,6 +256,7 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public async Task<JsonResult> AddStaff(VmStaff staff)
         {
             var ret = new VM_JsonOnlyResult();
@@ -306,6 +307,7 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public async Task<JsonResult> UpdateStaff(VmStaff staff)
         {
             var ret = new VM_JsonOnlyResult();
