@@ -132,6 +132,7 @@ namespace JGCK.Web.Admin.Controllers
             return View(hospitalIndex);
         }
 
+        [ValidateInput(false)]
         public async Task<JsonResult> AddHospital(VmHospital vm)
         {
             var jsonResult = new VM_JsonOnlyResult();
@@ -176,6 +177,7 @@ namespace JGCK.Web.Admin.Controllers
             return Json(jsonResult);
         }
 
+        [ValidateInput(false)]
         public async Task<JsonResult> UpdateHospital(VmHospital vm)
         {
             var jsonResult = new VM_JsonOnlyResult();

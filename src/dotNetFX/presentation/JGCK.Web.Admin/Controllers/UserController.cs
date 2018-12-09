@@ -91,6 +91,7 @@ namespace JGCK.Web.Admin.Controllers
             return View(doctorIndex);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public async Task<JsonResult> UpdateDoctor(VmUserDoctor doctor)
         {
