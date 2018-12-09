@@ -39,7 +39,7 @@
                         <thead>
                             <tr>
                                 @*class="sorting_asc"{'sorting_asc':SortDirect_RealName=='Asc','sorting_desc':SortDirect_RealName=='Desc','sorting':SortDirect_RealName==''}{'sorting_asc':SortDirect_AuditStatus=='Asc','sorting_desc':SortDirect_AuditStatus=='Desc','sorting':SortDirect_AuditStatus==''}
-        class="sorting_desc"*@
+                                    class="sorting_desc"*@
                                 <th> 序号 </th>
                                 <th @@click="click_setsort('RealName')" :class="get_sortCLass('RealName')"> 医生姓名 </th>
                                 <th> 医生编号 </th>
@@ -60,19 +60,19 @@
                                     var itemIndex = 1;
                                     foreach (var item in Model.ViewObjects)
                                     {
-                            <tr>
-                                <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
-                                <td> @item.NagigatedDomainObject.RealName </td>
-                                <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
-                                <td> @item.NagigatedDomainObject.Doctor.Birthday.ToString("yyyy-MM-dd") </td>
-                                <td> @item.NagigatedDomainObject.IdCard </td>
-                                <td> @item.NagigatedDomainObject.Doctor.Email </td>
-                                <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
-                                <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
-                                <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
-                                <td> @(item.NagigatedDomainObject.Doctor.AuditDate.HasValue ? item.NagigatedDomainObject.Doctor.AuditDate.Value.ToString("yyyy-MM-dd") : "") </td>
-                                <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
-                            </tr>
+                                        <tr>
+                                            <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
+                                            <td> @item.NagigatedDomainObject.RealName </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.Birthday.ToString("yyyy-MM-dd") </td>
+                                            <td> @item.NagigatedDomainObject.IdCard </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.Email </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
+                                            <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
+                                            <td> @(item.NagigatedDomainObject.Doctor.AuditDate.HasValue ? item.NagigatedDomainObject.Doctor.AuditDate.Value.ToString("yyyy-MM-dd") : "") </td>
+                                            <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
+                                        </tr>
                                         itemIndex++;
                                     }
                                 }
@@ -100,7 +100,8 @@
 
 
 
-<div class="modal fade" id="modelfull" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="modal fade" id="modelfull" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,71 +174,57 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(item,index) in doctorObj.Doctor.InHospital">
-                                    <td> {{index+1}}</td>
-                                    <td>
-                                        {{item.CustomHospitalName}}
-                                    </td>
-                                    <td class="hidden-xs"> {{item.HospitalDepartment}}</td>
-                                    <td class="hidden-xs"> {{item.HosDepAddress}} </td>
-                                    <td class="hidden-xs"> {{doctorObj.Doctor?doctorObj.Doctor.LinePhone:''}} </td>
-                                    <td> {{doctorObj.Doctor?doctorObj.Doctor.MobilePhone:''}} </td>
-                                    <td>
-                                        <select v-model="Model.Hospital">
-                                            <option value="1">医院1</option>
-                                            <option value="2">医院2</option>
-                                        </select>
-                                        <button id="btnSave" type="button" class="btn green" @@click="click_savebing()">绑定</button>
-                                    </td>
-                                </tr>
-                                @*<tr>
-                                            <td> 2</td>
-                                            <td> 海宁通策口腔医院有限公司 </td>
-                                            <td class="hidden-xs"> 所属科室</td>
-                                            <td class="hidden-xs"> 科室地址科室地址科室地址科室地址科室地址 </td>
-                                            <td class="hidden-xs"> 123456789012</td>
-                                            <td> 123456789012 </td>
-                                            <td>
-                                                <select v-model="Model.Hospital">
-                                                    <option value="1">医院1</option>
-                                                    <option value="2">医院2</option>
-                                                </select>
-                                                <button id="btnSave" type="button" class="btn green" @@click="click_savebing()">绑定</button>
-                                            </td>
-                                        </tr>*@
+                                    <tr v-for="(item,index) in doctorObj.Doctor.InHospital">
+                                        <td> {{index+1}}</td>
+                                        <td>
+                                            {{item.CustomHospitalName}}
+                                        </td>
+                                        <td class="hidden-xs"> {{item.HospitalDepartment}}</td>
+                                        <td class="hidden-xs"> {{item.HosDepAddress}} </td>
+                                        <td class="hidden-xs"> {{doctorObj.Doctor?doctorObj.Doctor.LinePhone:''}} </td>
+                                        <td> {{doctorObj.Doctor?doctorObj.Doctor.MobilePhone:''}} </td>
+                                        <td>
+                                            <select class="form-control js-data-ajax" v-model="item.BindedHospitalId">
+                                                <option :value="item.BindedHospitalId">{{item.BindedHospitalName}}</option>
+                                            </select>
+                                            <button id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
 
-                        <div class="row">
-                            <div class="col-xs-12"><strong>医生资格证:</strong></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                            </div>
-                            <div class="col-xs-3">
-                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                            </div>
-                            <div class="col-xs-3">
-                                <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
-                            </div>
-                        </div>
-                        <hr />
+                    <div class="row">
+                        <div class="col-xs-12"><strong>医生资格证:</strong></div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                        </div>
+                        <div class="col-xs-3">
+                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                        </div>
+                        <div class="col-xs-3">
+                            <img src="http://m.bestdoctor1.com/Areas/hsmy/Content/img/bg.jpg?17fe3b8" class="img-responsive">
+                        </div>
+                    </div>
+                    <hr />
+                </div>
             </div>
             <div class="modal-footer">
                 <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
         </div>
-     </div>
+    </div>
 </div>
 
 
 @section referenceHeader{
+    <link href="~/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script>
         var pageUrl = "/User/DoctorList"
     </script>
@@ -246,6 +233,9 @@
 
 @section scripts
 {
+
+    <script src="~/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+
     <script>
         $(function() {
             $("#btnSearch").click(function () {
@@ -272,26 +262,67 @@
                 },
                 errMsg:""
             },
-            created: function () {              
+            created: function () {
                 if (Cookies.get('sf_doctorData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_doctorData_sort_keys'))
             },
             mounted: function () {
-                console.log(Cookies.get('sf_doctorData_sort_keys'))
-                console.log(this.sort_keys)
+                //console.log(Cookies.get('sf_doctorData_sort_keys'))
+                //console.log(this.sort_keys)
+                //this.getData();
             },
             computed: {},
             methods: {
+                getSmartHospitalsData: function (name) {
+                    $.post("/settings/GetSmartHospitals/", {
+                        "search": name
+                    }).then(item => {
+                        console.log(item)
+                    });
+                },
                 get_sortCLass: function (sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName});
                     if (_tmp.length === 0) return 'sorting';
-                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");                   
+                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
                 click_showDoctorPop: function (doctorObj) {
                     this.doctorObj = doctorObj.NagigatedDomainObject
                     console.log(this.doctorObj)
-                   $('#modelfull').modal('show')
+                    $('#modelfull').modal('show')
+
+                    setTimeout(function () {
+
+                        $(".js-data-ajax").select2({
+                            width: "off",
+                            ajax: {
+                                type: "post",
+                                url: "/settings/GetSmartHospitals",
+                                dataType: 'json',
+                                delay: 250,
+                                data: function (params) {
+                                    return {
+                                        search: params.term,
+                                        page: params.page
+                                    };
+                                },
+                                processResults: function (data, page) {
+                                    var _d = [];
+                                    _.each(data, function (item, i) {
+                                        _d.push({ id: item.HospitalId, name: item.HospitalName });
+                                    })
+                                    return {
+                                        results: _d
+                                    };
+                                },
+                                cache: true
+                            },
+                            escapeMarkup: function (markup) { return markup; },
+                            minimumInputLength: 1,
+                            templateResult: function formatRepo(repo) { return repo.name; },
+                            templateSelection: function formatRepoSelection(repo) { return repo.name || repo.text; }
+                        });
+                    }, 500)
                 },
-                click_popSelectHospital: function () {                
+                click_popSelectHospital: function () {
                     $('#modelbasic').modal('show');
                 },
                 click_setsort: function (Name) {
@@ -335,7 +366,7 @@
                     var that = this;
                     var apiUrl = "/User/DeleteDoctor"
                     if (this.isRuning) return;
-                    this.isRuning = true;                   
+                    this.isRuning = true;
                     $.post(apiUrl, {
                         doctorId: this.doctorObj.Doctor.ID
                     }).then(item => {
@@ -349,17 +380,19 @@
                         }
                     });
                 },
-                click_savebing: function () {
+                click_savebing: function (item) {
+                    console.log(item)
+                    console.log($(".js-data-ajax").eq(item).val())
                     var that = this;
-                    var apiUrl = ""
+                    var apiUrl = "/user/BindHospital";
                     console.log('绑定');
-                    $('#modelbasic').modal('hide');
-                    return;
+
                     if (this.isRuning) return;
                     this.isRuning = true;
                     $.post(apiUrl, {
-                        doctorId: '',
-                        Infor:""
+                        HospitalId: $(".js-data-ajax").eq(item).val(),
+                        DoctorId: this.doctorObj.ID,
+                        PreBindId: this.doctorObj.Doctor.InHospital[item].ID
                     }).then(item => {
                         that.isRuning = false;
                         console.log(item);
