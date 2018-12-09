@@ -125,7 +125,7 @@ namespace JGCK.Web.Admin.Controllers
             var parentPersonId = selectedDoctor?.Doctor.WithPerson.ID ?? 0L;
             m_DoctorManagerService.PreLogicDeleteHandler = () =>
             {
-                if (selectedDoctor != null && selectedDoctor.Doctor.AuditStatus == DoctorAuditStatus.Pending)
+                if (selectedDoctor != null && selectedDoctor.Doctor.AuditStatus != DoctorAuditStatus.Pass)
                 {
                     parentPersonId = selectedDoctor.ID;
                     return true;
@@ -140,7 +140,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = string.Format(deleteStatus.ToDescription(), "当前审核状态不是待审核");
+            jsonResult.Err = string.Format(deleteStatus.ToDescription(), "当前审核状态不是待审核或者审核不通过");
             return Json(jsonResult);
         }
 
