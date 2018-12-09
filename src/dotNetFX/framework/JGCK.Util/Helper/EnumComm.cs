@@ -14,7 +14,7 @@ namespace JGCK.Util
         /// </summary>
         /// <param name="e">枚举成员</param>    
         /// <returns></returns>
-        public static string GetEnumDescription(object e)
+        public static string GetEnumDescription(this object e)
         {
             //获取字段信息
             System.Reflection.FieldInfo[] ms = e.GetType().GetFields();
@@ -39,7 +39,7 @@ namespace JGCK.Util
             return e.ToString();
         }
 
-        public static string GetEnumDisplayName(object o)
+        public static string GetEnumDisplayName(this object o)
         {
             return o.GetType()
                 .GetMember(o.ToString())

@@ -96,20 +96,17 @@ namespace JGCK.Respority.BasicInfo
         /// <summary>
         /// 基本账号
         /// </summary>
-        [Description("基本账号")]
-        Basic = 2,
+        [Description("基本账号")] Basic = 1,
 
         /// <summary>
         /// 支付宝
         /// </summary>
-        [Description("Alipay")]
-        Alipay,
+        [Description("Alipay")] Alipay = 2,
 
         /// <summary>
         /// 其他
         /// </summary>
-        [Description("其他")]
-        Other
+        [Description("其他")] Other = 4
     }
 
     [Flags]
@@ -118,20 +115,17 @@ namespace JGCK.Respority.BasicInfo
         /// <summary>
         /// 一个月
         /// </summary>
-        [Description("一个月")]
-        OneMonth = 2,
+        [Description("一个月")] OneMonth = 1,
 
         /// <summary>
         /// 预付
         /// </summary>
-        [Description("预付")]
-        PrePay,
+        [Description("预付")] PrePay = 2,
 
         /// <summary>
         /// 其他
         /// </summary>
-        [Description("其他")]
-        Other
+        [Description("其他")] Other = 4
     }
 
     #endregion

@@ -61,9 +61,9 @@
                                         <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
                                         <td> @item.NagigatedDomainObject.HCode </td>
                                         <td> @item.NagigatedDomainObject.Name </td>
-                                        <td> @item.NagigatedDomainObject.HospitalType.ToDescription() </td>
-                                        <td> @item.NagigatedDomainObject.PaymentType.ToDescription() </td>
-                                        <td> @item.NagigatedDomainObject.PaymentPeriod.ToDescription() </td>
+                                        <td> @item.NagigatedDomainObject.HospitalType.GetEnumDescription() </td>
+                                        <td> @item.NagigatedDomainObject.PaymentType.GetEnumDescription() </td>
+                                        <td> @item.NagigatedDomainObject.PaymentPeriod.GetEnumDescription() </td>
                                         <td> @($"{item.NagigatedDomainObject.SaleRate:0.00}") </td>
                                         <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.Receipter) </td>
                                         <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.ReceipterPhone) </td>
@@ -165,9 +165,9 @@
                                             <div class="form-group">
                                                 <label class="control-label">付款方式</label>
                                                 <select class="form-control" id="paymethod" v-model="model.PaymentType">
-                                                    <option value="2">基本账号</option>
-                                                    <option value="4">Alipay</option>
-                                                    <option value="8">其他</option>
+                                                    <option value="1">基本账号</option>
+                                                    <option value="2">Alipay</option>
+                                                    <option value="4">其他</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -181,9 +181,9 @@
                                             <div class="form-group">
                                                 <label class="control-label">付款周期</label>
                                                 <select class="form-control" id="paymethodTime" v-model="model.PaymentPeriod">
-                                                    <option value="2">一个月</option>
-                                                    <option value="4">预付</option>
-                                                    <option value="8">其他</option>
+                                                    <option value="1">一个月</option>
+                                                    <option value="2">预付</option>
+                                                    <option value="4">其他</option>
                                                 </select>
                                             </div>
                                         </div>
