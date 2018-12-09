@@ -393,7 +393,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
+                    @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                     <button type="button" class="btn green" @@click="click_save()">保存</button>
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
@@ -554,8 +554,8 @@
                             that.isRuning = false;
                             console.log(item);
                             if (item.Result) {
-                                that.errMsg = "操作成功"
-                                //window.location.reload();
+                                //that.errMsg = "操作成功"
+                                window.location.reload();
                             } else {
                                 that.errMsg = item.Err
                             }
