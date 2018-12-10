@@ -160,8 +160,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-
-                                        <div class="col-md-2 col-md-offset-2">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">付款方式&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethod" v-model="model.PaymentType">
@@ -171,10 +170,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" v-if="model.PaymentType==4">
                                             <div class="form-group">
-                                                <label class="control-label">付款方式备注</label>
-                                                <input type="text" id="paymethodMark" class="form-control" placeholder="付款方式备注" v-model="model.PaymentNote">
+                                                <label class="control-label" v-if="model.PaymentType==4">付款方式备注</label>
+                                                <input type="text" v-if="model.PaymentType==4" id="paymethodMark" class="form-control" placeholder="付款方式备注" v-model="model.PaymentNote">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -187,11 +186,10 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" v-if="model.PaymentPeriod==4">
                                             <div class="form-group">
-                                                <label class="control-label">付款方式备注</label>
-                                                <input type="text" id="paymethodTimemark" class="form-control" placeholder="付款周期" v-model="model.PaymentPeriodNote">
+                                                <label class="control-label" v-if="model.PaymentPeriod==4">付款方式备注</label>
+                                                <input type="text" v-if="model.PaymentPeriod==4" id="paymethodTimemark" class="form-control" placeholder="付款周期" v-model="model.PaymentPeriodNote">
                                             </div>
                                         </div>
                                     </div>
