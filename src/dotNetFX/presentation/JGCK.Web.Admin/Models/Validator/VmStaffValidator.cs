@@ -51,9 +51,10 @@ namespace JGCK.Web.Admin.Models
                 .OverridePropertyName("毕业院校/专业");
             this.RuleFor(staff => staff.NagigatedDomainObject.Phone)
                 .NotEmpty()
+                .Matches(vm => RegexHelper.RegexPhoneOrMobileRule)
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("联系电话");
             this.RuleFor(staff => staff.NagigatedDomainObject.FamliyAddress)
-                .NotEmpty().Matches(vm => RegexHelper.RegexPhoneOrMobileRule)
+                .NotEmpty()
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("家庭住址");
             this.RuleFor(staff => staff.NagigatedDomainObject.EmergencyContact)
                 .NotEmpty()
