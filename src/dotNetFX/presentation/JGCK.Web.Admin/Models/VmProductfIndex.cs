@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Linq.Expressions;
 using JGCK.Util;
+using FluentValidation.Attributes;
+using JGCK.Web.Admin.Models.Validator;
 
 namespace JGCK.Web.Admin.Models
 {
@@ -24,6 +26,7 @@ namespace JGCK.Web.Admin.Models
         }
     }
 
+    [Validator(typeof(VmProductValidator))]
     public class VmProduct : AbstractVO<Product>
     {
 

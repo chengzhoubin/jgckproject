@@ -87,6 +87,157 @@
       
 <div class="page-container">
           
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar navbar-collapse collapse">
+                    <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                        <li class="sidebar-toggler-wrapper hide">
+                            <div class="sidebar-toggler">
+                                <span></span>
+                            </div>
+                        </li>
+                        <!--<li class="heading">-->
+                        <!--<h3 class="uppercase">信息管理</h3>-->
+                        <!--</li>-->
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-briefcase"></i>
+                                <span class="title">基础管理</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("DoctorList","User")" class="nav-link ">
+                                        <span class="title">医生信息管理</span>
+                                        @*<span class="selected"></span>*@
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="@Url.Action("HospitalList","Settings")" class="nav-link ">
+                                        <span class="title">医院管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="@Url.Action("DepartmentList","Settings")">
+                                        <span class="title">部门管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="@Url.Action("UserList","User")" class="nav-link ">
+                                        <span class="title">员工信息管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="@Url.Action("Index", "Permission")">
+                                        <span class="title">角色和权限管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="@Url.Action("Worktime", "Settings", new{year=DateTime.Now.Year})">
+                                        <span class="title">日历维护</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="#">
+                                        <span class="title">微信客服管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="#">
+                                        <span class="title">绩效管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-briefcase"></i>
+                                <span class="title">产品管理</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link " href="@Url.Action("ProductType", "Product")" >
+                                        <span class="title">产品类型管理</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="@Url.Action("Index", "Product")" class="nav-link ">
+                                        <span class="title">产品管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="#">
+                                        <span class="title">工序管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">材料管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a class="nav-link " href="#">
+                                        <span class="title">批号管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-briefcase"></i>
+                                <span class="title">网站管理</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">栏目管理</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">网站展示</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-briefcase"></i>
+                                <span class="title">订单与生产管理</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">订单管理</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">工单管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="#" class="nav-link ">
+                                        <span class="title">成品管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                    <!-- END SIDEBAR MENU -->
+                </div>
+                <!-- END SIDEBAR -->
+            </div>
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
             <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">

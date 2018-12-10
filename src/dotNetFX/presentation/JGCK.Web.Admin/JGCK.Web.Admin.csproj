@@ -196,11 +196,13 @@
     <Compile Include="Models\Mapper\VmDoctorMapper.cs" />
     <Compile Include="Models\Mapper\VmHospitalMapper.cs" />
     <Compile Include="Models\Mapper\VmPersonMapper.cs" />
+    <Compile Include="Models\Mapper\VmProductMapper.cs" />
     <Compile Include="Models\Validator\JsonDoctorAuditValidator.cs" />
     <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorBindValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
     <Compile Include="Models\Validator\VmHospitalValidator.cs" />
+    <Compile Include="Models\Validator\VmProductValidator.cs" />
     <Compile Include="Models\Validator\VmStaffValidator.cs" />
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmDepartment.cs" />
@@ -891,9 +893,9 @@
       <Project>{f58df582-baef-45ef-b4c4-17b16b09e475}</Project>
       <Name>JGCK.Modules.OrderProcessFlow</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\modules\JGCK.Modules.Product\JGCK.Modules.Product.csproj">
+    <ProjectReference Include="..\..\modules\JGCK.Modules.Product\JGCK.Modules.ProductModule.csproj">
       <Project>{3601cd59-d94d-432f-b440-4b2a86a56b20}</Project>
-      <Name>JGCK.Modules.Product</Name>
+      <Name>JGCK.Modules.ProductModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
       <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>

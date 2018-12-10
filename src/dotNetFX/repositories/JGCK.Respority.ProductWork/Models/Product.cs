@@ -42,5 +42,7 @@ namespace JGCK.Respority.ProductWork
         public virtual ProductTypeInfo ProductTypeInfo { get; set; }
 
         public virtual ICollection<ProductBatchNumber> ProductBatchNumber { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

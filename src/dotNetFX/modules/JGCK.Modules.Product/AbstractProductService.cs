@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JGCK.Modules.Product
+namespace JGCK.Modules.ProductModule
 {
     public abstract class AbstractProductService : AbstractDefaultAppService, ITransistService
     {
