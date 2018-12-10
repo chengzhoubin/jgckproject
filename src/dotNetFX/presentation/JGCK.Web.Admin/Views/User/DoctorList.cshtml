@@ -238,7 +238,7 @@
 
     <script>
         $(function() {
-            $("#btnSearch").click(function () {
+            $("#btnSearch").click(function() {
                 if ($("#Filter").val() == "") {
                     location.href = '@Url.Action("DoctorList")';
                     return;
@@ -246,7 +246,11 @@
                 var reloadUrlWithFilter = '@Url.Action("DoctorList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
             });
-        })
+            $(".js-data-ajax").select2({
+                placeholder: "输入医院名称",
+                language: "zh-CN"
+            });
+        });
         var app = new Vue({
             el: '#app',
             data: {
