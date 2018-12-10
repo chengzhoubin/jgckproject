@@ -832,6 +832,7 @@
     <Content Include="Views\Settings\DepartmentList.cshtml" />
     <Content Include="Views\User\UserList.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Shared\_ParitalNoticeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

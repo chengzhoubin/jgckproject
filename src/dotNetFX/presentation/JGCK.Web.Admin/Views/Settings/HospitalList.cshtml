@@ -406,7 +406,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("_ParitalNoticeForm")
 
 
 @section referenceHeader{
@@ -565,7 +565,8 @@
                             console.log(item);
                             if (item.Result) {
                                 //that.errMsg = "操作成功"
-                                window.location.reload();
+                                $("#successModal").modal('show');
+                                //window.location.reload();
                             } else {
                                 that.errMsg = item.Err
                             }

@@ -370,7 +370,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-
+@Html.Partial("_ParitalNoticeForm")
 
 
 @section referenceHeader{
@@ -565,7 +565,8 @@
                                     staffId: that.doctor.ID
                                 }).then(item => {
                                     if (item.Result) {
-                                        window.location.reload();
+                                        $("#successModal").modal('show');
+                                        //window.location.reload();
                                         //that.errMsg = "删除成功"
                                     } else {
                                         that.errMsg = item.Err
@@ -609,9 +610,10 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            $("#successModal").modal('show');
                         } else {
-                            that.errMsg = item.Err
+                            that.errMsg = item.Err;
                         }
                     });
 
