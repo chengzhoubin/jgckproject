@@ -36,7 +36,7 @@ namespace JGCK.Respority.BasicInfo.Models
 
         public string Note { get; set; }
 
-        public long HospitalId { get; set; }
+        public long? HospitalId { get; set; }
 
         [ForeignKey("HospitalId")]
         public virtual Hospital WithHospital { get; set; }

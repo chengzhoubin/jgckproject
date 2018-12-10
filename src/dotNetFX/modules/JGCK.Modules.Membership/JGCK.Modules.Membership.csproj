@@ -52,6 +52,7 @@
     <Compile Include="DoctorManager.cs" />
     <Compile Include="Enum\UserManagerResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleManager.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>

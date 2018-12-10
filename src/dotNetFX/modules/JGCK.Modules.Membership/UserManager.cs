@@ -59,5 +59,15 @@ namespace JGCK.Modules.Membership
         {
             return userDbContext.GetById<Person, long>(userId);
         }
+
+        public Person GetUser(string userName)
+        {
+            return userDbContext.Person.FirstOrDefault(u => u.Name == userName && !u.IsDeleted);
+        }
+
+        public Role GetRole(string rName)
+        {
+            return userDbContext.Role.FirstOrDefault(r => r.Name == rName);
+        }
     }
 }

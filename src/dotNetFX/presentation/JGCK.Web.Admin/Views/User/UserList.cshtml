@@ -1,5 +1,7 @@
-﻿@using Webdiyer.WebControls.Mvc
+﻿@using JGCK.Respority.UserWork
+@using Webdiyer.WebControls.Mvc
 @using JGCK.Util
+@using JGCK.Web.Admin.Models
 @model JGCK.Web.Admin.Models.VmUserStaffIndex
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,7 +15,18 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showDoctorPop()"> 新增 </button>
+            @{
+                var nullStaff = new VmStaff();
+                nullStaff.NagigatedDomainObject = new Person();
+                nullStaff.NagigatedDomainObject.HireDate = DateTime.Now;
+                nullStaff.NagigatedDomainObject.PersonType = OnJobType.OnWork;
+                nullStaff.NagigatedDomainObject.Education = EducationType.Junior;
+                nullStaff.NagigatedDomainObject.Sex = Gender.Male;
+                nullStaff.NagigatedDomainObject.Role = new Role {Name = Model.RoleNameList.FirstOrDefault()};
+                nullStaff.NagigatedDomainObject.DepartmentName = Model.DepartmentNameList.FirstOrDefault();
+                var initalJsonValue = nullStaff.HiddenJsonString;
+            }
+            <button type="button" class="btn green btn-sm btn-outline" @@click="click_showDoctorPop(@initalJsonValue)"> 新增 </button>
         </div>
     </div>
 </div>
@@ -127,12 +140,22 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>角色:</strong> <input type="text" v-model="doctor.Role.Name" /></li>
+                                <li> <strong>角色:</strong> 
+                                    @*<input type="text" v-model="doctor.Role.Name" />*@
+                                    <select v-model="doctor.Role.Name">
+                                        <option :value="item.id" v-for="item in ListRoleName">{{item.name}}</option>
+                                    </select>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>所属部门:</strong>  <input type="text" v-model="doctor.DepartmentName" /></li>
+                                <li> <strong>所属部门:</strong>  
+                                    @*<input type="text" v-model="doctor.DepartmentName" />*@
+                                    <select v-model="doctor.DepartmentName">
+                                        <option :value="item.id" v-for="item in ListDepartment">{{item.name}}</option>
+                                    </select>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
@@ -145,7 +168,7 @@
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>密码:</strong> <input type="text" />
+                                    <strong>密码:</strong> <input type="password" v-model="doctor.Pwd" />
                                 </li>
                             </ul>
                         </div>
@@ -156,8 +179,8 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>员工类型:</strong>
-                                    <select v-model="doctor.PersonType">
-                                        <option value="">请选择</option>
+                                    <select v-model="doctor.PersonType" @@change="change_PersonType()">
+                                        @*<option value="">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListPersonType">{{item.name}}</option>
                                     </select>
 
@@ -174,7 +197,7 @@
                                 <li>
                                     <strong>性别:</strong>
                                     <select v-model="doctor.Sex">
-                                        <option value="">请选择</option>
+                                        @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -196,7 +219,7 @@
                                 <li>
                                     <strong>学历:</strong>
                                     <select v-model="doctor.Education">
-                                        <option value="">请选择</option>
+                                        @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -252,16 +275,16 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" v-if="doctor.PersonType ===1 ||doctor.PersonType ===2">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
                                     <strong>入职时间:</strong>
                                     @*<input type="text" v-model="doctor.HireDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate" />
+                                            <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate"  :disabled="doctor.PersonType===2"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button">
+                                                <button class="btn default date-set" type="button"  :disabled="doctor.PersonType===2">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -270,16 +293,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" v-if="doctor.PersonType ===1 ||doctor.PersonType ===2">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
                                     <strong>离职时间:</strong>
                                     @*<input type="text" v-model="doctor.LeaveDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" id="LeaveDate" size="16" type="text" v-model="doctor.LeaveDate" />
+                                            <input class="form-control" readonly="readonly" id="LeaveDate" size="16" type="text" v-model="doctor.LeaveDate" :disabled="doctor.PersonType===1" />
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button">
+                                                <button class="btn default date-set" type="button"  :disabled="doctor.PersonType===1">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -288,16 +311,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
                                     <strong>实习开始时间:</strong>
                                     @*<input type="text" v-model="doctor.PracticeBeginDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" />
+                                            <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" :disabled="doctor.PersonType===4"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button">
+                                                <button class="btn default date-set" type="button" :disabled="doctor.PersonType===4">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -306,16 +329,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3"  v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
                                     <strong>实习结束时间:</strong>
                                     @*<input type="text" v-model="doctor.PracticeEndDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate" />
+                                            <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate"  :disabled="doctor.PersonType===3"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button">
+                                                <button class="btn default date-set" type="button" :disabled="doctor.PersonType===3">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -337,8 +360,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
-                <span style="color:red;font-size:13px;">{{errMsg}}</span>
+                @*<button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
+                <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                 <button type="button" class="btn green" @@click="click_save">保存</button>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
@@ -364,12 +387,6 @@
             width: 140px;
             display: inline-block;
         }
-
-        .edui-container {
-            display: inline-block;
-            border: 2px solid #d4d4d4;
-            width: 100% !important;
-        }
     </style>
 }
 
@@ -390,8 +407,7 @@
                 }
                 var reloadUrlWithFilter = '@Url.Action("UserList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
-            });
-            handleDatetimePicker();
+            });         
             $(function () {
                 var um = UM.getEditor('container', {});
             });
@@ -403,9 +419,10 @@
             }
             var date = new Date();
             $(".form_datetime").datetimepicker({
+                minView: "month",
                 autoclose: true,
                 isRTL: App.isRTL(),
-                format: " yyyy-mm-dd hh:ii",
+                format: " yyyy-mm-dd",
                 startDate: '2018-1-1',
                 todayHighlight: true,
                 language: "zh-CN",
@@ -474,7 +491,14 @@
 
                                             }
                                              @Html.Raw(educationTypeContent)
-                                   ]
+                ],
+                ListDepartment: @Html.Raw(Model.DepartmentNameListJsonString),
+                ListRoleName: @Html.Raw(Model.RoleNameListJsonString)
+            },
+            watch: {
+                //doctor: function (val) {
+                //    console.log(val);
+                //}
             },
             created: function () {
                 if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
@@ -484,6 +508,11 @@
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
                     return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
+                },
+                change_PersonType: function () {
+                    setTimeout(function () {
+                        handleDatetimePicker();
+                    }, 300)    
                 },
                 click_showDoctorPop: function (doctorObj) {
                     if (doctorObj) {
@@ -498,6 +527,9 @@
                             Role: {} }
                     }
                     $('#modelfull').modal('show')
+                    setTimeout(function () {
+                        handleDatetimePicker();
+                    }, 300)                
                     console.log(this.doctor)
                 },
                 click_delete: function () {
@@ -524,7 +556,7 @@
                                 }).then(item => {
                                     if (item.Result) {
                                         window.location.reload();
-                                        that.errMsg = "删除成功"
+                                        //that.errMsg = "删除成功"
                                     } else {
                                         that.errMsg = item.Err
                                     }
@@ -550,12 +582,9 @@
                     var that = this;
                     var apiUrl = "/user/UpdateStaff"
                     if (!this.doctor.ID) {
-                        this.doctor.Pwd = "123456";
+                        if (!this.doctor.Pwd)this.doctor.Pwd = "123456";
                         apiUrl = "/user/AddStaff"
-                    } else {
-
-                    }
-
+                    } 
                     if ($("#HireDate").val()) this.doctor.HireDate = $("#HireDate").val()
                     if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
                     if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
@@ -569,7 +598,7 @@
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
-                            that.errMsg = "操作成功"
+                            //that.errMsg = "操作成功"
                             window.location.reload();
                         } else {
                             that.errMsg = item.Err

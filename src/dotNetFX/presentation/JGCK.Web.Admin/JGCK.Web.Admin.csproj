@@ -190,19 +190,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\JsonDoctorAudit.cs" />
     <Compile Include="Models\JsonNoWorkTimes.cs" />
     <Compile Include="Models\JsonSortColumn.cs" />
     <Compile Include="Models\Mapper\VmDoctorMapper.cs" />
     <Compile Include="Models\Mapper\VmHospitalMapper.cs" />
     <Compile Include="Models\Mapper\VmPersonMapper.cs" />
+    <Compile Include="Models\Validator\JsonDoctorAuditValidator.cs" />
     <Compile Include="Models\Validator\VmDepartmentValidator.cs" />
+    <Compile Include="Models\Validator\VmDoctorBindValidator.cs" />
     <Compile Include="Models\Validator\VmDoctorValidator.cs" />
     <Compile Include="Models\Validator\VmHospitalValidator.cs" />
     <Compile Include="Models\Validator\VmStaffValidator.cs" />
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmDepartment.cs" />
+    <Compile Include="Models\VmDoctorBind.cs" />
     <Compile Include="Models\VmHospitalIndex.cs" />
     <Compile Include="Models\VmProductfIndex.cs" />
+    <Compile Include="Models\VmSmartHospitalSelector.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Models\VmUserStaffIndex.cs" />

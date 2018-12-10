@@ -40,7 +40,7 @@ namespace JGCK.Modules.Membership
             return userDbContext.Person
                 .Include(p => p.Doctor)
                 .Include(p => p.Doctor.InHospital)
-                .FirstOrDefault(p => p.ID == docId);
+                .FirstOrDefault(p => p.Doctor.ID == docId);
         }
     }
 }

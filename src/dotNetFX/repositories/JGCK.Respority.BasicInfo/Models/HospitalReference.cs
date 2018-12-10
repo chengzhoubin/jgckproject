@@ -33,8 +33,8 @@ namespace JGCK.Respority.BasicInfo.Models
         [StringLength(100)]
         public string BcpEmail { get; set; }
 
-        [Required]
-        public long HospitalId { get; set; }
+        //[Required]
+        public long? HospitalId { get; set; }
 
         [ForeignKey("HospitalId")]
         public virtual Hospital WithHospital { get; set; }

@@ -36,7 +36,7 @@ namespace JGCK.Respority.UserWork
 
         public DateTime? AuditDate { get; set; }
 
-        public string PrebindInfo { get; set; }
+        //public string PrebindInfo { get; set; }
 
         public virtual ICollection<DoctorInHospital> InHospital { get; set; }
     }
@@ -44,18 +44,21 @@ namespace JGCK.Respority.UserWork
     [Table("DoctorHospital")]
     public class DoctorInHospital : AbstractDomainEntity
     {
-        public long HospitalId { get; set; }
+        public long? BindedHospitalId { get; set; }
 
-        [Required] [StringLength(150)] public string HospitalName { get; set; }
+        [StringLength(150)] public string BindedHospitalName { get; set; }
+
+        [Required] [StringLength(150)] public string CustomHospitalName { get; set; }
 
         [Required] [StringLength(150)] public string HospitalDepartment { get; set; }
 
         [Required] public string HosDepAddress { get; set; }
 
-        [ForeignKey("PersonDoctorId")]
-        public PersonDoctor Doctor { get; set; }
+        [ForeignKey("PersonDoctorId")] public PersonDoctor Doctor { get; set; }
 
         public long PersonDoctorId { get; set; }
+
+        public bool IsBinded { get; set; }
     }
 
     /// <summary>

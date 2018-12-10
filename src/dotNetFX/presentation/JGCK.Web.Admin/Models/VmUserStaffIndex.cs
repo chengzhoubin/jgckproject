@@ -26,11 +26,11 @@ namespace JGCK.Web.Admin.Models
             return exp;
         }
 
-        public Gender Sex { get; set; }
+        public Gender Sex { get; set; } = Gender.Male;
 
-        public OnJobType PersonType { get; set; }
+        public OnJobType PersonType { get; set; } = OnJobType.OnWork;
 
-        public EducationType EducationType { get; set; }
+        public EducationType EducationType { get; set; } = EducationType.Junior;
 
         public IEnumerable<SelectListItem> SexList {
             get
@@ -66,6 +66,14 @@ namespace JGCK.Web.Admin.Models
                 return ret;
             }
         }
+
+        public IEnumerable<String> DepartmentNameList { get; set; }
+
+        public string DepartmentNameListJsonString { get; set; }
+
+        public IEnumerable<String> RoleNameList { get; set; }
+
+        public string RoleNameListJsonString { get; set; }
     }
 
     [Validator(typeof(VmStaffValidator))]

@@ -86,6 +86,7 @@
     <Compile Include="Enums\Operation.cs" />
     <Compile Include="Helper\CodeHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
+    <Compile Include="Helper\RegexHelper.cs" />
     <Compile Include="Helper\ValidateHelper.cs" />
     <Compile Include="Extension\ObjectExtensions.cs" />
     <Compile Include="Linq\PredicateBuilder.cs" />

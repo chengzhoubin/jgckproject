@@ -132,6 +132,7 @@ namespace JGCK.Web.Admin.Controllers
             return View(hospitalIndex);
         }
 
+        [ValidateInput(false)]
         public async Task<JsonResult> AddHospital(VmHospital vm)
         {
             var jsonResult = new VM_JsonOnlyResult();
@@ -162,7 +163,7 @@ namespace JGCK.Web.Admin.Controllers
             {
                 var hospitalExists = m_HospitalService.GetHospitalCount(m => m.ID == hId).Result > 0;
                 var hospitalHasDoctor = m_DoctorService.GetDoctorCount(p =>
-                    p.IsDoctor && p.Doctor.InHospital.Any(h => h.HospitalId == hId)).Result > 0;
+                    p.IsDoctor && p.Doctor.InHospital.Any(h => h.BindedHospitalId == hId)).Result > 0;
                 return !hospitalExists || !hospitalHasDoctor;
             };
             var deleteResult = await m_HospitalService.LogicObjectDelete<Hospital, long>(hId);
@@ -176,6 +177,7 @@ namespace JGCK.Web.Admin.Controllers
             return Json(jsonResult);
         }
 
+        [ValidateInput(false)]
         public async Task<JsonResult> UpdateHospital(VmHospital vm)
         {
             var jsonResult = new VM_JsonOnlyResult();
@@ -201,6 +203,16 @@ namespace JGCK.Web.Admin.Controllers
 
             jsonResult.Err = string.Format(updateStatus.ToDescription(), "修改医院信息失败");
             return Json(jsonResult);
+        }
+
+        public async Task<JsonResult> GetSmartHospitals(string search)
+        {
+            var ret = (await m_HospitalService.GetHospitals(search)).Select(v => new VmSmartHospitalSelector
+            {
+                HospitalId = v.ID,
+                HospitalName = v.Name
+            });
+            return Json(ret);
         }
 
         #endregion
@@ -269,7 +281,16 @@ namespace JGCK.Web.Admin.Controllers
 
 
             m_DepartmentService.PreOnUpdateHandler =
-                () => m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
+                () =>
+                {
+                    var existDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.ID);
+                    if (existDep == null)
+                        return null;
+                    var otherDep = m_DepartmentService.GetDepartment(dep.NagigatedDomainObject.Name);
+                    if (otherDep == null || otherDep.ID == dep.NagigatedDomainObject.ID)
+                        return existDep;
+                    return null;
+                };
             m_DepartmentService.OnUpdatingHandler = (oDep, nDep) =>
             {
                 ((Department)oDep).Name = ((Department)nDep).Name;

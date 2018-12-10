@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FluentValidation;
 using JGCK.Respority.UserWork;
+using JGCK.Util.Helper;
 
 namespace JGCK.Web.Admin.Models
 {
@@ -35,7 +36,7 @@ namespace JGCK.Web.Admin.Models
                 .When(staff => staff.NagigatedDomainObject != null)
                 .OverridePropertyName("性别");
             this.RuleFor(staff => staff.NagigatedDomainObject.IdCard)
-                .NotEmpty()
+                .NotEmpty().Matches(vf => RegexHelper.RegexChineseIDCardRule)
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("身份证");
             this.RuleFor(staff => staff.NagigatedDomainObject.HireDate)
                 .NotEmpty()
@@ -52,19 +53,27 @@ namespace JGCK.Web.Admin.Models
                 .NotEmpty()
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("联系电话");
             this.RuleFor(staff => staff.NagigatedDomainObject.FamliyAddress)
-                .NotEmpty()
+                .NotEmpty().Matches(vm => RegexHelper.RegexPhoneOrMobileRule)
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("家庭住址");
             this.RuleFor(staff => staff.NagigatedDomainObject.EmergencyContact)
                 .NotEmpty()
                 .When(staff => staff.NagigatedDomainObject != null)
                 .OverridePropertyName("紧急联系人");
             this.RuleFor(staff => staff.NagigatedDomainObject.EmergencyPhone)
-                .NotEmpty()
+                .NotEmpty().Matches(vm => RegexHelper.RegexPhoneOrMobileRule)
                 .When(staff => staff.NagigatedDomainObject != null)
                 .OverridePropertyName("紧急联系人电话");
+            this.RuleFor(staff => staff.NagigatedDomainObject.Email)
+                .NotEmpty()
+                .EmailAddress()
+                .When(staff => staff.NagigatedDomainObject != null)
+                .OverridePropertyName("电子邮件");
             this.RuleFor(staff => staff.NagigatedDomainObject).Custom((ps, cc) =>
             {
-                if (ps?.PersonType == OnJobType.OnPractice && ps?.PracticeBeginDate.HasValue == false)
+                if (ps == null)
+                    return;
+
+                if (ps.PersonType == OnJobType.OnPractice && !ps.PracticeBeginDate.HasValue)
                 {
                     cc.AddFailure("实习开始时间未设置");
                 }
