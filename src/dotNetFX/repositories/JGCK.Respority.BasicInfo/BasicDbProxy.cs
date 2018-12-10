@@ -19,8 +19,6 @@ namespace JGCK.Respority.BasicInfo
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Hospital> Hospital { get; set; }
 
-        public virtual DbSet<Product> Product { get; set; }
-
         public virtual DbSet<OffDay> OffDay { get; set; }
         public virtual DbSet<HospitalInvoice> HospitalInvoice { get; set; }
         public virtual DbSet<HospitalReference> HospitalReference { get; set; }

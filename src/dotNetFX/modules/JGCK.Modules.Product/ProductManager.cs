@@ -31,7 +31,8 @@ namespace JGCK.Modules.Product
 
         public Task<int> GetProductCount(Expression<Func<JGCK.Respority.ProductWork.Product, bool>> search)
         {
-            return basicDbContext.Product.CountAsync(search);
+            //return basicDbContext.Product.CountAsync(search);
+            return null;
         }
     }
 }
