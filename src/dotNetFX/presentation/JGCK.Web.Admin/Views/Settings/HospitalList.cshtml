@@ -396,7 +396,7 @@
                 <div class="modal-footer">
                     @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                    <button type="button" class="btn green" @@click="click_save()">保存</button>
+                    <button id="btnSave" type="button" class="btn green" @@click="click_save()">保存</button>
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
                 </div>
             </div>
@@ -460,122 +460,131 @@
                 }, 'certification:license', 100, 100);
             });
 
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    model: {},
-                    errMsg: "",
-                    imgTempUpLoad1: "",
-                    imgTempUpLoad2: "",
-                    imgTempUpLoad3: "",
+        var app = new Vue({
+            el: '#app',
+            data: {
+                model: {},
+                errMsg: "",
+                imgTempUpLoad1: "",
+                imgTempUpLoad2: "",
+                imgTempUpLoad3: "",
 
+            },
+            methods: {
+                get_sortCLass: function(sortName) {
+                    var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
+                    if (_tmp.length === 0) return 'sorting';
+                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
-                methods: {
-                    get_sortCLass: function (sortName) {
-                        var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
-                        if (_tmp.length === 0) return 'sorting';
-                        return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
-                    },
-                    click_showPop: function (Obj) {
-                        this.imgTempUpLoad1 = "";
-                        this.imgTempUpLoad2 = "";
-                        this.imgTempUpLoad3 = "";
-                        if (Obj) {
-                            if (!Obj.NagigatedDomainObject.HospitalInvoices || Obj.NagigatedDomainObject.HospitalInvoices.length==0) Obj.NagigatedDomainObject.HospitalInvoices = [{}];
-                            if (!Obj.NagigatedDomainObject.HospitalReferences || Obj.NagigatedDomainObject.HospitalReferences.length == 0) Obj.NagigatedDomainObject.HospitalReferences = [{}];
-                            this.model = Obj.NagigatedDomainObject
-                        } else {
-                            this.model = {
-                                HospitalComments:'',
-                                HospitalInvoices: [{}],
-                                HospitalReferences: [{}]
-                            };
-                        }
-                        console.log(Obj)
-                        if (this.model.HospitalComments) {
-                            UM.getEditor('myEditor').setContent(Obj.NagigatedDomainObject.HospitalComments);
-                        } else {
-                            UM.getEditor('myEditor').setContent("");
-                        }
-                        $('#modelfull').modal('show');
-                    },
-                    click_setsort: function (Name) {
-                        var _tmp = _.where(this.sort_keys, { SortProperty: Name });
-                        var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                        Cookies.remove('sf_hospitalData_sort_keys');
-                        $.post("/ajaxcommon/setsort/", {
+                click_showPop: function(Obj) {
+                    this.imgTempUpLoad1 = "";
+                    this.imgTempUpLoad2 = "";
+                    this.imgTempUpLoad3 = "";
+                    if (Obj) {
+                        if (!Obj.NagigatedDomainObject.HospitalInvoices ||
+                            Obj.NagigatedDomainObject.HospitalInvoices.length == 0)
+                            Obj.NagigatedDomainObject.HospitalInvoices = [{}];
+                        if (!Obj.NagigatedDomainObject.HospitalReferences ||
+                            Obj.NagigatedDomainObject.HospitalReferences.length == 0)
+                            Obj.NagigatedDomainObject.HospitalReferences = [{}];
+                        this.model = Obj.NagigatedDomainObject
+                    } else {
+                        this.model = {
+                            HospitalComments: '',
+                            HospitalInvoices: [{}],
+                            HospitalReferences: [{}],
+                            SaleRate: 1
+                        };
+                    }
+                    console.log(Obj)
+                    if (this.model.HospitalComments) {
+                        UM.getEditor('myEditor').setContent(Obj.NagigatedDomainObject.HospitalComments);
+                    } else {
+                        UM.getEditor('myEditor').setContent("");
+                    }
+                    this.errMsg = "";
+                    $('#btnSave').show();
+                    $('#modelfull').modal('show');
+                },
+                click_setsort: function(Name) {
+                    var _tmp = _.where(this.sort_keys, { SortProperty: Name });
+                    var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
+                    Cookies.remove('sf_hospitalData_sort_keys');
+                    $.post("/ajaxcommon/setsort/",
+                        {
                             "module": "sf_hospitalData_sort_keys",
                             "sortby": Name,
                             "directby": SortDirect
                         }).then(item => {
-                            window.location.reload();
-                        });
-                    },
-                    click_delete: function () {
-                        var that = this
-                        bootbox.confirm({
-                            message: "确定要删除吗?",
-                            size: "small",
-                            buttons: {
-                                confirm: {
-                                    label: '删除',
-                                    className: 'btn-success'
-                                },
-                                cancel: {
-                                    label: '关闭',
-                                    className: 'btn-danger'
-                                }
+                        window.location.reload();
+                    });
+                },
+                click_delete: function() {
+                    var that = this
+                    bootbox.confirm({
+                        message: "确定要删除吗?",
+                        size: "small",
+                        buttons: {
+                            confirm: {
+                                label: '删除',
+                                className: 'btn-success'
                             },
-                            callback: function (result) {
-                                if (result) {
-                                    console.log(that.model);
-                                    $.post("/Settings/DeleteHospital", {
+                            cancel: {
+                                label: '关闭',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function(result) {
+                            if (result) {
+                                console.log(that.model);
+                                $.post("/Settings/DeleteHospital",
+                                    {
                                         hId: that.model.ID
                                     }).then(item => {
-                                        if (item.Result) {
-                                           window.location.reload();
-                                           that.errMsg = "删除成功"
-                                        } else {
-                                            that.errMsg = item.Err
-                                        }
-                                    });
-                                }
+                                    if (item.Result) {
+                                        window.location.reload();
+                                        that.errMsg = "删除成功"
+                                    } else {
+                                        that.errMsg = item.Err
+                                    }
+                                });
                             }
-                        });
-                    },
-                    click_save: function () {
-                        console.log(this.model)
-                        var that = this;
-                        var apiUrl = "/Settings/UpdateHospital"
-                        if (!this.model.ID) {
-                            apiUrl = "/Settings/AddHospital"
-                        } 
-                        if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1;
-                        if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2;
-                        if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3;
-                        app.model.HospitalComments = UM.getEditor('myEditor').getContent();
-                        if (this.isRuning) return;
-                        this.isRuning = true;
-                        $.post(apiUrl, {
+                        }
+                    });
+                },
+                click_save: function() {
+                    console.log(this.model)
+                    var that = this;
+                    var apiUrl = "/Settings/UpdateHospital"
+                    if (!this.model.ID) {
+                        apiUrl = "/Settings/AddHospital"
+                    }
+                    if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1;
+                    if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2;
+                    if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3;
+                    app.model.HospitalComments = UM.getEditor('myEditor').getContent();
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    $.post(apiUrl,
+                        {
                             NagigatedDomainObject: this.model
                         }).then(item => {
-                            that.isRuning = false;
-                            console.log(item);
-                            if (item.Result) {
-                                //that.errMsg = "操作成功"
-                                $("#successModal").modal('show');
-                                //window.location.reload();
-                            } else {
-                                that.errMsg = item.Err
-                            }
-                            });
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            //that.errMsg = "操作成功"
+                            //$("#successModal").modal('show');
+                            //window.location.reload();
+                            popBox("医院" + (!this.model.ID ? "添加" : "更新") + "-操作成功");
+                        } else {
+                            that.errMsg = item.Err;
+                            $('#btnSave').hide();
+                        }
+                    });
 
-                    }
                 }
-            })
-
-
-
+            }
+        });
 
     </script>
 }

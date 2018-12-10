@@ -95,7 +95,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("_ParitalNoticeForm")
 @section referenceHeader{
     <link href="~/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
     <script>
@@ -206,7 +206,8 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            popBox("部门" + (!this.Model.ID ? "添加" : "更新") + "-操作成功");
                         } else {
                             that.errMsg = item.Err;
                             $("#btnSave").hide();

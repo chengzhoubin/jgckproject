@@ -362,7 +362,7 @@
             <div class="modal-footer">
                 @*<button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                 <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                <button type="button" class="btn green" @@click="click_save">保存</button>
+                <button id="btnSave" type="button" class="btn green" @@click="click_save">保存</button>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -431,7 +431,7 @@
                 autoclose: true,
                 isRTL: App.isRTL(),
                 format: " yyyy-mm-dd",
-                startDate: '2018-1-1',
+                //startDate: '2018-1-1',
                 todayHighlight: true,
                 language: "zh-CN",
                 pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
@@ -439,19 +439,18 @@
             $('body').removeClass("modal-open");
         }
         var formatTime = function (value, needTime = true) {
-            return value == "" || value == null || value == '1900-01-01T00:00:00' ? "" : moment(value).format(needTime ? "YYYY-MM-DD HH:mm" : "MM/DD/YYYY");
+            return value == "" || value == null || value == '1900-01-01T00:00:00' ? "" : moment(value).format(needTime ? "YYYY-MM-DD" : "MM/DD/YYYY");
         }
 
-     
 
         var app = new Vue({
             el: '#app',
             data: {
-                doctor: {Role:""},
-                errMsg:"",
+                doctor: { Role: "" },
+                errMsg: "",
                 ListSexList: [
 
-                                    @{
+                    @{
                                         string sexContent = "";
                                         foreach (var j in Model.SexList)
                                         {
@@ -464,12 +463,11 @@
                                         }
 
                                     }
-                                   @Html.Raw(sexContent)
-
-                                ],
+                    @Html.Raw(sexContent)
+                ],
                 ListPersonType: [
 
-                                        @{
+                    @{
                                             string personContent = "";
                                             foreach (var j in Model.PersonTypeList)
                                             {
@@ -482,12 +480,11 @@
                                             }
 
                                           }
-                                        @Html.Raw(personContent)
-
-                               ],
+                    @Html.Raw(personContent)
+                ],
                 ListEducationType: [
 
-                                            @{
+                    @{
                                                 string educationTypeContent = "";
                                                 foreach (var e in Model.EducationTypeList)
                                                 {
@@ -500,7 +497,7 @@
                                                 }
 
                                             }
-                                             @Html.Raw(educationTypeContent)
+                    @Html.Raw(educationTypeContent)
                 ],
                 ListDepartment: @Html.Raw(Model.DepartmentNameListJsonString),
                 ListRoleName: @Html.Raw(Model.RoleNameListJsonString)
@@ -509,40 +506,55 @@
                 //doctor: function (val) {
                 //    console.log(val);
                 //}
+            
             },
-            created: function () {
-                if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
+            created: function() {
+                if (Cookies.get('sf_staffData_sort_keys'))
+                    this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
             },
             methods: {
-                get_sortCLass: function (sortName) {
+                get_sortCLass: function(sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
                     return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
-                change_PersonType: function () {
-                    setTimeout(function () {
-                        handleDatetimePicker();
-                    }, 300)    
+                change_PersonType: function() {
+                    setTimeout(function() {
+                            handleDatetimePicker();
+                        },
+                        300)
                 },
-                click_showDoctorPop: function (doctorObj) {
+                click_showDoctorPop: function(doctorObj) {
                     if (doctorObj) {
-                        if (doctorObj.NagigatedDomainObject.HireDate) doctorObj.NagigatedDomainObject.HireDate = formatTime(doctorObj.NagigatedDomainObject.HireDate)
-                        if (doctorObj.NagigatedDomainObject.LeaveDate) doctorObj.NagigatedDomainObject.LeaveDate = formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
-                        if (doctorObj.NagigatedDomainObject.PracticeBeginDate) doctorObj.NagigatedDomainObject.PracticeBeginDate = formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
-                        if (doctorObj.NagigatedDomainObject.PracticeEndDate) doctorObj.NagigatedDomainObject.PracticeEndDate = formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
+                        if (doctorObj.NagigatedDomainObject.HireDate)
+                            doctorObj.NagigatedDomainObject.HireDate =
+                                formatTime(doctorObj.NagigatedDomainObject.HireDate)
+                        if (doctorObj.NagigatedDomainObject.LeaveDate)
+                            doctorObj.NagigatedDomainObject.LeaveDate =
+                                formatTime(doctorObj.NagigatedDomainObject.LeaveDate)
+                        if (doctorObj.NagigatedDomainObject.PracticeBeginDate)
+                            doctorObj.NagigatedDomainObject.PracticeBeginDate =
+                                formatTime(doctorObj.NagigatedDomainObject.PracticeBeginDate)
+                        if (doctorObj.NagigatedDomainObject.PracticeEndDate)
+                            doctorObj.NagigatedDomainObject.PracticeEndDate =
+                                formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
                         if (!doctorObj.NagigatedDomainObject.Role) doctorObj.NagigatedDomainObject.Role = {}
                         this.doctor = doctorObj.NagigatedDomainObject
                     } else {
                         this.doctor = {
-                            Role: {} }
+                            Role: {}
+                        }
                     }
                     $('#modelfull').modal('show')
-                    setTimeout(function () {
-                        handleDatetimePicker();
-                    }, 300)                
+                    setTimeout(function() {
+                            handleDatetimePicker();
+                        },
+                        300)
                     console.log(this.doctor)
+                    this.errMsg = "";
+                    $('#btnSave').show();
                 },
-                click_delete: function () {
+                click_delete: function() {
                     var that = this
 
                     bootbox.confirm({
@@ -558,12 +570,13 @@
                                 className: 'btn-danger'
                             }
                         },
-                        callback: function (result) {
+                        callback: function(result) {
                             if (result) {
                                 console.log(this.doctor);
-                                $.post("/user/DeleteStaff", {
-                                    staffId: that.doctor.ID
-                                }).then(item => {
+                                $.post("/user/DeleteStaff",
+                                    {
+                                        staffId: that.doctor.ID
+                                    }).then(item => {
                                     if (item.Result) {
                                         $("#successModal").modal('show');
                                         //window.location.reload();
@@ -576,26 +589,27 @@
                         }
                     });
                 },
-                click_setsort: function (Name) {
+                click_setsort: function(Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
                     var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
                     Cookies.remove('sf_staffData_sort_keys');
-                    $.post("/ajaxcommon/setsort/", {
-                        "ModuleName": "sf_staffData_sort_keys",
-                        "SortProperty": Name,
-                        "SortDirect": SortDirect
-                    }).then(item => {
-                         window.location.reload();
+                    $.post("/ajaxcommon/setsort/",
+                        {
+                            "ModuleName": "sf_staffData_sort_keys",
+                            "SortProperty": Name,
+                            "SortDirect": SortDirect
+                        }).then(item => {
+                        window.location.reload();
                     });
-                            },
-                click_save: function () {
+                },
+                click_save: function() {
                     console.log(this.doctor)
                     var that = this;
                     var apiUrl = "/user/UpdateStaff"
                     if (!this.doctor.ID) {
-                        if (!this.doctor.Pwd)this.doctor.Pwd = "123456";
+                        if (!this.doctor.Pwd) this.doctor.Pwd = "123456";
                         apiUrl = "/user/AddStaff"
-                    } 
+                    }
                     if ($("#HireDate").val()) this.doctor.HireDate = $("#HireDate").val()
                     if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
                     if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
@@ -603,24 +617,26 @@
 
                     if (this.isRuning) return;
                     this.isRuning = true;
-                    $.post(apiUrl, {
-                        NagigatedDomainObject: this.doctor
-                    }).then(item => {
+                    $.post(apiUrl,
+                        {
+                            NagigatedDomainObject: this.doctor
+                        }).then(item => {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
                             //window.location.reload();
-                            $("#successModal").modal('show');
+                            //$("#successModal").modal('show');
+                            popBox("员工" + (!this.doctor.ID ? "添加" : "更新") + "-操作成功");
                         } else {
                             that.errMsg = item.Err;
+                            $('#btnSave').hide();
                         }
                     });
 
-                 }
-
+                }
             }
-        })
+        });
     </script>
 
 
