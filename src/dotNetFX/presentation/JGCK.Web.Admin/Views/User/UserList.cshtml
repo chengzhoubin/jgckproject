@@ -140,7 +140,7 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>角色:</strong> 
+                                <li> <strong>角色:&nbsp;<span style="color:red">*</span></strong> 
                                     @*<input type="text" v-model="doctor.Role.Name" />*@
                                     <select v-model="doctor.Role.Name">
                                         <option :value="item.id" v-for="item in ListRoleName">{{item.name}}</option>
@@ -150,7 +150,7 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>所属部门:</strong>  
+                                <li> <strong>所属部门:&nbsp;<span style="color:red">*</span></strong>  
                                     @*<input type="text" v-model="doctor.DepartmentName" />*@
                                     <select v-model="doctor.DepartmentName">
                                         <option :value="item.id" v-for="item in ListDepartment">{{item.name}}</option>
@@ -161,14 +161,14 @@
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>用户名:</strong><input type="text" v-model="doctor.Name" />
+                                    <strong>用户名:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Name" />
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>密码:</strong> <input type="password" v-model="doctor.Pwd" />
+                                    <strong>密码:&nbsp;<span style="color:red">*</span></strong> <input type="password" v-model="doctor.Pwd" />
                                 </li>
                             </ul>
                         </div>
@@ -178,7 +178,7 @@
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>员工类型:</strong>
+                                    <strong>员工类型:&nbsp;<span style="color:red">*</span></strong>
                                     <select v-model="doctor.PersonType" @@change="change_PersonType()">
                                         @*<option value="">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListPersonType">{{item.name}}</option>
@@ -189,13 +189,13 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>姓名:</strong> <input type="text" v-model="doctor.RealName" /></li>
+                                <li> <strong>姓名:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.RealName" /></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>性别:</strong>
+                                    <strong>性别:&nbsp;<span style="color:red">*</span></strong>
                                     <select v-model="doctor.Sex">
                                         @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
@@ -206,7 +206,7 @@
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>身份证号:</strong> <input type="text" v-model="doctor.IdCard" />
+                                    <strong>身份证号:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.IdCard" />
                                 </li>
                             </ul>
                         </div>
@@ -217,7 +217,7 @@
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>学历:</strong>
+                                    <strong>学历:&nbsp;<span style="color:red">*</span></strong>
                                     <select v-model="doctor.Education">
                                         @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
@@ -227,20 +227,20 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>毕业学校:</strong> <input type="text" v-model="doctor.GraduateInstitution" /></li>
+                                <li> <strong>毕业学校:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.GraduateInstitution" /></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>专业:</strong><input type="text" v-model="doctor.Major" />
+                                    <strong>专业:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Major" />
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>Email:</strong><input type="text" v-model="doctor.Email" />
+                                    <strong>Email:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Email" />
                                 </li>
                             </ul>
                         </div>
@@ -250,25 +250,25 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>联系电话:</strong> <input type="text" v-model="doctor.Phone" /> </li>
+                                <li> <strong>联系电话:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.Phone" /> </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>紧急联系人:</strong> <input type="text" v-model="doctor.EmergencyContact" /></li>
+                                <li> <strong>紧急联系人:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.EmergencyContact" /></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>紧急联系人电话:</strong><input type="text" v-model="doctor.EmergencyPhone" />
+                                    <strong>紧急联系人电话:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.EmergencyPhone" />
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>地址:</strong><input type="text" v-model="doctor.FamliyAddress" />
+                                    <strong>地址:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.FamliyAddress" />
                                 </li>
                             </ul>
                         </div>
@@ -370,7 +370,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-
+@Html.Partial("_ParitalNoticeForm")
 
 
 @section referenceHeader{
@@ -565,7 +565,8 @@
                                     staffId: that.doctor.ID
                                 }).then(item => {
                                     if (item.Result) {
-                                        window.location.reload();
+                                        $("#successModal").modal('show');
+                                        //window.location.reload();
                                         //that.errMsg = "删除成功"
                                     } else {
                                         that.errMsg = item.Err
@@ -609,9 +610,10 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            $("#successModal").modal('show');
                         } else {
-                            that.errMsg = item.Err
+                            that.errMsg = item.Err;
                         }
                     });
 

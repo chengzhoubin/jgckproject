@@ -224,7 +224,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("_ParitalNoticeForm")
 
 @section referenceHeader{
     <link href="~/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
@@ -405,7 +405,8 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            $("#successModal").modal('show');
                         } else {
                             that.errMsg = item.Err
                         }
@@ -424,7 +425,8 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            $("#successModal").modal('show');
                         } else {
                             that.errMsg = item.Err
                         }
@@ -448,7 +450,8 @@
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
-                            window.location.reload();
+                            //window.location.reload();
+                            $("#successModal").modal('show');
                         } else {
                             that.errMsg = item.Err
                         }

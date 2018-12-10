@@ -15,7 +15,7 @@ namespace JGCK.Respority.BasicInfo.Models
         [StringLength(20)]
         public string Receipter { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string ReceipterJobTitle { get; set; }
 
         [StringLength(50)]
@@ -24,7 +24,7 @@ namespace JGCK.Respority.BasicInfo.Models
         [StringLength(20)]
         public string BillContactPerson { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string BcpJobTitle { get; set; }
 
         [StringLength(50)]
