@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Framework", "01-Framework", "{2A093C28-1200-41AD-8353-E21B9E01C4C7}"
 EndProject
@@ -54,6 +54,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Framework.EF", "framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj", "{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Modules.IdentityAuthService", "modules\JGCK.Modules.IdentityAuthService\JGCK.Modules.IdentityAuthService.csproj", "{74FB2678-34DB-41C8-9414-7A2DE202018F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGCK.Modules.Product", "modules\JGCK.Modules.Product\JGCK.Modules.Product.csproj", "{3601CD59-D94D-432F-B440-4B2A86A56B20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +139,10 @@ Global
 		{74FB2678-34DB-41C8-9414-7A2DE202018F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74FB2678-34DB-41C8-9414-7A2DE202018F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74FB2678-34DB-41C8-9414-7A2DE202018F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3601CD59-D94D-432F-B440-4B2A86A56B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3601CD59-D94D-432F-B440-4B2A86A56B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3601CD59-D94D-432F-B440-4B2A86A56B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3601CD59-D94D-432F-B440-4B2A86A56B20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +169,7 @@ Global
 		{CEDC28EE-2A38-448D-BC81-C68B5FEF5127} = {ECD5A776-C705-4EB3-9B88-D5F972AD6B7E}
 		{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340} = {2A093C28-1200-41AD-8353-E21B9E01C4C7}
 		{74FB2678-34DB-41C8-9414-7A2DE202018F} = {ECD5A776-C705-4EB3-9B88-D5F972AD6B7E}
+		{3601CD59-D94D-432F-B440-4B2A86A56B20} = {ECD5A776-C705-4EB3-9B88-D5F972AD6B7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {109C6EB6-96A4-4DE7-8116-F2EE99CAFAC7}
