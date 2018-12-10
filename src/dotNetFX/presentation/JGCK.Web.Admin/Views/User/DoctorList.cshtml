@@ -186,13 +186,12 @@
                                         <td class="form-inline">
                                             <div class="form-group">
                                                 <div class="input-group select2-bootstrap-append select2-bootstrap-prepend input-large">
-                                                    <select class="form-control js-data-ajax" v-model="item.BindedHospitalId">
+                                                    <select class="form-control js-data-ajax" v-model="item.BindedHospitalId" :disabled="item.IsBinded">
                                                         <option :value="item.BindedHospitalId">{{item.BindedHospitalName}}</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            @*v-if="!item.IsBinded"*@
-                                            <button id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
+                                            </div>                                            
+                                            <button id="btnSave" v-if="!item.IsBinded" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
                                         </td>
                                     </tr>
                                 </tbody>
