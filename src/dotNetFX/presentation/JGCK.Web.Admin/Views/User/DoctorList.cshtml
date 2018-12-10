@@ -183,11 +183,16 @@
                                         <td class="hidden-xs"> {{item.HosDepAddress}} </td>
                                         <td class="hidden-xs"> {{doctorObj.Doctor?doctorObj.Doctor.LinePhone:''}} </td>
                                         <td> {{doctorObj.Doctor?doctorObj.Doctor.MobilePhone:''}} </td>
-                                        <td>
-                                            <select class="form-control js-data-ajax" v-model="item.BindedHospitalId">
-                                                <option :value="item.BindedHospitalId">{{item.BindedHospitalName}}</option>
-                                            </select>
-                                            <button v-if="!item.IsBinded" id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
+                                        <td class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group select2-bootstrap-append select2-bootstrap-prepend input-large">
+                                                    <select class="form-control js-data-ajax" v-model="item.BindedHospitalId">
+                                                        <option :value="item.BindedHospitalId">{{item.BindedHospitalName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @*v-if="!item.IsBinded"*@
+                                            <button id="btnSave" type="button" class="btn green" @@click="click_savebing(index)">绑定</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -234,9 +239,49 @@
 @section scripts
 {
 
-    <script src="~/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-
+    <script src="~/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>  
     <script>
+            (function () {
+                if (jQuery && jQuery.fn && jQuery.fn.select2 && jQuery.fn.select2.amd)
+                    var e = jQuery.fn.select2.amd;
+                return e.define("select2/i18n/zh-CN", [], function () {
+                    return {
+                        errorLoading: function () {
+                            return "无法载入结果。"
+                        },
+                        inputTooLong: function (e) {
+                            var t = e.input.length - e.maximum
+                                , n = "请删除" + t + "个字符";
+                            return n
+                        },
+                        inputTooShort: function (e) {
+                            var t = e.minimum - e.input.length
+                                , n = "请再输入至少" + t + "个字符";
+                            return n
+                        },
+                        loadingMore: function () {
+                            return "载入更多结果…"
+                        },
+                        maximumSelected: function (e) {
+                            var t = "最多只能选择" + e.maximum + "个项目";
+                            return t
+                        },
+                        noResults: function () {
+                            return "未找到结果 &nbsp;  &nbsp; 现在查看 >> " +"<a href='/Settings/HospitalList' target='_blank'>医院列表</a>"
+                        },
+                        searching: function () {
+                            return "搜索中…"
+                        }
+                    }
+                }),
+                    {
+                        define: e.define,
+                        require: e.require
+                    }
+            }
+            )();
+
+
         $(function() {
             $("#btnSearch").click(function () {
                 if ($("#Filter").val() == "") {
@@ -292,6 +337,8 @@
                     setTimeout(function () {
 
                         $(".js-data-ajax").select2({
+                            placeholder: "请选择",
+                            language: "zh-CN",
                             width: "off",
                             ajax: {
                                 type: "post",
