@@ -124,26 +124,26 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="control-label">医院编号*</label>
+                                                <label class="control-label">医院编号&nbsp;<span style="color:red">*</span></label>
                                                 <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="control-label">医院名称</label>
+                                                <label class="control-label">医院名称&nbsp;<span style="color:red">*</span></label>
                                                 <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="control-label">医院地址</label>
+                                                <label class="control-label">医院地址&nbsp;<span style="color:red">*</span></label>
                                                 <input type="text" id="hospitalAddress" class="form-control" placeholder="医院地址" v-model="model.Address">
 
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="control-label">医院属性</label>
+                                                <label class="control-label">医院属性&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="hospitalSuxing" v-model="model.HospitalType">
                                                     <option value="1">公立</option>
                                                     <option value="2">私立</option>
@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="control-label">折扣系数</label>
+                                                <label class="control-label">折扣系数&nbsp;<span style="color:red">*</span></label>
                                                 <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate">
                                             </div>
                                         </div>
@@ -163,7 +163,7 @@
 
                                         <div class="col-md-2 col-md-offset-2">
                                             <div class="form-group">
-                                                <label class="control-label">付款方式</label>
+                                                <label class="control-label">付款方式&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethod" v-model="model.PaymentType">
                                                     <option value="1">基本账号</option>
                                                     <option value="2">Alipay</option>
@@ -179,7 +179,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="control-label">付款周期</label>
+                                                <label class="control-label">付款周期&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethodTime" v-model="model.PaymentPeriod">
                                                     <option value="1">一个月</option>
                                                     <option value="2">预付</option>
@@ -333,7 +333,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">营业执照</label>
+                                        <label class="control-label">营业执照<b>(5M以内)</b></label>
                                         <div>
                                             <img v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :src="model.BusinessLicensePic" style="max-width:100px;max-height:100%;" id="img1" />
                                             <span class="btn btn-success fileinput-button">
@@ -349,7 +349,7 @@
                                 <div class="col-md-4">
 
                                     <div class="form-group">
-                                        <label class="control-label">医疗机构执业许可证</label>
+                                        <label class="control-label">医疗机构执业许可证<b>(5M以内)</b></label>
                                         <div>
                                             <img v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :src="model.MedicalInstitutionLicensePic" style="max-width:100px;max-height:100%;" id="img2" />
 
@@ -367,7 +367,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">其他证明文件</label>
+                                        <label class="control-label">其他证明文件<b>(5M以内)</b></label>
                                         <div>
                                             <img v-if="model.CertificationPic&&!imgTempUpLoad3" :src="model.CertificationPic" style="max-width:100px;max-height:100%;" id="img3" />
 

@@ -12,9 +12,9 @@ namespace JGCK.Respority.BasicInfo.Models
     [Table("HospitalInvoice")]
     public class HospitalInvoice : AbstractDomainEntity, IEntity<BasicDbProxy>
     {
-        [Required] [StringLength(100)] public string Title { get; set; }
+        [StringLength(100)] public string Title { get; set; }
 
-        [Required] [StringLength(50)] public string TaxerNumber { get; set; }
+        [StringLength(50)] public string TaxerNumber { get; set; }
 
         public string InvoiceAddress { get; set; }
 
@@ -26,7 +26,7 @@ namespace JGCK.Respority.BasicInfo.Models
 
         [StringLength(20)] public string ContractPerson { get; set; }
 
-        [StringLength(10)] public string CpJobTitle { get; set; }
+        [StringLength(50)] public string CpJobTitle { get; set; }
 
         [StringLength(50)] public string CpPhone { get; set; }
 
