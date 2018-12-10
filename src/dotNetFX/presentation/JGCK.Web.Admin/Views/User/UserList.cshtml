@@ -407,10 +407,18 @@
                 }
                 var reloadUrlWithFilter = '@Url.Action("UserList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
-            });         
+            });    
+            
             $(function () {
                 var um = UM.getEditor('container', {});
             });
+
+            $('#modelfull').on('show.bs.modal', function (e) {
+                $("html,body").css({ height: "100 %", overflow: "hidden" })     
+            })
+            $('#modelfull').on('hide.bs.modal', function (e) {
+                $("html,body").css({ height: "auto", overflow: "auto" })           
+            })
 
         })
         var handleDatetimePicker = function () {
@@ -433,6 +441,8 @@
         var formatTime = function (value, needTime = true) {
             return value == "" || value == null || value == '1900-01-01T00:00:00' ? "" : moment(value).format(needTime ? "YYYY-MM-DD HH:mm" : "MM/DD/YYYY");
         }
+
+     
 
         var app = new Vue({
             el: '#app',
