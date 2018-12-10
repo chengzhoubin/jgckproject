@@ -130,7 +130,7 @@
                             </ul>
                         </div>
                         <div class="col-xs-3">
-                            <button type="button" class="btn green" @@click="click_update(true)" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==1">通过</button>
+                            <button type="button" class="btn green" @@click="click_update(true)" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus==0">通过</button>
                             <button type="button" class="btn yellow" @@click="click_update(false)" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==-1001">不通过</button>
                             <button type="button" class="btn red" @@click="click_delete()" v-if="doctorObj.Doctor&&doctorObj.Doctor.AuditStatus!==1">删除</button>
                         </div>
