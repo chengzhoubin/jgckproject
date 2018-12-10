@@ -47,6 +47,14 @@ namespace JGCK.Modules.Configuration
                 .FirstOrDefault(h => h.ID == hid);
         }
 
+        public Hospital GetHospital(string hName)
+        {
+            return basicDbContext.Hospital
+                .Include(h => h.HospitalInvoices)
+                .Include(h => h.HospitalReferences)
+                .FirstOrDefault(h => h.Name == hName);
+        }
+
         public Task<List<Hospital>> GetHospitals(string name, bool isFuzzyQuery = true)
         {
             var exp = PredicateBuilder.Create<Hospital>(h => !h.IsDeleted);

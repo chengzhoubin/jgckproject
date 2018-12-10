@@ -189,7 +189,14 @@ namespace JGCK.Web.Admin.Controllers
                 return await Task.FromResult(Json(jsonResult));
             }
 
-            m_HospitalService.PreOnUpdateHandler = () => m_HospitalService.GetHospital(vm.NagigatedDomainObject.ID);
+            m_HospitalService.PreOnUpdateHandler = () =>
+            {
+                var ret = m_HospitalService.GetHospital(vm.NagigatedDomainObject.ID);
+                var existHospital = m_HospitalService.GetHospital(vm.NagigatedDomainObject.Name);
+                if (existHospital == null || existHospital.ID == vm.NagigatedDomainObject.ID)
+                    return ret;
+                return null;
+            };
             m_HospitalService.OnUpdatingHandler = (existOject, newObject) =>
             {
                 ((Hospital) newObject).MapTo((Hospital) existOject);
