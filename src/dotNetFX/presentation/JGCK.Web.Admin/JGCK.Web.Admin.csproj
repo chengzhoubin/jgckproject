@@ -202,6 +202,7 @@
     <Compile Include="Models\Validator\VmUserLoginValidator.cs" />
     <Compile Include="Models\VmDepartment.cs" />
     <Compile Include="Models\VmHospitalIndex.cs" />
+    <Compile Include="Models\VmProductfIndex.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />
     <Compile Include="Models\VmUserLogin.cs" />
     <Compile Include="Models\VmUserStaffIndex.cs" />
@@ -884,9 +885,17 @@
       <Project>{f58df582-baef-45ef-b4c4-17b16b09e475}</Project>
       <Name>JGCK.Modules.OrderProcessFlow</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\modules\JGCK.Modules.Product\JGCK.Modules.Product.csproj">
+      <Project>{3601cd59-d94d-432f-b440-4b2a86a56b20}</Project>
+      <Name>JGCK.Modules.Product</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
       <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>
       <Name>JGCK.Respority.BasicInfoWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.ProductWork\JGCK.Respority.ProductWork.csproj">
+      <Project>{E032CA5F-66F8-43EB-8C7C-2A71C96BF5E6}</Project>
+      <Name>JGCK.Respority.ProductWork</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\repositories\JGCK.Respority.UserWork\JGCK.Respority.UserWork.csproj">
       <Project>{05FAFF0E-0225-45EF-BC59-585E4BB4F16C}</Project>

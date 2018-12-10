@@ -7,6 +7,7 @@ namespace JGCK.Respority.BasicInfo
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using ProductWork;
 
     public partial class BasicDbProxy : AbstractUnitOfWork
     {
@@ -17,6 +18,9 @@ namespace JGCK.Respority.BasicInfo
 
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Hospital> Hospital { get; set; }
+
+        public virtual DbSet<Product> Product { get; set; }
+
         public virtual DbSet<OffDay> OffDay { get; set; }
         public virtual DbSet<HospitalInvoice> HospitalInvoice { get; set; }
         public virtual DbSet<HospitalReference> HospitalReference { get; set; }

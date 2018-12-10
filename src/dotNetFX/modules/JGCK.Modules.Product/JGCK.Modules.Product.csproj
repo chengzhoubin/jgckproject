@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F4A19FF0-33E8-410B-AC07-56B0EFAF9653}</ProjectGuid>
+    <ProjectGuid>{3601CD59-D94D-432F-B440-4B2A86A56B20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JGCK.Respority.BasicInfo</RootNamespace>
-    <AssemblyName>JGCK.Respority.BasicInfo</AssemblyName>
+    <RootNamespace>JGCK.Modules.Product</RootNamespace>
+    <AssemblyName>JGCK.Modules.Product</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,42 +50,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicDbProxy.parial.cs" />
-    <Compile Include="Migrations\201811130225078_initalCreate.cs" />
-    <Compile Include="Migrations\201811130225078_initalCreate.Designer.cs">
-      <DependentUpon>201811130225078_initalCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\Hospital.cs" />
-    <Compile Include="BasicDbProxy.cs" />
-    <Compile Include="Models\HospitalInvoice.cs" />
-    <Compile Include="Models\HospitalReference.cs" />
-    <Compile Include="Models\OffDay.cs" />
+    <Compile Include="AbstractProductService.cs" />
+    <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\framework\JGCK.Framework.EF\JGCK.Framework.EF.csproj">
-      <Project>{eae4cff9-c3b2-4580-a70f-2b299f9ab340}</Project>
+      <Project>{EAE4CFF9-C3B2-4580-A70F-2B299F9AB340}</Project>
       <Name>JGCK.Framework.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\framework\JGCK.Framework\JGCK.Framework.csproj">
-      <Project>{034bdd9a-4061-42da-b9bb-5b301b2efeac}</Project>
+      <Project>{034BDD9A-4061-42DA-B9BB-5B301B2EFEAC}</Project>
       <Name>JGCK.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\JGCK.Respority.ProductWork\JGCK.Respority.ProductWork.csproj">
-      <Project>{E032CA5F-66F8-43EB-8C7C-2A71C96BF5E6}</Project>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.BasicInfo\JGCK.Respority.BasicInfoWork.csproj">
+      <Project>{F4A19FF0-33E8-410B-AC07-56B0EFAF9653}</Project>
+      <Name>JGCK.Respority.BasicInfoWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.ProductWork\JGCK.Respority.ProductWork.csproj">
+      <Project>{e032ca5f-66f8-43eb-8c7c-2a71c96bf5e6}</Project>
       <Name>JGCK.Respority.ProductWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JGCK.Modules.Configuration\JGCK.Modules.Configuration.csproj">
+      <Project>{CEDC28EE-2A38-448D-BC81-C68B5FEF5127}</Project>
+      <Name>JGCK.Modules.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811130225078_initalCreate.resx">
-      <DependentUpon>201811130225078_initalCreate.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
