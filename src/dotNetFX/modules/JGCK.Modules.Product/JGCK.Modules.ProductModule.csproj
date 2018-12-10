@@ -7,8 +7,8 @@
     <ProjectGuid>{3601CD59-D94D-432F-B440-4B2A86A56B20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JGCK.Modules.Product</RootNamespace>
-    <AssemblyName>JGCK.Modules.Product</AssemblyName>
+    <RootNamespace>JGCK.Modules.ProductModule</RootNamespace>
+    <AssemblyName>JGCK.Modules.ProductModule</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

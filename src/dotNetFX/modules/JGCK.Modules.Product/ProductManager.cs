@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 using JGCK.Respority.ProductWork;
 
 
-namespace JGCK.Modules.Product
+namespace JGCK.Modules.ProductModule
 {
     public class ProductManager : AbstractConfigurationService
     {
-        public Task<List<JGCK.Respority.ProductWork.Product>> GetProductListAsync(
-            Expression<Func<JGCK.Respority.ProductWork.Product, bool>> search,
-            AbstractUnitOfWork.OrderByExpression<JGCK.Respority.ProductWork.Product>[] orderBy,
+
+        public Task<List<Product>> GetProductListAsync(
+            Expression<Func<Product, bool>> search,
+            AbstractUnitOfWork.OrderByExpression<Product>[] orderBy,
             int pageIndex)
         {
             var pager = new AbstractUnitOfWork.Pager { CurrentIndex = pageIndex };
-            return basicDbContext.GetObjectsAsync(
+            return productDbContext.GetObjectsAsync(
                 search,
                 pager,
                 false,
@@ -29,10 +30,34 @@ namespace JGCK.Modules.Product
                 p => p.ProductNO);
         }
 
-        public Task<int> GetProductCount(Expression<Func<JGCK.Respority.ProductWork.Product, bool>> search)
+        public Task<int> GetProductCount(Expression<Func<Product, bool>> search)
         {
-            //return basicDbContext.Product.CountAsync(search);
-            return null;
+            return productDbContext.Product.CountAsync(search);
+        }
+
+        public bool ProductIsExists(string name)
+        {
+            return productDbContext.Product.Any(p => p.Name == name && !p.IsDeleted);
+        }
+
+        public Product GetProduct(long productId)
+        {
+            return productDbContext.Product.FirstOrDefault(p => p.ID == productId && !p.IsDeleted);
+        }
+
+        public Product GetProduct(string productName)
+        {
+            return productDbContext.Product.FirstOrDefault(p => p.Name == productName && !p.IsDeleted);
+        }
+
+        public Task<List<Product>> GetAllProductListAsync(Expression<Func<Product, bool>> search)
+        {
+            return productDbContext.GetObjectsAsync(search,
+                null,
+                true,
+                null,
+                p => p.ID,
+                p => p.ProductTypeInfo);
         }
     }
 }

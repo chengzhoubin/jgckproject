@@ -71,6 +71,10 @@
       <Project>{f4a19ff0-33e8-410b-ac07-56b0efaf9653}</Project>
       <Name>JGCK.Respority.BasicInfoWork</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\repositories\JGCK.Respority.ProductWork\JGCK.Respority.ProductWork.csproj">
+      <Project>{E032CA5F-66F8-43EB-8C7C-2A71C96BF5E6}</Project>
+      <Name>JGCK.Respority.ProductWork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\repositories\JGCK.Respority.UserWork\JGCK.Respority.UserWork.csproj">
       <Project>{05faff0e-0225-45ef-bc59-585e4bb4f16c}</Project>
       <Name>JGCK.Respority.UserWork</Name>

@@ -8,8 +8,13 @@ using JGCK.Web.Admin.Models;
 using Newtonsoft.Json;
 using JGCK.Respority.ProductWork;
 using JGCK.Web.General.Helper;
-using JGCK.Modules.Product;
+using JGCK.Modules.ProductModule;
 using System.Threading.Tasks;
+using HSMY_AdminWeb.Models;
+using JGCK.Web.Admin.Models.Validator;
+using JGCK.Framework;
+using JGCK.Util;
+using JGCK.Web.Admin.Models.Mapper;
 
 namespace JGCK.Web.Admin.Controllers
 {
@@ -24,16 +29,14 @@ namespace JGCK.Web.Admin.Controllers
         private ProductManager m_ProductService { get; set; }
 
         [HttpGet]
-        public async Task<ActionResult> ProductList(string filter, int? p)
+        public async Task<ActionResult> AllProductList()
         {
-            var productIndex = new VmProductfIndex() { Filter = filter?.Trim() };
-            var pageIndex = p.HasValue ? p.Value : 1;
+            var productIndex = new VmProductfIndex() { };
             var searchExp = productIndex.CombineExpression();
             var entList =
-                await m_ProductService.GetProductListAsync(
-                    searchExp,
-                    UserSortBy<Product, JsonSortValue>(ConfigHelper.KeyModuleProductSort),
-                    pageIndex);
+                await m_ProductService.GetAllProductListAsync(
+                    searchExp
+                    );
             productIndex.TotalRecordCount = await m_ProductService.GetProductCount(searchExp);
             productIndex.ViewObjects = entList.Select(item => new VmProduct()
             {
@@ -48,35 +51,34 @@ namespace JGCK.Web.Admin.Controllers
                     };
                 }
             }).ToList();
-            productIndex.CurrentIndex = pageIndex;
             return View(productIndex);
         }
 
-        //[HttpPost]
-        //public async Task<JsonResult> AddStaff(VmStaff staff)
-        //{
-        //    var ret = new VM_JsonOnlyResult();
-        //    var modelState = (new VmStaffValidator()).Validate(staff);
-        //    if (!modelState.IsValid)
-        //    {
-        //        ret.Value = -1001;
-        //        ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
-        //        return await Task.FromResult(Json(ret));
-        //    }
+        [HttpPost]
+        public async Task<JsonResult> AddProduct(VmProduct product)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var modelState = (new VmProductValidator()).Validate(product);
+            if (!modelState.IsValid)
+            {
+                ret.Value = -1001;
+                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                return await Task.FromResult(Json(ret));
+            }
 
-        //    m_UserManagerService.PreOnAddHandler =
-        //        () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
-        //    var added = await m_UserManagerService.AddObject(staff.NagigatedDomainObject, true);
-        //    if (added == AppServiceExecuteStatus.Success)
-        //    {
-        //        ret.Value = staff.NagigatedDomainObject.ID;
-        //        ret.Result = true;
-        //        return Json(ret);
-        //    }
+            m_ProductService.PreOnAddHandler =
+                () => !m_ProductService.ProductIsExists(product.NagigatedDomainObject.Name);
+            var added = await m_ProductService.AddObject(product.NagigatedDomainObject, true);
+            if (added == AppServiceExecuteStatus.Success)
+            {
+                ret.Value = product.NagigatedDomainObject.ID;
+                ret.Result = true;
+                return Json(ret);
+            }
 
-        //    ret.Err = added.ToDescription();
-        //    return Json(ret);
-        //}
+            ret.Err = added.ToDescription();
+            return Json(ret);
+        }
 
         //[HttpPost]
         //public async Task<JsonResult> DeleteStaff(long staffId)
@@ -94,34 +96,44 @@ namespace JGCK.Web.Admin.Controllers
         //    return Json(ret);
         //}
 
-        //[HttpPost]
-        //public async Task<JsonResult> UpdateStaff(VmStaff staff)
-        //{
-        //    var ret = new VM_JsonOnlyResult();
-        //    var modelState = (new VmStaffValidator()).Validate(staff);
-        //    if (!modelState.IsValid)
-        //    {
-        //        ret.Value = -1001;
-        //        ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
-        //        return await Task.FromResult(Json(ret));
-        //    }
+        [HttpPost]
+        public async Task<JsonResult> UpdateProduct(VmProduct product)
+        {
+            var ret = new VM_JsonOnlyResult();
+            var modelState = (new VmProductValidator()).Validate(product);
+            if (!modelState.IsValid)
+            {
+                ;
+                ret.Value = -1001;
+                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                return await Task.FromResult(Json(ret));
+            }
 
-        //    m_UserManagerService.PreOnUpdateHandler =
-        //        () => m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
-        //    m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
-        //    {
-        //        ((Person)newObject).MapTo((Person)existOject);
-        //    };
-        //    var updatedRet = await m_UserManagerService.UpdateObject(staff.NagigatedDomainObject, true);
-        //    if (updatedRet == AppServiceExecuteStatus.Success)
-        //    {
-        //        ret.Value = staff.NagigatedDomainObject.ID;
-        //        ret.Result = true;
-        //        return Json(ret);
-        //    }
+            m_ProductService.PreOnUpdateHandler =
+                () =>
+                {
+                    var selfProduct = m_ProductService.GetProduct(product.NagigatedDomainObject.ID);
+                    if (selfProduct == null)
+                        return null;
+                    var otherUser = m_ProductService.GetProduct(product.NagigatedDomainObject.Name);
+                    if (otherUser == null || otherUser.ID == selfProduct.ID)
+                        return selfProduct;
+                    return null;
+                };
+            m_ProductService.OnUpdatingHandler = (existOject, newObject) =>
+            {
+                ((Product)newObject).MapTo((Product)existOject);
+            };
+            var updatedRet = await m_ProductService.UpdateObject(product.NagigatedDomainObject, true);
+            if (updatedRet == AppServiceExecuteStatus.Success)
+            {
+                ret.Value = product.NagigatedDomainObject.ID;
+                ret.Result = true;
+                return Json(ret);
+            }
 
-        //    ret.Err = updatedRet.ToDescription();
-        //    return Json(ret);
-        //}
+            ret.Err = updatedRet.ToDescription();
+            return Json(ret);
+        }
     }
 }

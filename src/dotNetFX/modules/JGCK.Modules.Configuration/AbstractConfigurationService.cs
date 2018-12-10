@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JGCK.Framework;
 using JGCK.Respority.BasicInfo;
-using JGCK.Respority.UserWork;
+using JGCK.Respority.ProductWork;
 
 namespace JGCK.Modules.Configuration
 {
@@ -13,6 +13,6 @@ namespace JGCK.Modules.Configuration
     {
         protected BasicDbProxy basicDbContext { get; set; }
 
-        protected UserDbProxy userDbContext { get; set; }
+        protected ProductDbProxy productDbContext { get; set; }
     }
 }
