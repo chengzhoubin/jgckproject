@@ -343,7 +343,7 @@
                                                     <span>上传文件</span>
                                                     <input id="fileupload1" type="file" name="files[]">
                                                 </span>
-                                                <a v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :href="model.BusinessLicensePic" target="_blank" style="font-size:30px;">
+                                                <a v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.BusinessLicensePic"  style="font-size:30px;">
                                                     <i class="fa fa-cloud-download"></i>
                                                 </a>
                                                 <br />
@@ -367,7 +367,7 @@
                                                 <span>上传文件</span>
                                                 <input id="fileupload2" type="file" name="files[]">
                                             </span>
-                                            <a v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :href="model.MedicalInstitutionLicensePic" target="_blank" style="font-size:30px;">
+                                            <a v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :href="'/ajaxcommon/hospitalfiledownload?src=' +  model.MedicalInstitutionLicensePic"  style="font-size:30px;">
                                                 <i class="fa fa-cloud-download"></i>
                                             </a>
                                             <br />
@@ -390,7 +390,7 @@
                                                     <span>上传文件</span>
                                                     <input id="fileupload3" type="file" name="files[]">
                                                 </span>
-                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="model.CertificationPic" target="_blank" style="font-size:30px;">
+                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.CertificationPic" style="font-size:30px;">
                                                     <i class="fa fa-cloud-download"></i>
                                                 </a>
                                                 <br />

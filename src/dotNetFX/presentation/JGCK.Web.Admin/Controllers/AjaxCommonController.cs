@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using HSMY_AdminWeb.Models;
 using JGCK.Util.CloudStorage;
 using JGCK.Web.Admin.Models;
@@ -101,6 +102,28 @@ namespace JGCK.Web.Admin.Controllers
                 ret.Value = visitUrl;
                 return Json(ret);
             });
+        }
+
+        public FileResult HospitalFileDownload(string src)
+        {
+            if (string.IsNullOrEmpty(src))
+                return null;
+
+            try
+            {
+                var srcFilePath = LocalStorageConfiguration.Instance.UploadRootPath
+                                  + src.Replace(LocalStorageConfiguration.Instance.VisitBaseUrl, "").Replace("/", @"\");
+                if (!System.IO.File.Exists(srcFilePath))
+                    return null;
+
+                var fInfo = new FileInfo(srcFilePath);
+                return File(srcFilePath, "application/octet-stream", fInfo.Name);
+            }
+            catch (Exception exp)
+            {
+                LogHelper.LogError(exp);
+                return null;
+            }
         }
 
         private static readonly object LockWithCreateDir = new object();
