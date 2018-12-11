@@ -249,15 +249,13 @@
                         }
                     });
                 },
-                click_save: function () {
-                    console.log($(".has-error").length)               
+                click_save: function () {                         
                     var that = this;                  
                     var apiUrl = "/Settings/UpdateDepartment"
                     if (!this.Model.ID) {
                         apiUrl = "/Settings/AddDepartment"
                     }         
-                    setTimeout(function () {
-                        console.log($(".has-error").length)
+                    setTimeout(function () {                    
                         if ($(".has-error").length > 0) return;
                         if (this.isRuning) return;
                         this.isRuning = true;   

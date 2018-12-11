@@ -71,7 +71,7 @@
                                             <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
                                             <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
                                             <td> @(item.NagigatedDomainObject.Doctor.AuditDate.HasValue ? item.NagigatedDomainObject.Doctor.AuditDate.Value.ToString("yyyy-MM-dd") : "") </td>
-                                            <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
+                                            <td> <button type="button" class="btn green btn-sm" @@click="click_showDoctorPop(@(item.HiddenJsonString))"> 操作 </button> </td>
                                         </tr>
                                         itemIndex++;
                                     }
