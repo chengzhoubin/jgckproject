@@ -480,9 +480,15 @@
                     app.imgTempUpLoad3 = data.result.Value           
                 }, 'certification:license', 150, 150);
 
+                $('#modelfull').on('hide.bs.modal', function (e) {
+                    $('#tab1').tab('show')
+                })
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                      if (e.target.id === 'tab2') {
-                         $(".jqzoom").jqzoom();
+                         $(".jqzoom").jqzoom({
+                             preloadImages: false,
+                             alwaysOn: false
+                         });
                       }
                 })
 

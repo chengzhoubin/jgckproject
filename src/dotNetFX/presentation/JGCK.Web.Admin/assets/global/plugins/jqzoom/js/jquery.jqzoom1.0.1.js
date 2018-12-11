@@ -43,12 +43,9 @@
 		return this.each(function()
 		{
             var a = $(this);
-            if ($(a).hasClass("hasRun")) return;
 			var aTitle = a.attr('title'); //variabile per memorizzare il titolo href
 			$(a).removeAttr('title');
             $(a).css('outline-style', 'none');
-            $(a).addClass("hasRun");
-
 
 			var img = $("img", this);
 			var imageTitle = img.attr('title');
@@ -85,7 +82,8 @@
 			var isMouseDown = false;
 			var dragstatus = false
 			//loading smallimagedata
-			smallimage.loadimage();
+            smallimage.loadimage();
+            $(this).unbind();
 
 			//ritorna false al click dell href
 			$(this).click(function(){return false;});
