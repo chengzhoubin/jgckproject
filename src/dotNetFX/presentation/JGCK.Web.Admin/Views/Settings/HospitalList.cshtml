@@ -107,13 +107,13 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs ">
                         <li class="active">
-                            <a href="#tab_15_1" data-toggle="tab"> 基本信息 </a>
+                            <a href="#tab_15_1" data-toggle="tab" id="tab1"> 基本信息 </a>
                         </li>
                         <li>
-                            <a href="#tab_15_2" data-toggle="tab"> 资质文件 </a>
+                            <a href="#tab_15_2" data-toggle="tab"  id="tab2"> 资质文件 </a>
                         </li>
                         <li>
-                            <a href="#tab_15_3" data-toggle="tab"> 备注 </a>
+                            <a href="#tab_15_3" data-toggle="tab"  id="tab3"> 备注 </a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -333,51 +333,71 @@
                                     <div class="form-group">
                                         <label class="control-label">营业执照<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :src="model.BusinessLicensePic" style="max-width:100px;max-height:100%;" id="img1" />
-                                            <span class="btn btn-success fileinput-button">
-                                                <i class="glyphicon glyphicon-plus"></i>
-                                                <span>上传文件</span>
-                                                <input id="fileupload1" type="file" name="files[]">
-                                            </span>
-                                            <br />
-                                            <span id="files_preview1" class="files"></span>
+                                            <div style="height:150px;width:150px;" v-if="model.BusinessLicensePic&&!imgTempUpLoad1">
+                                                <a  :href="model.BusinessLicensePic" target="_blank" class="jqzoom" title="预览" style="height:150px;width:150px;">
+                                                    <img :src="model.BusinessLicensePic" style="max-width:150px;max-height:150px;" id="img1" title="预览" />
+                                                </a>
+                                            </div>
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span>上传文件</span>
+                                                    <input id="fileupload1" type="file" name="files[]">
+                                                </span>
+                                                <a v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :href="model.BusinessLicensePic" target="_blank" style="font-size:30px;">
+                                                    <i class="fa fa-cloud-download"></i>
+                                                </a>
+                                                <br />
+                                                <span id="files_preview1" class="files"></span>
+
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-4">
 
                                     <div class="form-group">
                                         <label class="control-label">医疗机构执业许可证<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :src="model.MedicalInstitutionLicensePic" style="max-width:100px;max-height:100%;" id="img2" />
-
+                                            <div  style="height:150px;width:150px;" v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2">
+                                                <a  :href="model.MedicalInstitutionLicensePic" target="_blank" class="jqzoom" title="预览">
+                                                    <img :src="model.MedicalInstitutionLicensePic" style="max-width:150px;max-height:150px;" id="img2" title="预览" />
+                                                </a>
+                                            </div>
                                             <span class="btn btn-success fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
                                                 <span>上传文件</span>
                                                 <input id="fileupload2" type="file" name="files[]">
                                             </span>
+                                            <a v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :href="model.MedicalInstitutionLicensePic" target="_blank" style="font-size:30px;">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </a>
                                             <br />
                                             <span id="files_preview2" class="files"></span>
+
                                         </div>
-                                    </div>
-
+                                    </div>  
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">其他证明文件<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.CertificationPic&&!imgTempUpLoad3" :src="model.CertificationPic" style="max-width:100px;max-height:100%;" id="img3" />
+                                            <div style="height:150px;width:150px;"  v-if="model.CertificationPic&&!imgTempUpLoad3">
+                                                <a :href="model.CertificationPic" target="_blank" class="jqzoom" title="预览">
+                                                    <img :src="model.CertificationPic" style="max-width:150px;max-height:150px;" id="img3" title="预览" />
+                                                </a>
+                                            </div>
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span>上传文件</span>
+                                                    <input id="fileupload3" type="file" name="files[]">
+                                                </span>
+                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="model.CertificationPic" target="_blank" style="font-size:30px;">
+                                                    <i class="fa fa-cloud-download"></i>
+                                                </a>
+                                                <br />
+                                                <span id="files_preview3" class="files"></span>
 
-                                            <span class="btn btn-success fileinput-button">
-                                                <i class="glyphicon glyphicon-plus"></i>
-                                                <span>上传文件</span>
-                                                <input id="fileupload3" type="file" name="files[]">
-                                            </span>
-                                            <br />
-                                            <span id="files_preview3" class="files"></span>
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -410,6 +430,7 @@
 @section referenceHeader{
     <link href="~/assets/global/plugins/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <link href="~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/jqzoom/css/jqzoom.css" rel="stylesheet" />
     <script>
         var pageUrl = "/Settings/HospitalList"
     </script>
@@ -432,8 +453,8 @@
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/lang/zh-cn/zh-cn.js"></script>
-
-
+    @*<script src="~/assets/global/plugins/jqzoom/js/jqzoom.pack.1.0.1.js"></script>*@
+    <script src="~/assets/global/plugins/jqzoom/js/jquery.jqzoom1.0.1.js"></script>
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
@@ -451,13 +472,20 @@
 
                 fileuploadModule('#fileupload1', '#files_preview1', false, function (data) {                    
                     app.imgTempUpLoad1 = data.result.Value
-                }, 'business:license', 100, 100);
+                }, 'business:license', 150, 150);
                 fileuploadModule('#fileupload2', '#files_preview2', false, function (data) {
                     app.imgTempUpLoad2 = data.result.Value
-                    }, 'medicalinstitution:license',100, 100);
+                }, 'medicalinstitution:license', 150, 150);
                 fileuploadModule('#fileupload3', '#files_preview3', false, function (data) {
                     app.imgTempUpLoad3 = data.result.Value           
-                }, 'certification:license', 100, 100);
+                }, 'certification:license', 150, 150);
+
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                     if (e.target.id === 'tab2') {
+                         $(".jqzoom").jqzoom();
+                      }
+                })
+
             });
 
         var app = new Vue({
@@ -505,6 +533,8 @@
                     this.errMsg = "";
                     $('#btnSave').show();
                     $('#modelfull').modal('show');
+                    $(".files").empty()
+                 
                 },
                 click_setsort: function(Name) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: Name });
