@@ -255,7 +255,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = string.Format(addedRet.ToDescription(), "部门名称已存在，请重新输入！");
+            jsonResult.Err = string.Format(addedRet.ToDescription(), "部门名称已存在");
             return Json(jsonResult);
         }
 
@@ -317,7 +317,7 @@ namespace JGCK.Web.Admin.Controllers
                 jsonResult.Result = true;
             }
 
-            jsonResult.Err = string.Format(updatedRet.ToDescription(), "部门名称重复，请重新输入！");
+            jsonResult.Err = string.Format(updatedRet.ToDescription(), "部门名称重复");
             return Json(jsonResult);
         }
 

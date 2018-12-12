@@ -1068,6 +1068,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Shared\_ParitalNoticeForm.cshtml" />
     <Content Include="Views\Product\ProductType.cshtml" />
+    <Content Include="Views\Shared\_PartialErrorNoticeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

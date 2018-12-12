@@ -89,13 +89,14 @@
                     <button type="button" v-if="Model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                     <button id="btnSave"  type="submit"  class="btn green" @@click="click_save()">保存</button>
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                    @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
                 </div>
             </form>
         </div>   
     </div>
 </div>
 @Html.Partial("_ParitalNoticeForm")
+@Html.Partial("_PartialErrorNoticeForm")
 @section referenceHeader{
     <link href="~/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
     <script>
@@ -212,6 +213,12 @@
                             Desc: ""
                         }
                     }
+
+                    var vform = $("#form_1").validate();
+                    if (typeof (vform) != "undefined") {
+                        vform.resetForm();
+                    }
+                    
                     $("#btnSave").show();
                     $('#modelbasic').modal('show');
                     this.errMsg = "";
@@ -242,8 +249,10 @@
                                         //that.errMsg = "删除成功"
                                         popBox("部门删除成功！");
                                     } else {
-                                        that.errMsg = item.Err;
-                                        $("#btnSave").hide();
+                                        //that.errMsg = item.Err;
+                                        //$("#btnSave").hide();
+                                        this.isRuning = false;
+                                        popErrBox(item.Err);
                                     }
                                 });
                             }
@@ -270,10 +279,12 @@
                                 //window.location.reload();
                                 popBox(!that.Model.ID ? "部门添加成功！" : "部门修改成功！");
                             } else {
-                                if ($(".has-error").length > 0) {
-                                    that.errMsg = item.Err;
-                                    $("#btnSave").hide();
-                                }
+                                //if ($(".has-error").length > 0) {
+                                //    that.errMsg = item.Err;
+                                //    $("#btnSave").hide();
+                                //}
+                                this.isRuning = false;
+                                popErrBox(item.Err);
                             }
                         });
                     },400)
