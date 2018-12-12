@@ -362,8 +362,8 @@
             <div class="modal-footer">
                 @*<button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                 <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                <button id="btnSave" type="button" class="btn green" @@click="click_save">保存</button>
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                <button id="btnSave" type="button" class="btn green" @@click="click_save">{{ doctor.ID?'添加':'修改' }}</button>
+                @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
             </div>
         </div>
         <!-- /.modal-content -->
@@ -371,6 +371,7 @@
     <!-- /.modal-dialog -->
 </div>
 @Html.Partial("_ParitalNoticeForm")
+@Html.Partial("_PartialErrorNoticeForm")
 
 
 @section referenceHeader{
@@ -540,6 +541,8 @@
                                 formatTime(doctorObj.NagigatedDomainObject.PracticeEndDate)
                         if (!doctorObj.NagigatedDomainObject.Role) doctorObj.NagigatedDomainObject.Role = {}
                         this.doctor = doctorObj.NagigatedDomainObject
+                        if (doctorObj.NagigatedDomainObject.Note)
+                            UM.getEditor('container').setContent(doctorObj.NagigatedDomainObject.Note);
                     } else {
                         this.doctor = {
                             Role: {}
@@ -614,7 +617,7 @@
                     if ($("#LeaveDate").val()) this.doctor.LeaveDate = $("#LeaveDate").val()
                     if ($("#PracticeBeginDate").val()) this.doctor.PracticeBeginDate = $("#PracticeBeginDate").val()
                     if ($("#PracticeEndDate").val()) this.doctor.PracticeEndDate = $("#PracticeEndDate").val()
-
+                    this.doctor.Note = UM.getEditor('container').getContent();
                     if (this.isRuning) return;
                     this.isRuning = true;
                     $.post(apiUrl,
@@ -627,10 +630,12 @@
                             //that.errMsg = "操作成功"
                             //window.location.reload();
                             //$("#successModal").modal('show');
-                            popBox("员工" + (!this.doctor.ID ? "添加" : "更新") + "-操作成功");
+                            popBox(!this.doctor.ID ? "员工信息添加成功！" : "员工信息更新成功！");
                         } else {
-                            that.errMsg = item.Err;
-                            $('#btnSave').hide();
+                            //that.errMsg = item.Err;
+                            //$('#btnSave').hide();
+                            isRuning = false;
+                            popErrBox(item.Err);
                         }
                     });
 

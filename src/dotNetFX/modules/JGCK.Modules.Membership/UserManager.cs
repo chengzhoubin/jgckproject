@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JGCK.Framework.EF;
 using JGCK.Respority.UserWork;
+using JGCK.Util;
 using JGCK.Util.Enums;
 
 namespace JGCK.Modules.Membership
@@ -50,14 +51,24 @@ namespace JGCK.Modules.Membership
             return userDbContext.Person.CountAsync(search);
         }
 
-        public bool UserIsExists(string name)
+        public bool UserIsExists(string name, long? userId = null)
         {
-            return userDbContext.Person.Any(p => p.Name == name && !p.IsDeleted);
+            var exp = PredicateBuilder.Create<Person>(p => p.Name == name && !p.IsDeleted);
+            if (userId.HasValue)
+            {
+                exp = exp.And(p => p.ID != userId);
+            }
+            return userDbContext.Person.Any(exp);
         }
 
-        public bool UserIdCardIsExists(string IdCard)
+        public bool UserIdCardIsExists(string IdCard, long? userId = null)
         {
-            return userDbContext.Person.Any(p => p.IdCard == IdCard && !p.IsDeleted);
+            var exp = PredicateBuilder.Create<Person>(p => p.IdCard == IdCard && !p.IsDeleted);
+            if (userId.HasValue)
+            {
+                exp = exp.And(p => p.ID != userId);
+            }
+            return userDbContext.Person.Any(exp);
         }
 
         public Person GetUser(long userId)
