@@ -67,7 +67,7 @@
                                         <td> @($"{item.NagigatedDomainObject.SaleRate:0.00}") </td>
                                         <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.Receipter) </td>
                                         <td> @(item.NagigatedDomainObject.HospitalReferences?.FirstOrDefault()?.ReceipterPhone) </td>
-                                        <td> <button type="button" class="btn green btn-sm" @@click="click_showPop(@(item.HiddenJsonString))"> 操作 </button> </td>
+                                        <td> <button type="button" class="btn green btn-sm" @@click="click_showPop(@(item.HiddenJsonString))"> 编辑 </button> </td>
                                     </tr>
                                     itemIndex++;
                                 }
@@ -107,13 +107,13 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs ">
                         <li class="active">
-                            <a href="#tab_15_1" data-toggle="tab"> 基本信息 </a>
+                            <a href="#tab_15_1" data-toggle="tab" id="tab1"> 基本信息 </a>
                         </li>
                         <li>
-                            <a href="#tab_15_2" data-toggle="tab"> 资质文件 </a>
+                            <a href="#tab_15_2" data-toggle="tab"  id="tab2"> 资质文件 </a>
                         </li>
                         <li>
-                            <a href="#tab_15_3" data-toggle="tab"> 备注 </a>
+                            <a href="#tab_15_3" data-toggle="tab"  id="tab3"> 备注 </a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -160,8 +160,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-
-                                        <div class="col-md-2 col-md-offset-2">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">付款方式&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethod" v-model="model.PaymentType">
@@ -171,10 +170,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" v-if="model.PaymentType==4">
                                             <div class="form-group">
-                                                <label class="control-label">付款方式备注</label>
-                                                <input type="text" id="paymethodMark" class="form-control" placeholder="付款方式备注" v-model="model.PaymentNote">
+                                                <label class="control-label" v-if="model.PaymentType==4">付款方式备注</label>
+                                                <input type="text" v-if="model.PaymentType==4" id="paymethodMark" class="form-control" placeholder="付款方式备注" v-model="model.PaymentNote">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -187,11 +186,10 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" v-if="model.PaymentPeriod==4">
                                             <div class="form-group">
-                                                <label class="control-label">付款方式备注</label>
-                                                <input type="text" id="paymethodTimemark" class="form-control" placeholder="付款周期" v-model="model.PaymentPeriodNote">
+                                                <label class="control-label" v-if="model.PaymentPeriod==4">付款方式备注</label>
+                                                <input type="text" v-if="model.PaymentPeriod==4" id="paymethodTimemark" class="form-control" placeholder="付款周期" v-model="model.PaymentPeriodNote">
                                             </div>
                                         </div>
                                     </div>
@@ -335,51 +333,71 @@
                                     <div class="form-group">
                                         <label class="control-label">营业执照<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :src="model.BusinessLicensePic" style="max-width:100px;max-height:100%;" id="img1" />
-                                            <span class="btn btn-success fileinput-button">
-                                                <i class="glyphicon glyphicon-plus"></i>
-                                                <span>上传文件</span>
-                                                <input id="fileupload1" type="file" name="files[]">
-                                            </span>
-                                            <br />
-                                            <span id="files_preview1" class="files"></span>
+                                            <div style="height:150px;width:150px;" v-if="model.BusinessLicensePic&&!imgTempUpLoad1">
+                                                <a  :href="model.BusinessLicensePic" target="_blank" class="jqzoom" title="预览" style="height:150px;width:150px;">
+                                                    <img :src="model.BusinessLicensePic" style="max-width:150px;max-height:150px;" id="img1" title="预览" />
+                                                </a>
+                                            </div>
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span>上传文件</span>
+                                                    <input id="fileupload1" type="file" name="files[]">
+                                                </span>
+                                                <a v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.BusinessLicensePic"  style="font-size:30px;">
+                                                    <i class="fa fa-cloud-download"></i>
+                                                </a>
+                                                <br />
+                                                <span id="files_preview1" class="files"></span>
+
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-4">
 
                                     <div class="form-group">
                                         <label class="control-label">医疗机构执业许可证<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :src="model.MedicalInstitutionLicensePic" style="max-width:100px;max-height:100%;" id="img2" />
-
+                                            <div  style="height:150px;width:150px;" v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2">
+                                                <a  :href="model.MedicalInstitutionLicensePic" target="_blank" class="jqzoom" title="预览">
+                                                    <img :src="model.MedicalInstitutionLicensePic" style="max-width:150px;max-height:150px;" id="img2" title="预览" />
+                                                </a>
+                                            </div>
                                             <span class="btn btn-success fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
                                                 <span>上传文件</span>
                                                 <input id="fileupload2" type="file" name="files[]">
                                             </span>
+                                            <a v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :href="'/ajaxcommon/hospitalfiledownload?src=' +  model.MedicalInstitutionLicensePic"  style="font-size:30px;">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </a>
                                             <br />
                                             <span id="files_preview2" class="files"></span>
+
                                         </div>
-                                    </div>
-
+                                    </div>  
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">其他证明文件<b>(5M以内)</b></label>
                                         <div>
-                                            <img v-if="model.CertificationPic&&!imgTempUpLoad3" :src="model.CertificationPic" style="max-width:100px;max-height:100%;" id="img3" />
+                                            <div style="height:150px;width:150px;"  v-if="model.CertificationPic&&!imgTempUpLoad3">
+                                                <a :href="model.CertificationPic" target="_blank" class="jqzoom" title="预览">
+                                                    <img :src="model.CertificationPic" style="max-width:150px;max-height:150px;" id="img3" title="预览" />
+                                                </a>
+                                            </div>
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span>上传文件</span>
+                                                    <input id="fileupload3" type="file" name="files[]">
+                                                </span>
+                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.CertificationPic" style="font-size:30px;">
+                                                    <i class="fa fa-cloud-download"></i>
+                                                </a>
+                                                <br />
+                                                <span id="files_preview3" class="files"></span>
 
-                                            <span class="btn btn-success fileinput-button">
-                                                <i class="glyphicon glyphicon-plus"></i>
-                                                <span>上传文件</span>
-                                                <input id="fileupload3" type="file" name="files[]">
-                                            </span>
-                                            <br />
-                                            <span id="files_preview3" class="files"></span>
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +416,7 @@
                 <div class="modal-footer">
                     @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                    <button type="button" class="btn green" @@click="click_save()">保存</button>
+                    <button id="btnSave" type="button" class="btn green" @@click="click_save()">保存</button>
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
                 </div>
             </div>
@@ -412,6 +430,7 @@
 @section referenceHeader{
     <link href="~/assets/global/plugins/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <link href="~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/jqzoom/css/jqzoom.css" rel="stylesheet" />
     <script>
         var pageUrl = "/Settings/HospitalList"
     </script>
@@ -434,8 +453,8 @@
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/lang/zh-cn/zh-cn.js"></script>
-
-
+    @*<script src="~/assets/global/plugins/jqzoom/js/jqzoom.pack.1.0.1.js"></script>*@
+    <script src="~/assets/global/plugins/jqzoom/js/jquery.jqzoom1.0.1.js"></script>
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
@@ -453,131 +472,155 @@
 
                 fileuploadModule('#fileupload1', '#files_preview1', false, function (data) {                    
                     app.imgTempUpLoad1 = data.result.Value
-                }, 'business:license', 100, 100);
+                }, 'business:license', 150, 150);
                 fileuploadModule('#fileupload2', '#files_preview2', false, function (data) {
                     app.imgTempUpLoad2 = data.result.Value
-                    }, 'medicalinstitution:license',100, 100);
+                }, 'medicalinstitution:license', 150, 150);
                 fileuploadModule('#fileupload3', '#files_preview3', false, function (data) {
                     app.imgTempUpLoad3 = data.result.Value           
-                }, 'certification:license', 100, 100);
+                }, 'certification:license', 150, 150);
+
+                $('#modelfull').on('hide.bs.modal', function (e) {
+                    $('#tab1').tab('show')
+                })
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                     if (e.target.id === 'tab2') {
+                         $(".jqzoom").jqzoom({
+                             preloadImages: false,
+                             alwaysOn: false
+                         });
+                      }
+                })
+
             });
 
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    model: {},
-                    errMsg: "",
-                    imgTempUpLoad1: "",
-                    imgTempUpLoad2: "",
-                    imgTempUpLoad3: "",
+        var app = new Vue({
+            el: '#app',
+            data: {
+                model: {},
+                errMsg: "",
+                imgTempUpLoad1: "",
+                imgTempUpLoad2: "",
+                imgTempUpLoad3: "",
 
+            },
+            methods: {
+                get_sortCLass: function(sortName) {
+                    var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
+                    if (_tmp.length === 0) return 'sorting';
+                    return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
                 },
-                methods: {
-                    get_sortCLass: function (sortName) {
-                        var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
-                        if (_tmp.length === 0) return 'sorting';
-                        return (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "sorting_desc" : "sorting_asc");
-                    },
-                    click_showPop: function (Obj) {
-                        this.imgTempUpLoad1 = "";
-                        this.imgTempUpLoad2 = "";
-                        this.imgTempUpLoad3 = "";
-                        if (Obj) {
-                            if (!Obj.NagigatedDomainObject.HospitalInvoices || Obj.NagigatedDomainObject.HospitalInvoices.length==0) Obj.NagigatedDomainObject.HospitalInvoices = [{}];
-                            if (!Obj.NagigatedDomainObject.HospitalReferences || Obj.NagigatedDomainObject.HospitalReferences.length == 0) Obj.NagigatedDomainObject.HospitalReferences = [{}];
-                            this.model = Obj.NagigatedDomainObject
-                        } else {
-                            this.model = {
-                                HospitalComments:'',
-                                HospitalInvoices: [{}],
-                                HospitalReferences: [{}]
-                            };
-                        }
-                        console.log(Obj)
-                        if (this.model.HospitalComments) {
-                            UM.getEditor('myEditor').setContent(Obj.NagigatedDomainObject.HospitalComments);
-                        } else {
-                            UM.getEditor('myEditor').setContent("");
-                        }
-                        $('#modelfull').modal('show');
-                    },
-                    click_setsort: function (Name) {
-                        var _tmp = _.where(this.sort_keys, { SortProperty: Name });
-                        var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
-                        Cookies.remove('sf_hospitalData_sort_keys');
-                        $.post("/ajaxcommon/setsort/", {
+                click_showPop: function(Obj) {
+                    this.imgTempUpLoad1 = "";
+                    this.imgTempUpLoad2 = "";
+                    this.imgTempUpLoad3 = "";
+                    if (Obj) {
+                        if (!Obj.NagigatedDomainObject.HospitalInvoices ||
+                            Obj.NagigatedDomainObject.HospitalInvoices.length == 0)
+                            Obj.NagigatedDomainObject.HospitalInvoices = [{}];
+                        if (!Obj.NagigatedDomainObject.HospitalReferences ||
+                            Obj.NagigatedDomainObject.HospitalReferences.length == 0)
+                            Obj.NagigatedDomainObject.HospitalReferences = [{}];
+                        this.model = Obj.NagigatedDomainObject
+                    } else {
+                        this.model = {
+                            HospitalComments: '',
+                            HospitalInvoices: [{}],
+                            HospitalReferences: [{}],
+                            SaleRate: 1
+                        };
+                    }
+                    console.log(Obj)
+                    if (this.model.HospitalComments) {
+                        UM.getEditor('myEditor').setContent(Obj.NagigatedDomainObject.HospitalComments);
+                    } else {
+                        UM.getEditor('myEditor').setContent("");
+                    }
+                    this.errMsg = "";
+                    $('#btnSave').show();
+                    $('#modelfull').modal('show');
+                    $(".files").empty()
+                 
+                },
+                click_setsort: function(Name) {
+                    var _tmp = _.where(this.sort_keys, { SortProperty: Name });
+                    var SortDirect = (_tmp && _tmp.length > 0 && _tmp[0].SortDirect === 1 ? "Desc" : "Asc");
+                    Cookies.remove('sf_hospitalData_sort_keys');
+                    $.post("/ajaxcommon/setsort/",
+                        {
                             "module": "sf_hospitalData_sort_keys",
                             "sortby": Name,
                             "directby": SortDirect
                         }).then(item => {
-                            window.location.reload();
-                        });
-                    },
-                    click_delete: function () {
-                        var that = this
-                        bootbox.confirm({
-                            message: "确定要删除吗?",
-                            size: "small",
-                            buttons: {
-                                confirm: {
-                                    label: '删除',
-                                    className: 'btn-success'
-                                },
-                                cancel: {
-                                    label: '关闭',
-                                    className: 'btn-danger'
-                                }
+                        window.location.reload();
+                    });
+                },
+                click_delete: function() {
+                    var that = this
+                    bootbox.confirm({
+                        message: "确定要删除吗?",
+                        size: "small",
+                        buttons: {
+                            confirm: {
+                                label: '删除',
+                                className: 'btn-success'
                             },
-                            callback: function (result) {
-                                if (result) {
-                                    console.log(that.model);
-                                    $.post("/Settings/DeleteHospital", {
+                            cancel: {
+                                label: '关闭',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function(result) {
+                            if (result) {
+                                console.log(that.model);
+                                $.post("/Settings/DeleteHospital",
+                                    {
                                         hId: that.model.ID
                                     }).then(item => {
-                                        if (item.Result) {
-                                           window.location.reload();
-                                           that.errMsg = "删除成功"
-                                        } else {
-                                            that.errMsg = item.Err
-                                        }
-                                    });
-                                }
+                                    if (item.Result) {
+                                        window.location.reload();
+                                        that.errMsg = "删除成功"
+                                    } else {
+                                        that.errMsg = item.Err
+                                    }
+                                });
                             }
-                        });
-                    },
-                    click_save: function () {
-                        console.log(this.model)
-                        var that = this;
-                        var apiUrl = "/Settings/UpdateHospital"
-                        if (!this.model.ID) {
-                            apiUrl = "/Settings/AddHospital"
-                        } 
-                        if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1;
-                        if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2;
-                        if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3;
-                        app.model.HospitalComments = UM.getEditor('myEditor').getContent();
-                        if (this.isRuning) return;
-                        this.isRuning = true;
-                        $.post(apiUrl, {
+                        }
+                    });
+                },
+                click_save: function() {
+                    console.log(this.model)
+                    var that = this;
+                    var apiUrl = "/Settings/UpdateHospital"
+                    if (!this.model.ID) {
+                        apiUrl = "/Settings/AddHospital"
+                    }
+                    if (this.imgTempUpLoad1) app.model.BusinessLicensePic = this.imgTempUpLoad1;
+                    if (this.imgTempUpLoad2) app.model.MedicalInstitutionLicensePic = this.imgTempUpLoad2;
+                    if (this.imgTempUpLoad3) app.model.CertificationPic = this.imgTempUpLoad3;
+                    app.model.HospitalComments = UM.getEditor('myEditor').getContent();
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    $.post(apiUrl,
+                        {
                             NagigatedDomainObject: this.model
                         }).then(item => {
-                            that.isRuning = false;
-                            console.log(item);
-                            if (item.Result) {
-                                //that.errMsg = "操作成功"
-                                $("#successModal").modal('show');
-                                //window.location.reload();
-                            } else {
-                                that.errMsg = item.Err
-                            }
-                            });
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            //that.errMsg = "操作成功"
+                            //$("#successModal").modal('show');
+                            //window.location.reload();
+                            popBox("医院" + (!this.model.ID ? "添加" : "更新") + "-操作成功");
+                        } else {
+                            that.errMsg = item.Err;
+                            $('#btnSave').hide();
+                        }
+                    });
 
-                    }
                 }
-            })
-
-
-
+            }
+        });
 
     </script>
 }

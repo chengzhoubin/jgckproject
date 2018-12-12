@@ -41,8 +41,8 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
         maxFileSize: 1999000,
         disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
         previewMaxWidth: _width,
-        previewMaxHeight: _height,
-        previewCrop: true,
+        previewMaxHeight: _height
+       // previewCrop: true,
     })
         .on('fileuploadadd', function (e, data) {
             if (isMultiple) {

@@ -25,6 +25,10 @@ namespace JGCK.Web.Admin.Controllers
         {
             return View();
         }
+        public ActionResult ProductType()
+        {
+            return View();
+        }
 
         private ProductManager m_ProductService { get; set; }
 
