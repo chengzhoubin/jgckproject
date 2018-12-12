@@ -131,7 +131,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">医院名称&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name">
+                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -155,7 +155,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">折扣系数&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate">
+                                                <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate" maxlength="4">
                                             </div>
                                         </div>
                                     </div>
@@ -611,7 +611,7 @@
                             //that.errMsg = "操作成功"
                             //$("#successModal").modal('show');
                             //window.location.reload();
-                            popBox("医院" + (!this.model.ID ? "添加" : "更新") + "-操作成功");
+                            popBox(!this.model.ID ? "医院信息增加成功！" : "医院信息修改成功！");
                         } else {
                             that.errMsg = item.Err;
                             $('#btnSave').hide();

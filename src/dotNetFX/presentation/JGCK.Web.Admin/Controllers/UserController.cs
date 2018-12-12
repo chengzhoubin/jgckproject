@@ -268,8 +268,22 @@ namespace JGCK.Web.Admin.Controllers
                 return await Task.FromResult(Json(ret));
             }
 
+            var errorMsg = "";
             m_UserManagerService.PreOnAddHandler =
-                () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
+                () =>
+                {
+                    if (m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name))
+                    {
+                        errorMsg += "用户名已存在，请重新输入！";
+                        return false;
+                    }
+                    if (m_UserManagerService.UserIdCardIsExists(staff.NagigatedDomainObject.IdCard))
+                    {
+                        errorMsg += "身份证号已存在，请重新输入！";
+                        return false;
+                    }
+                    return true;
+                };
 
             var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
             staff.NagigatedDomainObject.DepartmentId = dep?.ID;
@@ -286,7 +300,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(ret);
             }
 
-            ret.Err = string.Format(added.ToDescription(), "员工信息已存在");
+            ret.Err = errorMsg;//string.Format(added.ToDescription(), "员工信息已存在");
             return Json(ret);
         }
 

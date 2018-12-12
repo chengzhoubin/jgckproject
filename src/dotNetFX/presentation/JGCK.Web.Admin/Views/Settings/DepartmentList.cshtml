@@ -238,8 +238,9 @@
                                     depId: that.Model.ID
                                 }).then(item => {
                                     if (item.Result) {
-                                        window.location.reload();
+                                        //window.location.reload();
                                         //that.errMsg = "删除成功"
+                                        popBox("部门删除成功！");
                                     } else {
                                         that.errMsg = item.Err;
                                         $("#btnSave").hide();
@@ -267,7 +268,7 @@
                             if (item.Result) {
                                 //that.errMsg = "操作成功"
                                 //window.location.reload();
-                                popBox("部门" + (!that.Model.ID ? "添加" : "更新") + "-操作成功");
+                                popBox(!that.Model.ID ? "部门添加成功！" : "部门修改成功！");
                             } else {
                                 if ($(".has-error").length > 0) {
                                     that.errMsg = item.Err;

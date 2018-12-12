@@ -55,6 +55,11 @@ namespace JGCK.Modules.Membership
             return userDbContext.Person.Any(p => p.Name == name && !p.IsDeleted);
         }
 
+        public bool UserIdCardIsExists(string IdCard)
+        {
+            return userDbContext.Person.Any(p => p.IdCard == IdCard && !p.IsDeleted);
+        }
+
         public Person GetUser(long userId)
         {
             return userDbContext.GetById<Person, long>(userId);
@@ -68,6 +73,11 @@ namespace JGCK.Modules.Membership
         public Role GetRole(string rName)
         {
             return userDbContext.Role.FirstOrDefault(r => r.Name == rName);
+        }
+
+        public bool HasUserInDepartment(long depId)
+        {
+            return userDbContext.Person.Any(p => !p.IsDoctor && p.DepartmentId == depId);
         }
     }
 }
