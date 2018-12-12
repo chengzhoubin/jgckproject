@@ -14,6 +14,8 @@ namespace JGCK.Respority.ProductWork
         public ProductTypeInfo()
         {
             Product = new HashSet<Product>();
+
+            ProductTypeInfos = new HashSet<ProductTypeInfo>();
         }
 
         [StringLength(100)]
@@ -24,5 +26,12 @@ namespace JGCK.Respority.ProductWork
         public string Name { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
+
+        public long? ParentId { get; set; }
+
+        [ForeignKey("ParentId")]
+        public virtual ProductTypeInfo ParentProductTypeInfo { get; set; }
+
+        public virtual ICollection<ProductTypeInfo> ProductTypeInfos { get; set; }
     }
 }

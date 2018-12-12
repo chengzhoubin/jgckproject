@@ -9,7 +9,7 @@ namespace JGCK.Respority.ProductWork.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(JGCK.Respority.ProductWork.ProductDbProxy context)
