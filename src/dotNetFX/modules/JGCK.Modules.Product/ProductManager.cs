@@ -59,5 +59,17 @@ namespace JGCK.Modules.ProductModule
                 p => p.ID,
                 p => p.ProductTypeInfo);
         }
+
+        public List<ProductTypeInfo> GetProductTypeListByParentId(long productTypeId)
+        {
+            if (productTypeId > 0)
+            {
+                return productDbContext.ProductTypeInfo.Where(p => p.ParentId == productTypeId).ToList();
+            }
+            else
+            {
+                return productDbContext.ProductTypeInfo.Where(p => !p.ParentId.HasValue).ToList();
+            }
+        }
     }
 }

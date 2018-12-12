@@ -11,7 +11,7 @@ using JGCK.Web.Admin.Models.Validator;
 
 namespace JGCK.Web.Admin.Models
 {
-    public class VmProductfIndex : AbstractVoWithFilter<string, VmProduct>, ICustomFilter<Product>
+    public class VmProductIndex : AbstractVoWithFilter<string, VmProduct>, ICustomFilter<Product>
     {
         public Expression<Func<Product, bool>> CombineExpression()
         {

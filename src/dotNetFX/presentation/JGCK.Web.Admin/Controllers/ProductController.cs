@@ -35,7 +35,7 @@ namespace JGCK.Web.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> AllProductList()
         {
-            var productIndex = new VmProductfIndex() { };
+            var productIndex = new VmProductIndex() { };
             var searchExp = productIndex.CombineExpression();
             var entList =
                 await m_ProductService.GetAllProductListAsync(
@@ -137,6 +137,16 @@ namespace JGCK.Web.Admin.Controllers
             }
 
             ret.Err = updatedRet.ToDescription();
+            return Json(ret);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetProductTypeListByParentId(long parentId)
+        {
+            var ret = new VM_JsonOnlyResult();
+            IList<ProductTypeInfo> productTypes = m_ProductService.GetProductTypeListByParentId(parentId);
+            ret.Value = productTypes;
+            ret.Result = true;
             return Json(ret);
         }
     }
