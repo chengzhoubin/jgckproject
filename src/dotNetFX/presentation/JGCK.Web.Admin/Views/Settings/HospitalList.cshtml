@@ -331,7 +331,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">营业执照<b>(5M以内)</b></label>
+                                        <label class="control-label">营业执照<b>(10M以内)</b></label>
                                         <div>
                                             <div style="height:150px;width:150px;" v-if="model.BusinessLicensePic&&!imgTempUpLoad1">
                                                 <a  :href="model.BusinessLicensePic" target="_blank" class="jqzoom" title="预览" style="height:150px;width:150px;">
@@ -355,7 +355,7 @@
                                 <div class="col-md-4">
 
                                     <div class="form-group">
-                                        <label class="control-label">医疗机构执业许可证<b>(5M以内)</b></label>
+                                        <label class="control-label">医疗机构执业许可证<b>(10M以内)</b></label>
                                         <div>
                                             <div  style="height:150px;width:150px;" v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2">
                                                 <a  :href="model.MedicalInstitutionLicensePic" target="_blank" class="jqzoom" title="预览">
@@ -378,7 +378,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">其他证明文件<b>(5M以内)</b></label>
+                                        <label class="control-label">其他证明文件<b>(10M以内)</b></label>
                                         <div>
                                             <div style="height:150px;width:150px;"  v-if="model.CertificationPic&&!imgTempUpLoad3">
                                                 <a :href="model.CertificationPic" target="_blank" class="jqzoom" title="预览">
@@ -416,8 +416,8 @@
                 <div class="modal-footer">
                     @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                    <button id="btnSave" type="button" class="btn green" @@click="click_save()">保存</button>
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                    <button id="btnSave" type="button" class="btn green" @@click="click_save()">{{ !model.ID?'添加':'修改' }}</button>
+                    @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
                 </div>
             </div>
 
@@ -425,6 +425,7 @@
     </div>
 </div>
 @Html.Partial("_ParitalNoticeForm")
+@Html.Partial("_PartialErrorNoticeForm")
 
 
 @section referenceHeader{
@@ -459,40 +460,46 @@
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
         var um;
-        $(function () {     
-                um = UM.getEditor('myEditor');
-                $("#btnSearch").click(function () {
-                    if ($("#Filter").val() == "") {
-                        location.href = '@Url.Action("HospitalList")';
-                        return;
-                    }
-                    var reloadUrlWithFilter = '@Url.Action("HospitalList")?filter=' + encodeURI($("#Filter").val());
-                    location.href = reloadUrlWithFilter;
-                });
-
-                fileuploadModule('#fileupload1', '#files_preview1', false, function (data) {                    
-                    app.imgTempUpLoad1 = data.result.Value
-                }, 'business:license', 150, 150);
-                fileuploadModule('#fileupload2', '#files_preview2', false, function (data) {
-                    app.imgTempUpLoad2 = data.result.Value
-                }, 'medicalinstitution:license', 150, 150);
-                fileuploadModule('#fileupload3', '#files_preview3', false, function (data) {
-                    app.imgTempUpLoad3 = data.result.Value           
-                }, 'certification:license', 150, 150);
-
-                $('#modelfull').on('hide.bs.modal', function (e) {
-                    $('#tab1').tab('show')
-                })
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                     if (e.target.id === 'tab2') {
-                         $(".jqzoom").jqzoom({
-                             preloadImages: false,
-                             alwaysOn: false
-                         });
-                      }
-                })
-
+        $(function () {
+            um = UM.getEditor('myEditor');
+            $("#btnSearch").click(function () {
+                if ($("#Filter").val() == "") {
+                    location.href = '@Url.Action("HospitalList")';
+                    return;
+                }
+                var reloadUrlWithFilter = '@Url.Action("HospitalList")?filter=' + encodeURI($("#Filter").val());
+                location.href = reloadUrlWithFilter;
             });
+
+            fileuploadModule('#fileupload1', '#files_preview1', false, function (data) {
+                app.imgTempUpLoad1 = data.result.Value;
+            }, 'business:license', 150, 150, function (error) {
+                popErrBox(error);
+            });
+            fileuploadModule('#fileupload2', '#files_preview2', false, function (data) {
+                app.imgTempUpLoad2 = data.result.Value
+            }, 'medicalinstitution:license', 150, 150, function (error) {
+                popErrBox(error);
+            });
+            fileuploadModule('#fileupload3', '#files_preview3', false, function (data) {
+                app.imgTempUpLoad3 = data.result.Value
+            }, 'certification:license', 150, 150, function (error) {
+                popErrBox(error);
+            });
+
+            $('#modelfull').on('hide.bs.modal', function (e) {
+                $('#tab1').tab('show')
+            })
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if (e.target.id === 'tab2') {
+                    $(".jqzoom").jqzoom({
+                        preloadImages: false,
+                        alwaysOn: false
+                    });
+                }
+            })
+
+        });
 
         var app = new Vue({
             el: '#app',
@@ -613,8 +620,10 @@
                             //window.location.reload();
                             popBox(!this.model.ID ? "医院信息增加成功！" : "医院信息修改成功！");
                         } else {
-                            that.errMsg = item.Err;
-                            $('#btnSave').hide();
+                            //that.errMsg = item.Err;
+                            //$('#btnSave').hide();
+                            this.isRuning = false;
+                            popErrBox(item.Err);
                         }
                     });
 

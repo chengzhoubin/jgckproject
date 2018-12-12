@@ -140,7 +140,7 @@ namespace JGCK.Web.Admin.Controllers
             var modelState = val.Validate(vm);
             if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                jsonResult.Err = string.Join("<br>", modelState.Errors.Select(e => e.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
 
@@ -185,7 +185,7 @@ namespace JGCK.Web.Admin.Controllers
             var modelState = val.Validate(vm);
             if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                jsonResult.Err = string.Join("<br>", modelState.Errors.Select(e => e.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
 

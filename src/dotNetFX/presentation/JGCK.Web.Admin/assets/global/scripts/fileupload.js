@@ -26,7 +26,7 @@ var url = '/ajaxcommon/UploadFile',
         }),
     hiddenBtn = $("<input type='hidden' />");
 
-var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback, uploadtype, width, height) {
+var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback, uploadtype, width, height, errHandler) {
     var _width = 150;
     var _height = 150;
     var url0;
@@ -38,11 +38,11 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
         dataType: 'json',
         autoUpload: false,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|zip|rar)$/i,
-        maxFileSize: 1999000,
+        maxFileSize: 10000000,
         disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
         previewMaxWidth: _width,
         previewMaxHeight: _height
-       // previewCrop: true,
+        // previewCrop: true,
     })
         .on('fileuploadadd', function (e, data) {
             if (isMultiple) {
@@ -77,7 +77,13 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
                 node.prepend(file.preview);
             }
             if (file.error) {
-                node.append($('<span class="text-danger"/>').text(file.error));
+                if (typeof (errHandler) === "function") {
+                    $(".btnUpload").hide();
+                    errHandler(file.error);
+                }
+                else {
+                    node.append($('<span class="text-danger"/>').text(file.error));
+                }
             }
             if (index + 1 === data.files.length) {
                 data.context.find('button')
@@ -97,10 +103,15 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
                 if (callback) callback(data);
 
             } else if (data.result.Err) {
-                var error = $('<span class="text-danger"/>').text(data.result.Err);
-                $(data.context.children()[index])
-                    .append('<br>')
-                    .append(error);
+                if (typeof (errHandler) === "function") {
+                    errHandler(data.result.Err);
+                }
+                else {
+                    var error = $('<span class="text-danger"/>').text(data.result.Err);
+                    $(data.context.children()[index])
+                        .append('<br>')
+                        .append(error);
+                }
             }
         })
         .on('fileuploadfail', function (e, data) {
@@ -113,10 +124,10 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
         })
         .prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled')
-}
+};
 
 
 $(".files").on("click", ".delete-Imgs", function () {
     $(this).parent().parent().remove();
-})
+});
 
