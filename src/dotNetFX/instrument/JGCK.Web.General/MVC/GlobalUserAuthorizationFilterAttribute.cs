@@ -22,10 +22,16 @@ namespace JGCK.Web.General.MVC
             if (SkipControllerAction(filterContext))
                 return;
 
+            var ctx = filterContext.HttpContext;
             var token = JGCKUserToken.ResolveNewToken();
             if (token == null)
             {
-                filterContext.Result = new RedirectResult("~/User/Login");
+                var redirectURL = "~/User/Login";
+                if (!string.IsNullOrEmpty(ctx.Request.RawUrl) && ctx.Request.RawUrl != "/")
+                {
+                    redirectURL += "?reloadurl=" + ctx.Server.UrlEncode(ctx.Request.RawUrl);
+                }
+                filterContext.Result = new RedirectResult(redirectURL);
                 return;
             }
 

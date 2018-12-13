@@ -707,6 +707,8 @@
     <Content Include="assets\global\plugins\simple-line-icons\Readme.txt" />
     <Content Include="assets\global\plugins\simple-line-icons\simple-line-icons.css" />
     <Content Include="assets\global\plugins\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="assets\global\plugins\sweetalert\sweetalert.css" />
+    <Content Include="assets\global\plugins\sweetalert\sweetalert.min.js" />
     <Content Include="assets\global\plugins\typeahead\handlebars.min.js" />
     <Content Include="assets\global\plugins\typeahead\typeahead.bundle.min.js" />
     <Content Include="assets\global\plugins\typeahead\typeahead.css" />

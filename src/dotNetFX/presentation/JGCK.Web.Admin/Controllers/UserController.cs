@@ -42,13 +42,20 @@ namespace JGCK.Web.Admin.Controllers
             var ret = await m_UserManagerService.CheckAsync(userLogin.UserName, userLogin.Pwd);
             if (ret == CheckUserPwdResult.Success)
             {
+                var userData = m_UserManagerService.GetUser(userLogin.UserName);
                 var token = new JGCKUserToken
                 {
+                    UserID = userData.ID.ToString(), 
                     UserName = userLogin.UserName,
-                    RoleName = "Admin"
+                    RoleID = Convert.ToString(userData.RoleId ?? 0),
+                    RoleName = userData.Role?.Name,
+                    RealName = userData.RealName
                 };
                 token.BuildToken();
-                return RedirectToAction("Index", "Settings");
+                if (string.IsNullOrEmpty(Request["reloadurl"]))
+                    return RedirectToAction("Index", "Settings");
+                else
+                    return Redirect(Request["reloadurl"]);
             }
 
             ModelState.AddModelError("UserPwdMatch", "用户名和密码不匹配");
