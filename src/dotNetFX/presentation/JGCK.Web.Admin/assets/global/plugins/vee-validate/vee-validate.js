@@ -8601,110 +8601,110 @@
   var obj;
 
   var messages = {
-    _default: function (field) { return ("The " + field + " value is not valid."); },
+      _default: function (field) { return ("" + field + " 的值无效"); },
     after: function (field, ref) {
       var target = ref[0];
       var inclusion = ref[1];
 
-      return ("The " + field + " must be after " + (inclusion ? 'or equal to ' : '') + target + ".");
+        return ("" + field + " 必须在" + target +"之后 " + (inclusion ? '或等于 ' : ''));
   },
-    alpha: function (field) { return ("The " + field + " field may only contain alphabetic characters."); },
-    alpha_dash: function (field) { return ("The " + field + " field may contain alpha-numeric characters as well as dashes and underscores."); },
-    alpha_num: function (field) { return ("The " + field + " field may only contain alpha-numeric characters."); },
-    alpha_spaces: function (field) { return ("The " + field + " field may only contain alphabetic characters as well as spaces."); },
+      alpha: function (field) { return ("" + field + "只能包含字母字符"); },
+      alpha_dash: function (field) { return ("" + field + "能够包含字母数字字符、破折号和下划线"); },
+      alpha_num: function (field) { return ("" + field + "只能包含字母数字字符"); },
+      alpha_spaces: function (field) { return ("" + field + "只能包含字母字符和空格"); },
     before: function (field, ref) {
       var target = ref[0];
       var inclusion = ref[1];
 
-      return ("The " + field + " must be before " + (inclusion ? 'or equal to ' : '') + target + ".");
+        return ("" + field + "必须在"+target+"之前" + (inclusion ? '或等于' : '') );
   },
     between: function (field, ref) {
       var min = ref[0];
       var max = ref[1];
 
-      return ("The " + field + " field must be between " + min + " and " + max + ".");
+        return ("" + field + "必须在" + min + " 与 " + max + "之间");
   },
-    confirmed: function (field) { return ("The " + field + " confirmation does not match."); },
-    credit_card: function (field) { return ("The " + field + " field is invalid."); },
+      confirmed: function (field) { return ("" + field + "不匹配"); },
+      credit_card: function (field) { return ("" + field + "的格式错误"); },
     date_between: function (field, ref) {
       var min = ref[0];
       var max = ref[1];
 
-      return ("The " + field + " must be between " + min + " and " + max + ".");
+        return ("" + field + "必须在" + min + "和" + max + "之间");
   },
     date_format: function (field, ref) {
       var format = ref[0];
 
-      return ("The " + field + " must be in the format " + format + ".");
+        return ("" + field + "必须符合" + format + "格式");
   },
     decimal: function (field, ref) {
       if ( ref === void 0 ) ref = [];
       var decimals = ref[0]; if ( decimals === void 0 ) decimals = '*';
 
-      return ("The " + field + " field must be numeric and may contain " + (!decimals || decimals === '*' ? '' : decimals) + " decimal points.");
+        return ("" + field + "必须是数字，且能够保留" + (!decimals || decimals === '*' ? '' : decimals) + "位小数");
   },
     digits: function (field, ref) {
       var length = ref[0];
 
-      return ("The " + field + " field must be numeric and exactly contain " + length + " digits.");
+        return ("" + field + "必须是数字，且精确到" + length + "位数");
   },
     dimensions: function (field, ref) {
       var width = ref[0];
       var height = ref[1];
 
-      return ("The " + field + " field must be " + width + " pixels by " + height + " pixels.");
+        return ("" + field + "必须在" + width + "像素与 " + height + "像素之间");
   },
-    email: function (field) { return ("The " + field + " field must be a valid email."); },
-    excluded: function (field) { return ("The " + field + " field must be a valid value."); },
-    ext: function (field) { return ("The " + field + " field must be a valid file."); },
-    image: function (field) { return ("The " + field + " field must be an image."); },
-    included: function (field) { return ("The " + field + " field must be a valid value."); },
-    integer: function (field) { return ("The " + field + " field must be an integer."); },
-    ip: function (field) { return ("The " + field + " field must be a valid ip address."); },
+      email: function (field) { return ("" + field + "不是一个有效的邮箱"); },
+      excluded: function (field) { return ("" + field + "不是一个有效值"); },
+      ext: function (field) { return ("" + field + "不是一个有效的文件"); },
+      image: function (field) { return ("" + field + "不是一张有效的图片"); },
+      included: function (field) { return ("" + field + "不是一个有效值"); },
+      integer: function (field) { return ("" + field + "必须是整数"); },
+      ip: function (field) { return ("" + field + "不是一个有效的地址"); },
     length: function (field, ref) {
       var length = ref[0];
       var max = ref[1];
 
       if (max) {
-        return ("The " + field + " length must be between " + length + " and " + max + ".");
+          return ("" + field + "长度必须在" + length + "到" + max + "之间");
       }
 
-      return ("The " + field + " length must be " + length + ".");
+        return ("" + field + "长度必须为" + length + "");
     },
     max: function (field, ref) {
       var length = ref[0];
 
-      return ("The " + field + " field may not be greater than " + length + " characters.");
+        return ("" + field + "不能超过" + length + "个字符");
   },
     max_value: function (field, ref) {
       var max = ref[0];
 
-      return ("The " + field + " field must be " + max + " or less.");
+        return ("" + field + "必须小于或等于" + max + "");
   },
-    mimes: function (field) { return ("The " + field + " field must have a valid file type."); },
+      mimes: function (field) { return ("" + field + "不是一个有效的文件类型"); },
     min: function (field, ref) {
       var length = ref[0];
 
-      return ("The " + field + " field must be at least " + length + " characters.");
+        return ("" + field + " 必须至少有" + length + " 个字符");
   },
     min_value: function (field, ref) {
       var min = ref[0];
 
-      return ("The " + field + " field must be " + min + " or more.");
+        return ("" + field + " 必须大于或等于" + min + "");
   },
-    numeric: function (field) { return ("The " + field + " field may only contain numeric characters."); },
-    regex: function (field) { return ("The " + field + " field format is invalid."); },
-    required: function (field) { return ("The " + field + " field is required."); },
+      numeric: function (field) { return ("" + field + "只能包含数字字符"); },
+      regex: function (field) { return ("" + field + "格式无效"); },
+      required: function (field) { return ("" + field + "是必须的"); },
     size: function (field, ref) {
       var size = ref[0];
 
-      return ("The " + field + " size must be less than " + (formatFileSize(size)) + ".");
+      return ("" + field + " size must be less than " + (formatFileSize(size)) + ".");
   },
-    url: function (field) { return ("The " + field + " field is not a valid URL."); }
+      url: function (field) { return ("" + field + "不是一个有效的url"); }
   };
 
   var locale$1 = {
-    name: 'en',
+    name: 'cn',
     messages: messages,
     attributes: {}
   };
