@@ -1039,7 +1039,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Upload\test.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1078,6 +1077,7 @@
     <Folder Include="assets\layouts\global\scripts\" />
     <Folder Include="assets\pages\css\" />
     <Folder Include="assets\pages\img\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
