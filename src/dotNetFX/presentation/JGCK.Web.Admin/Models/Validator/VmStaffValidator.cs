@@ -21,6 +21,7 @@ namespace JGCK.Web.Admin.Models
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("用户名");
             this.RuleFor(staff => staff.NagigatedDomainObject.Pwd)
                 .NotEmpty()
+                .Length(5, 10)
                 .When(staff => staff.NagigatedDomainObject != null).OverridePropertyName("密码");
             this.RuleFor(staff => staff.NagigatedDomainObject.PersonType)
                 .Must(pt => pt > 0)

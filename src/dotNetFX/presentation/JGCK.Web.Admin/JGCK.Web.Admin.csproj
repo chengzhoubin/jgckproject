@@ -797,6 +797,7 @@
     <Content Include="assets\global\plugins\uniform\images\sprite_original.png" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.js" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="assets\global\plugins\vee-validate.js" />
     <Content Include="assets\global\plugins\vue-resource.min.js" />
     <Content Include="assets\global\plugins\vue-validator.min.js" />
     <Content Include="assets\global\plugins\vue.min.js" />
