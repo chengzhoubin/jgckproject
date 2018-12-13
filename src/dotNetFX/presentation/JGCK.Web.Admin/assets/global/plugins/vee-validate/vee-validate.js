@@ -8654,7 +8654,7 @@
 
         return ("" + field + "必须在" + width + "像素与 " + height + "像素之间");
   },
-      email: function (field) { return ("" + field + "不是一个有效的邮箱"); },
+      email: function (field) { return ("" + field + " 邮箱格式不正确"); },
       excluded: function (field) { return ("" + field + "不是一个有效值"); },
       ext: function (field) { return ("" + field + "不是一个有效的文件"); },
       image: function (field) { return ("" + field + "不是一张有效的图片"); },
@@ -8694,7 +8694,7 @@
   },
       numeric: function (field) { return ("" + field + "只能包含数字字符"); },
       regex: function (field) { return ("" + field + "格式无效"); },
-      required: function (field) { return ("" + field + "是必须的"); },
+      required: function (field) { return ("" + field + "不能为空"); },
     size: function (field, ref) {
       var size = ref[0];
 
@@ -8704,7 +8704,7 @@
   };
 
   var locale$1 = {
-    name: 'cn',
+    name: 'en',
     messages: messages,
     attributes: {}
   };

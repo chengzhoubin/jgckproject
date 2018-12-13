@@ -798,6 +798,7 @@
     <Content Include="assets\global\plugins\uniform\images\sprite_original.png" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.js" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="assets\global\plugins\vee-validate\vee-validate.js" />
     <Content Include="assets\global\plugins\vue-resource.min.js" />
     <Content Include="assets\global\plugins\vue.min.js" />
     <Content Include="assets\global\scripts\app.js" />
@@ -1037,6 +1038,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Upload\test.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

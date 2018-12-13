@@ -22,7 +22,7 @@
                 nullStaff.NagigatedDomainObject.PersonType = OnJobType.OnWork;
                 nullStaff.NagigatedDomainObject.Education = EducationType.Junior;
                 nullStaff.NagigatedDomainObject.Sex = Gender.Male;
-                nullStaff.NagigatedDomainObject.Role = new Role {Name = Model.RoleNameList.FirstOrDefault()};
+                nullStaff.NagigatedDomainObject.Role = new Role { Name = Model.RoleNameList.FirstOrDefault() };
                 nullStaff.NagigatedDomainObject.DepartmentName = Model.DepartmentNameList.FirstOrDefault();
                 var initalJsonValue = nullStaff.HiddenJsonString;
             }
@@ -94,20 +94,20 @@
                                 }
                             </tbody>
                         </table>
-                     </div>
-                        <div>
-                            @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
-                       {
-                           PageIndexParameterName = "p",
-                           ContainerTagName = "ul",
-                           CssClass = "pagination pagination-sm",
-                           CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
-                           DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
-                           PagerItemTemplate = "<li>{0}</li>"
-                       })
-                        </div>
+                    </div>
+                    <div>
+                        @Html.Pager(Model.TotalRecordCount, Model.PageSize, Model.CurrentIndex, new PagerOptions
+                   {
+                       PageIndexParameterName = "p",
+                       ContainerTagName = "ul",
+                       CssClass = "pagination pagination-sm",
+                       CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"javascript:; \"> {0} </a></li>",
+                       DisabledPagerItemTemplate = "<li><a href=\"javascript:; \"> {0} </a></li>",
+                       PagerItemTemplate = "<li>{0}</li>"
+                   })
                     </div>
                 </div>
+            </div>
             <!-- END SAMPLE TABLE PORTLET-->
         </div>
     </div>
@@ -125,9 +125,10 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>角色:&nbsp;<span style="color:red">*</span></strong> 
+                                <li>
+                                    <strong>角色:&nbsp;<span style="color:red">*</span></strong>
                                     @*<input type="text" v-model="doctor.Role.Name" />*@
-                                    <select v-model="doctor.Role.Name">
+                                    <select v-model="doctor.Role.Name" class="form-control input-small input-inline">
                                         <option :value="item.id" v-for="item in ListRoleName">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -135,9 +136,10 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>所属部门:&nbsp;<span style="color:red">*</span></strong>  
+                                <li>
+                                    <strong>所属部门:&nbsp;<span style="color:red">*</span></strong>
                                     @*<input type="text" v-model="doctor.DepartmentName" />*@
-                                    <select v-model="doctor.DepartmentName">
+                                    <select v-model="doctor.DepartmentName"  class="form-control input-small input-inline">
                                         <option :value="item.id" v-for="item in ListDepartment">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -145,15 +147,18 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li>
-                                    <strong>用户名:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Name" :disabled="doctor.ID>0" maxlength="30" />
+                                <li :class="{'has-error': errors.has('用户名'),'form-group':true }">
+                                    <strong>用户名:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.Name" :disabled="doctor.ID>0" maxlength="30" v-validate="'required'" class="form-control input-small input-inline" name="用户名"/>                             
+                                    <span v-show="errors.has('用户名')" class="help-block">{{ errors.first('用户名') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>密码:&nbsp;<span style="color:red">*</span></strong> <input type="password" v-model="doctor.Pwd" maxlength="10" />
+                                    <strong>密码:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="password" v-model="doctor.Pwd" maxlength="10"  class="form-control input-small input-inline"/>
                                 </li>
                             </ul>
                         </div>
@@ -164,8 +169,7 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>员工类型:&nbsp;<span style="color:red">*</span></strong>
-                                    <select v-model="doctor.PersonType" @@change="change_PersonType()">
-                                        @*<option value="">请选择</option>*@
+                                    <select v-model="doctor.PersonType" @@change="change_PersonType()" class="form-control input-small input-inline">                                   
                                         <option :value="item.id" v-for="item in ListPersonType">{{item.name}}</option>
                                     </select>
 
@@ -174,14 +178,18 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>姓名:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.RealName" maxlength="10" /></li>
+                                <li :class="{'has-error': errors.has('姓名'),'form-group':true }">
+                                    <strong>姓名:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.RealName" maxlength="10"  v-validate="'required'" class="form-control input-small input-inline" name="姓名"/>
+                                    <span v-show="errors.has('姓名')" class="help-block">{{ errors.first('姓名') }}</span>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>性别:&nbsp;<span style="color:red">*</span></strong>
-                                    <select v-model="doctor.Sex">
+                                    <select v-model="doctor.Sex"  class="form-control input-small input-inline">
                                         @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
                                     </select>
@@ -190,8 +198,10 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li>
-                                    <strong>身份证号:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.IdCard" maxlength="20" />
+                                <li :class="{'has-error': errors.has('身份证号'),'form-group':true }">
+                                    <strong>身份证号:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.IdCard" maxlength="20"   v-validate="'required|CardNo'" class="form-control input-small input-inline" name="身份证号"/>
+                                    <span v-show="errors.has('身份证号')" class="help-block">{{ errors.first('身份证号') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -203,7 +213,7 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>学历:&nbsp;<span style="color:red">*</span></strong>
-                                    <select v-model="doctor.Education">
+                                    <select v-model="doctor.Education" class="form-control input-small input-inline">
                                         @*<option value="" selected="selected">请选择</option>*@
                                         <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
                                     </select>
@@ -212,20 +222,28 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>毕业学校:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.GraduateInstitution" maxlength="20" /></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>专业:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Major" maxlength="20" />
+                                <li :class="{'has-error': errors.has('毕业学校'),'form-group':true }">
+                                    <strong>毕业学校:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.GraduateInstitution" maxlength="20"   v-validate="'required'" class="form-control input-small input-inline" name="毕业学校"/>
+                                    <span v-show="errors.has('毕业学校')" class="help-block">{{ errors.first('毕业学校') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li>
-                                    <strong>Email:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.Email" maxlength="50" />
+                                <li :class="{'has-error': errors.has('专业'),'form-group':true }">
+                                    <strong>专业:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.Major" maxlength="20"  v-validate="'required'"  class="form-control input-small input-inline" name="专业"/>
+                                    <span v-show="errors.has('专业')" class="help-block">{{ errors.first('专业') }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li :class="{'has-error': errors.has('Email'),'form-group':true }">
+                                    <strong>Email:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.Email" maxlength="50"  v-validate="'required|email'"  class="form-control input-small input-inline" name="Email"/>
+                                    <span v-show="errors.has('Email')" class="help-block">{{ errors.first('Email') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -235,25 +253,37 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li> <strong>联系电话:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.Phone" maxlength="20" /> </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li> <strong>紧急联系人:&nbsp;<span style="color:red">*</span></strong> <input type="text" v-model="doctor.EmergencyContact" maxlength="10" /></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>紧急联系人电话:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.EmergencyPhone" maxlength="20" />
+                                <li :class="{'has-error': errors.has('联系电话'),'form-group':true }">
+                                    <strong>联系电话:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.Phone" maxlength="20"  v-validate="'required|phone'"  class="form-control input-small input-inline" name="联系电话"/>
+                                    <span v-show="errors.has('联系电话')" class="help-block">{{ errors.first('联系电话') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li>
-                                    <strong>地址:&nbsp;<span style="color:red">*</span></strong><input type="text" v-model="doctor.FamliyAddress" />
+                                <li :class="{'has-error': errors.has('紧急联系人'),'form-group':true }">
+                                    <strong>紧急联系人:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.EmergencyContact" maxlength="10" v-validate="'required'"  class="form-control input-small input-inline" name="紧急联系人" />
+                                    <span v-show="errors.has('紧急联系人')" class="help-block">{{ errors.first('紧急联系人') }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li :class="{'has-error': errors.has('紧急联系人电话'),'form-group':true }">
+                                    <strong>紧急联系人电话:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.EmergencyPhone" maxlength="20"  v-validate="'required|phone'"  class="form-control input-small input-inline" name="紧急联系人电话"/>
+                                    <span v-show="errors.has('紧急联系人电话')" class="help-block">{{ errors.first('紧急联系人电话') }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <ul class="list-unstyled">
+                                <li :class="{'has-error': errors.has('地址'),'form-group':true }">
+                                    <strong>地址:&nbsp;<span style="color:red">*</span></strong>
+                                    <input type="text" v-model="doctor.FamliyAddress"  v-validate="'required'"  class="form-control input-small input-inline" name="地址"/>
+                                    <span v-show="errors.has('地址')" class="help-block">{{ errors.first('地址') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -267,9 +297,9 @@
                                     @*<input type="text" v-model="doctor.HireDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate"  :disabled="doctor.PersonType===2"/>
+                                            <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate" :disabled="doctor.PersonType===2" />
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"  :disabled="doctor.PersonType===2">
+                                                <button class="btn default date-set" type="button" :disabled="doctor.PersonType===2">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -287,7 +317,7 @@
                                         <div class="input-group date form_datetime">
                                             <input class="form-control" readonly="readonly" id="LeaveDate" size="16" type="text" v-model="doctor.LeaveDate" :disabled="doctor.PersonType===1" />
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"  :disabled="doctor.PersonType===1">
+                                                <button class="btn default date-set" type="button" :disabled="doctor.PersonType===1">
                                                     <i class="fa fa-calendar"></i>
                                                 </button>
                                             </span>
@@ -303,7 +333,7 @@
                                     @*<input type="text" v-model="doctor.PracticeBeginDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" :disabled="doctor.PersonType===4"/>
+                                            <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" :disabled="doctor.PersonType===4" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button" :disabled="doctor.PersonType===4">
                                                     <i class="fa fa-calendar"></i>
@@ -314,14 +344,14 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-xs-3"  v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
+                        <div class="col-xs-3" v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
                                     <strong>实习结束时间:</strong>
                                     @*<input type="text" v-model="doctor.PracticeEndDate" />*@
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
-                                            <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate"  :disabled="doctor.PersonType===3"/>
+                                            <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate" :disabled="doctor.PersonType===3" />
                                             <span class="input-group-btn">
                                                 <button class="btn default date-set" type="button" :disabled="doctor.PersonType===3">
                                                     <i class="fa fa-calendar"></i>
@@ -347,7 +377,7 @@
             <div class="modal-footer">
                 @*<button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                 <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                <button id="btnSave" type="button" class="btn green" @@click="click_save">{{ !doctor.ID?'添加':'修改' }}</button>
+                <button id="btnSave" type="button" class="btn green" @@click="validateBeforeSubmit">{{ !doctor.ID?'添加':'修改' }}</button>
                 @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
             </div>
         </div>
@@ -384,8 +414,23 @@
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/third-party/template.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.js"></script>
+    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
+
     <script>
-        $(function() {
+        const config = {
+            errorBagName: 'errors',
+            fieldsBagName: 'fields',
+            delay: 100,
+            strict: true,
+            enableAutoClasses: true,
+            events: 'blur',
+            inject: true
+        };
+        Vue.use(VeeValidate, config);
+
+    
+
+        $(function () {          
             $("#btnSearch").click(function () {
                 if ($("#Filter").val() == "") {
                     location.href = '@Url.Action("UserList")';
@@ -393,17 +438,17 @@
                 }
                 var reloadUrlWithFilter = '@Url.Action("UserList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
-            });    
-            
-            $(function () {
-                var um = UM.getEditor('container', {});
             });
 
+         
+            var um = UM.getEditor('container', {});
+       
+
             $('#modelfull').on('show.bs.modal', function (e) {
-                $("html,body").css({ height: "100 %", overflow: "hidden" })     
+                $("html,body").css({ height: "100 %", overflow: "hidden" })
             })
             $('#modelfull').on('hide.bs.modal', function (e) {
-                $("html,body").css({ height: "auto", overflow: "auto" })           
+                $("html,body").css({ height: "auto", overflow: "auto" })
             })
 
         })
@@ -492,11 +537,24 @@
                 //doctor: function (val) {
                 //    console.log(val);
                 //}
-            
+
             },
             created: function() {
-                if (Cookies.get('sf_staffData_sort_keys'))
-                    this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
+                if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
+            
+                this.$validator.extend('phone', {
+                    getMessage: function (field) { return ("" + field + "手机或固话格式不正确（格式：区号-电话）"); },
+                    validate: value => {
+                        return value.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value) || /^(\d{3}-)(\d{8})$|^(\d{4}-)(\d{7})$|^(\d{4}-)(\d{8})$/.test(value)
+                    }
+                })
+                this.$validator.extend('CardNo', {
+                    getMessage: function (field) { return ("身份证号码输入不正确"); },
+                    validate: value => {
+                        return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
+                    }
+                })
+
             },
             methods: {
                 get_sortCLass: function(sortName) {
@@ -590,8 +648,17 @@
                         window.location.reload();
                     });
                 },
-                click_save: function() {
-                    console.log(this.doctor)
+                validateBeforeSubmit() {
+                    var that = this
+                    this.$validator.validateAll().then(function (result) {
+                        if (result) {
+                            that.click_save()
+                            return;
+                        }
+                        console.log('Correct them errors!');
+                    })
+                },
+                click_save: function() {                   
                     var that = this;
                     var apiUrl = "/user/UpdateStaff"
                     if (!this.doctor.ID) {
