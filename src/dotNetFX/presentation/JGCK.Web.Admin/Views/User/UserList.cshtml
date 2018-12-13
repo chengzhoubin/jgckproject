@@ -156,9 +156,10 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li>
+                                <li :class="{'has-error': errors.has('密码'),'form-group':true }">
                                     <strong>密码:&nbsp;<span style="color:red">*</span></strong>
-                                    <input type="password" v-model="doctor.Pwd" maxlength="10"  class="form-control input-small input-inline"/>
+                                    <input id="userPWD" type="password" v-model="doctor.Pwd" maxlength="10" class="form-control input-small input-inline" v-validate="'required'" name="密码" />
+                                    <span v-show="errors.has('密码')" class="help-block">{{ errors.first('密码') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -417,7 +418,7 @@
     <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
 
     <script>
-        var config = {
+        const config = {
             errorBagName: 'errors',
             fieldsBagName: 'fields',
             delay: 100,
@@ -439,8 +440,10 @@
                 var reloadUrlWithFilter = '@Url.Action("UserList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
             });
+
          
-            var um = UM.getEditor('container', {});      
+            var um = UM.getEditor('container', {});
+       
 
             $('#modelfull').on('show.bs.modal', function (e) {
                 $("html,body").css({ height: "100 %", overflow: "hidden" })
@@ -542,14 +545,14 @@
                 if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
             
                 this.$validator.extend('phone', {
-                    getMessage: function (field) { return ("" + field + "手机或固话格式不正确（格式：区号-电话）"); },
-                    validate: function (value){
-                        return value.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value) || /^(\d{3}-)(\d{8})$|^(\d{4}-)(\d{7})$|^(\d{4}-)(\d{8})$/.test(value)
+                    getMessage: function (field) { return ("" + field + "手机或固话格式不正确"); },
+                    validate: value => {
+                        return value.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(value)
                     }
                 })
                 this.$validator.extend('CardNo', {
                     getMessage: function (field) { return ("身份证号码输入不正确"); },
-                    validate: function (value) {
+                    validate: value => {
                         return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
                     }
                 })
@@ -597,6 +600,7 @@
                         300)
                     console.log(this.doctor)
                     this.errMsg = "";
+                    this.$validator.errors.clear();  
                     $('#btnSave').show();
                 },
                 click_delete: function() {
@@ -643,11 +647,11 @@
                             "ModuleName": "sf_staffData_sort_keys",
                             "SortProperty": Name,
                             "SortDirect": SortDirect
-                        }).then(function (item){
+                        }).then(item => {
                         window.location.reload();
                     });
                 },
-                validateBeforeSubmit:function() {
+                validateBeforeSubmit() {
                     var that = this
                     this.$validator.validateAll().then(function (result) {
                         if (result) {
@@ -674,7 +678,7 @@
                     $.post(apiUrl,
                         {
                             NagigatedDomainObject: this.doctor
-                        }).then(function (item){
+                        }).then(item => {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
