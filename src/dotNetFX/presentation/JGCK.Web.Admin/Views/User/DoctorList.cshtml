@@ -324,7 +324,7 @@
                 getSmartHospitalsData: function (name) {
                     $.post("/settings/GetSmartHospitals/", {
                         "search": name
-                    }).then(item => {
+                    }).then(function (item){
                         console.log(item)
                     });
                 },
@@ -385,7 +385,7 @@
                         "ModuleName": "sf_doctorData_sort_keys",
                         "SortProperty": Name,     //ID, RealName, Doctor.DoctorCode, Doctor.AuditStatus
                         "SortDirect": SortDirect  //Asc或者Desc
-                    }).then(item => {
+                    }).then(function (item){
                         console.log(item)
                         window.location.reload();
                       });
@@ -423,7 +423,7 @@
                     this.isRuning = true;
                     $.post(apiUrl, {
                         doctorId: this.doctorObj.Doctor.ID
-                    }).then(item => {
+                    }).then(function (item) {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
@@ -449,7 +449,7 @@
                         HospitalId: $(".js-data-ajax").eq(item).val(),
                         DoctorId: this.doctorObj.Doctor.ID,
                         PreBindId: this.doctorObj.Doctor.InHospital[item].ID
-                    }).then(item => {
+                    }).then(function (item) {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {

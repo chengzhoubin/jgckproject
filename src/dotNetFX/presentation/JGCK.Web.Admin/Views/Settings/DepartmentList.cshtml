@@ -114,7 +114,7 @@
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
       
-        const config = {
+        var config = {
             errorBagName: 'errors',
             fieldsBagName: 'fields',
             delay: 100,
@@ -140,7 +140,7 @@
                 isRuning: false
             },
             methods: {
-                validateBeforeSubmit() {
+                validateBeforeSubmit:function() {
                     var that = this
                     this.$validator.validateAll().then(function (result) {
                         if (result) {
@@ -191,7 +191,7 @@
                                 console.log(this.Model);
                                 $.post("/Settings/DelDepartment", {
                                     depId: that.Model.ID
-                                }).then(item => {
+                                }).then(function (item) {
                                     if (item.Result) {
                                         //window.location.reload();
                                         //that.errMsg = "删除成功"
@@ -217,7 +217,7 @@
                     this.isRuning = true;
                     $.post(apiUrl, {
                         NagigatedDomainObject: that.Model
-                    }).then(item => {
+                    }).then(function (item){
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
