@@ -417,7 +417,7 @@
     <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
 
     <script>
-        const config = {
+        var config = {
             errorBagName: 'errors',
             fieldsBagName: 'fields',
             delay: 100,
@@ -439,10 +439,8 @@
                 var reloadUrlWithFilter = '@Url.Action("UserList")?filter=' + encodeURI($("#Filter").val());
                 location.href = reloadUrlWithFilter;
             });
-
          
-            var um = UM.getEditor('container', {});
-       
+            var um = UM.getEditor('container', {});      
 
             $('#modelfull').on('show.bs.modal', function (e) {
                 $("html,body").css({ height: "100 %", overflow: "hidden" })
@@ -545,13 +543,13 @@
             
                 this.$validator.extend('phone', {
                     getMessage: function (field) { return ("" + field + "手机或固话格式不正确（格式：区号-电话）"); },
-                    validate: value => {
+                    validate: function (value){
                         return value.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value) || /^(\d{3}-)(\d{8})$|^(\d{4}-)(\d{7})$|^(\d{4}-)(\d{8})$/.test(value)
                     }
                 })
                 this.$validator.extend('CardNo', {
                     getMessage: function (field) { return ("身份证号码输入不正确"); },
-                    validate: value => {
+                    validate: function (value) {
                         return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
                     }
                 })
@@ -645,11 +643,11 @@
                             "ModuleName": "sf_staffData_sort_keys",
                             "SortProperty": Name,
                             "SortDirect": SortDirect
-                        }).then(item => {
+                        }).then(function (item){
                         window.location.reload();
                     });
                 },
-                validateBeforeSubmit() {
+                validateBeforeSubmit:function() {
                     var that = this
                     this.$validator.validateAll().then(function (result) {
                         if (result) {
@@ -676,7 +674,7 @@
                     $.post(apiUrl,
                         {
                             NagigatedDomainObject: this.doctor
-                        }).then(item => {
+                        }).then(function (item){
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
