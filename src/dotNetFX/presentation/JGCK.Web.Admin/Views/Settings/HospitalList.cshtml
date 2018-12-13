@@ -125,13 +125,13 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">医院编号&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode">
+                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">医院名称&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID">
+                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID" maxlength="30">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -201,13 +201,13 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>开票抬头</label>
-                                                    <input type="text" class="form-control" v-model="item.Title">
+                                                    <input type="text" class="form-control" v-model="item.Title" maxlength="30">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>纳税人识别号</label>
-                                                    <input type="text" class="form-control" v-model="item.TaxerNumber">
+                                                    <input type="text" class="form-control" v-model="item.TaxerNumber" maxlength="30">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -219,19 +219,19 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>开票电话</label>
-                                                    <input type="text" class="form-control" v-model="item.InvoicePhone">
+                                                    <input type="text" class="form-control" v-model="item.InvoicePhone" maxlength="20">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>开户银行</label>
-                                                    <input type="text" class="form-control" v-model="item.Bank">
+                                                    <input type="text" class="form-control" v-model="item.Bank" maxlength="30">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>开户行账号</label>
-                                                    <input type="text" class="form-control" v-model="item.BankAccountNumber">
+                                                    <input type="text" class="form-control" v-model="item.BankAccountNumber" maxlength="20">
                                                 </div>
                                             </div>
                                         </div>
@@ -241,19 +241,19 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>姓名</label>
-                                                    <input type="text" class="form-control" v-model="item.ContractPerson">
+                                                    <input type="text" class="form-control" v-model="item.ContractPerson" maxlength="10">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>职务</label>
-                                                    <input type="text" class="form-control" v-model="item.CpJobTitle">
+                                                    <input type="text" class="form-control" v-model="item.CpJobTitle" maxlength="20">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>电话</label>
-                                                    <input type="text" class="form-control" v-model="item.CpPhone">
+                                                    <input type="text" class="form-control" v-model="item.CpPhone" maxlength="30">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -265,7 +265,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>财务科电话</label>
-                                                    <input type="text" class="form-control" v-model="item.FinanceDepPhone">
+                                                    <input type="text" class="form-control" v-model="item.FinanceDepPhone" maxlength="30">
                                                 </div>
                                             </div>
                                         </div>
@@ -277,19 +277,19 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>姓名</label>
-                                                    <input type="text" class="form-control" v-model="item.Receipter">
+                                                    <input type="text" class="form-control" v-model="item.Receipter" maxlength="10">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>职务</label>
-                                                    <input type="text" class="form-control" v-model="item.ReceipterJobTitle">
+                                                    <input type="text" class="form-control" v-model="item.ReceipterJobTitle" maxlength="20">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>电话</label>
-                                                    <input type="text" class="form-control" v-model="item.ReceipterPhone">
+                                                    <input type="text" class="form-control" v-model="item.ReceipterPhone" maxlength="30">
                                                 </div>
                                             </div>
                                         </div>
@@ -298,25 +298,25 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>姓名</label>
-                                                    <input type="text" class="form-control" v-model="item.BillContactPerson">
+                                                    <input type="text" class="form-control" v-model="item.BillContactPerson" maxlength="10">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>职务</label>
-                                                    <input type="text" class="form-control" v-model="item.BcpJobTitle">
+                                                    <input type="text" class="form-control" v-model="item.BcpJobTitle" maxlength="20">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>电话</label>
-                                                    <input type="text" class="form-control" v-model="item.BcpPhone">
+                                                    <input type="text" class="form-control" v-model="item.BcpPhone" maxlength="30">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>邮箱</label>
-                                                    <input type="text" class="form-control" v-model="item.BcpEmail">
+                                                    <input type="text" class="form-control" v-model="item.BcpEmail" maxlength="50">
                                                 </div>
                                             </div>
                                         </div>

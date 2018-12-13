@@ -71,7 +71,7 @@
                             <label class="col-md-4 control-label">部门名称&nbsp;&nbsp;<span style="color:red">*</span></label>
                             <div class="col-md-8">                           
                                     <div class="right input-group">
-                                        <input type="text" class="form-control" v-model="Model.Name" name="Name" data-required="1">
+                                        <input type="text" class="form-control" v-model="Model.Name" name="Name" data-required="1" maxlength="10">
                                     </div>
                                 </div>
                             </div>
@@ -79,14 +79,14 @@
                             <label class="col-md-4 control-label">备注</label>
                             <div class="col-md-8">
                                 <div class="right input-group">
-                                    <input type="text" class="form-control" v-model="Model.Desc">
+                                    <input type="text" class="form-control" v-model="Model.Desc" maxlength="30">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" v-if="Model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
+                    <button type="button" v-if="Model.ID" class="btn red pull-left" @@click="click_delete()">删除</button>
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                     <button id="btnSave"  type="submit"  class="btn green" @@click="click_save()">{{ !Model.ID? '添加' : '修改'}}</button>
                     @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
