@@ -44,9 +44,9 @@
                                     <th> 序号 </th>
                                     <th @@click="click_setsort('RealName')" :class="get_sortCLass('RealName')"> 医生姓名 </th>
                                     <th> 医生资格证号 </th>
-                                    <th> 出生日期 </th>
+                                    @*<th> 出生日期 </th>*@
                                     <th> 身份证 </th>
-                                    <th> 邮 箱 </th>
+                                    @*<th> 邮 箱 </th>*@
                                     <th> 固定电话 </th>
                                     <th> 手机 </th>
                                     <th @@click="click_setsort('Doctor.AuditStatus')" :class="get_sortCLass('Doctor.AuditStatus')"> 审核状态 </th>
@@ -65,9 +65,9 @@
                                                 <td> @((Model.CurrentIndex - 1) * Model.PageSize + itemIndex) </td>
                                                 <td> @item.NagigatedDomainObject.RealName </td>
                                                 <td> @item.NagigatedDomainObject.Doctor.DoctorCode </td>
-                                                <td> @item.NagigatedDomainObject.Doctor.Birthday.ToString("yyyy-MM-dd") </td>
+                                                @*<td> @item.NagigatedDomainObject.Doctor.Birthday.ToString("yyyy-MM-dd") </td>*@
                                                 <td> @item.NagigatedDomainObject.IdCard </td>
-                                                <td> @item.NagigatedDomainObject.Doctor.Email </td>
+                                                @*<td> @item.NagigatedDomainObject.Doctor.Email </td>*@
                                                 <td> @item.NagigatedDomainObject.Doctor.LinePhone </td>
                                                 <td> @item.NagigatedDomainObject.Doctor.MobilePhone </td>
                                                 <td> @item.NagigatedDomainObject.Doctor.AuditStatus.ToDescription() </td>
