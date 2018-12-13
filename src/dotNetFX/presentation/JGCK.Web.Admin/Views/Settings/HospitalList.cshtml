@@ -125,51 +125,56 @@
                                     <h3 class="form-section">基本信息</h3>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div :class="{'has-error': errors.has('医院编号'),'form-group':true }">
                                                 <label class="control-label">医院编号&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode" maxlength="20">
+                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode" maxlength="20"  v-validate="'required'" name="医院编号">
+                                                <span v-show="errors.has('医院编号')" class="help-block">{{ errors.first('医院编号') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div :class="{'has-error': errors.has('医院名称'),'form-group':true }">
                                                 <label class="control-label">医院名称&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID" maxlength="30">
+                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID" maxlength="30" v-validate="'required'" name="医院名称">
+                                                <span v-show="errors.has('医院名称')" class="help-block">{{ errors.first('医院名称') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="form-group">
+                                            <div :class="{'has-error': errors.has('医院地址'),'form-group':true }">
                                                 <label class="control-label">医院地址&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalAddress" class="form-control" placeholder="医院地址" v-model="model.Address">
-
+                                                <input type="text" id="hospitalAddress" class="form-control" placeholder="医院地址" v-model="model.Address"  v-validate="'required'" name="医院地址">
+                                                <span v-show="errors.has('医院地址')" class="help-block">{{ errors.first('医院地址') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div  :class="{'has-error': errors.has('医院属性'),'form-group':true }">
                                                 <label class="control-label">医院属性&nbsp;<span style="color:red">*</span></label>
-                                                <select class="form-control" id="hospitalSuxing" v-model="model.HospitalType">
+                                                <select class="form-control" id="hospitalSuxing" v-model="model.HospitalType"  v-validate="'required'" name="医院属性">
                                                     <option value="1">公立</option>
                                                     <option value="2">私立</option>
                                                     <option value="3">集团</option>
                                                     <option value="4">其他</option>
                                                 </select>
+                                                <span v-show="errors.has('医院属性')" class="help-block">{{ errors.first('医院属性') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="form-group">
+                                            <div  :class="{'has-error': errors.has('折扣系数'),'form-group':true }">
                                                 <label class="control-label">折扣系数&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate" maxlength="4">
+                                                <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate" maxlength="4"  v-validate="'required|min0'" name="折扣系数">
+                                                <span v-show="errors.has('折扣系数')" class="help-block">{{ errors.first('折扣系数') }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div  :class="{'has-error': errors.has('付款方式'),'form-group':true }">
                                                 <label class="control-label">付款方式&nbsp;<span style="color:red">*</span></label>
-                                                <select class="form-control" id="paymethod" v-model="model.PaymentType">
+                                                <select class="form-control" id="paymethod" v-model="model.PaymentType"  v-validate="'required'" name="付款方式">
                                                     <option value="1">基本账号</option>
                                                     <option value="2">Alipay</option>
                                                     <option value="4">其他</option>
                                                 </select>
+                                                <span v-show="errors.has('付款方式')" class="help-block">{{ errors.first('付款方式') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3" v-if="model.PaymentType==4">
@@ -179,13 +184,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div :class="{'has-error': errors.has('付款周期'),'form-group':true }">
                                                 <label class="control-label">付款周期&nbsp;<span style="color:red">*</span></label>
-                                                <select class="form-control" id="paymethodTime" v-model="model.PaymentPeriod">
+                                                <select class="form-control" id="paymethodTime" v-model="model.PaymentPeriod"   v-validate="'required'" name="付款周期">
                                                     <option value="1">一个月</option>
                                                     <option value="2">预付</option>
                                                     <option value="4">其他</option>
                                                 </select>
+                                                <span v-show="errors.has('付款周期')" class="help-block">{{ errors.first('付款周期') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3" v-if="model.PaymentPeriod==4">
@@ -418,7 +424,7 @@
                 <div class="modal-footer">
                     @*<button type="button" v-if="model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                    <button id="btnSave" type="button" class="btn green" @@click="click_save()">{{ !model.ID?'添加':'修改' }}</button>
+                    <button id="btnSave" type="button" class="btn green" @@click="validateBeforeSubmit()">{{ !model.ID?'添加':'修改' }}</button>
                     @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
                 </div>
             </div>
@@ -456,11 +462,22 @@
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/lang/zh-cn/zh-cn.js"></script>
-    @*<script src="~/assets/global/plugins/jqzoom/js/jqzoom.pack.1.0.1.js"></script>*@
     <script src="~/assets/global/plugins/jqzoom/js/jquery.jqzoom1.0.1.js"></script>
+    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
+        const config = {
+            errorBagName: 'errors',
+            fieldsBagName: 'fields',
+            delay: 100,
+            strict: true,
+            locale: 'en',
+            enableAutoClasses: true,
+            events: 'blur',
+            inject: true
+        };
+        Vue.use(VeeValidate, config); 
         var um;
         $(function () {
             um = UM.getEditor('myEditor');
@@ -503,9 +520,13 @@
 
         });
 
+
+
+
         var app = new Vue({
             el: '#app',
             data: {
+                sort_keys: '',
                 model: {},
                 errMsg: "",
                 imgTempUpLoad1: "",
@@ -513,7 +534,18 @@
                 imgTempUpLoad3: "",
 
             },
+            created: function () {
+                if (Cookies.get('sf_hospitalData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_hospitalData_sort_keys'))
+                this.$validator.extend('min0', {
+                    getMessage: function (field) { return ("" + field + "应大于0"); },
+                    validate: value => {                        
+                        return value>0;                       
+                    }
+                })          
+
+            },
             methods: {
+
                 get_sortCLass: function(sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
@@ -596,6 +628,16 @@
                             }
                         }
                     });
+                },
+                validateBeforeSubmit() {
+                    var that = this
+                    this.$validator.validateAll().then(function (result) {
+                        if (result) {
+                            that.click_save()
+                            return;
+                        }
+                        console.log('Correct them errors!');
+                    })
                 },
                 click_save: function() {
                     console.log(this.model)
