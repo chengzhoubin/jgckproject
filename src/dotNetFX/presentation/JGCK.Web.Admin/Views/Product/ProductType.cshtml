@@ -145,7 +145,7 @@
             .zoom()
             // 设置缩放区域为0.1-100倍
             .scaleExtent([0.1, 100])
-            .on("zoom", () => {
+            .on("zoom", function(){
                 // 子group元素将响应zoom事件，并更新transform状态
                 view.attr(
                     "transform",
@@ -160,7 +160,7 @@
             });
 
         // svg层绑定zoom事件，同时释放zoom双击事件
-        svg.call(zoom).on("dblclick.zoom", () => { });
+        svg.call(zoom).on("dblclick.zoom", function (){ });
 
         var i = 0,
             duration = 750,
@@ -262,13 +262,13 @@
                 .enter()
                 .append("g")
                 .attr("class", "node")
-                .attr("id", d => d.id)
+                .attr("id", function (d) { return d.id })
                 // 默认位置为当前父节点的位置
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
                 // 添加mouseover事件
-                .on("mouseover", d => {
+                .on("mouseover", function (d) {
                     // 从d3.event获取鼠标的位置
                     var transform = d3.event;
                     var yPosition = transform.offsetY + 20;
@@ -287,7 +287,7 @@
                     chartTooltip.classed("hidden", false);
                 })
                 // 添加mouseover事件
-                .on("mouseout", () => {
+                .on("mouseout", function () {
                     // 添加浮层hidden样式，隐藏浮层
                     d3.select(".chartTooltip").classed("hidden", true);
                 })
@@ -420,7 +420,7 @@
                 d._clickid = null;
             } else {
                 // 首次点击，添加定时器，350ms后进行toggle
-                d._clickid = setTimeout(() => {
+                d._clickid = setTimeout(function (){
                     if (d.children) {
                         d._children = d.children;
                         d.children = null;
@@ -448,7 +448,7 @@
                     if (error) throw error;
                     // 给子节点绑定父节点
                     console.log("Data>>> ", data)
-                    var children = data.children.map(x => {                        
+                    var children = data.children.map(function (x) {                        
                         return {
                             name: x.name,
                             parent: d,
@@ -478,10 +478,10 @@
         // 添加贝塞尔曲线的path，衔接与父节点和子节点间
         function diagonal(s, d) {
             path =
-                `M ${s.y} ${s.x}
-                      C ${(s.y + d.y) / 2} ${s.x},
-                        ${(s.y + d.y) / 2} ${d.x},
-                        ${d.y} ${d.x}`;
+                "M ${s.y} ${s.x}"+
+                      "C ${(s.y + d.y) / 2} ${s.x},"+
+                       " ${(s.y + d.y) / 2} ${d.x},"+
+                       " ${d.y} ${d.x}";
 
             return path;
         }
@@ -491,7 +491,7 @@
             let max = 0;
             if (obj.children) {
                 max = obj.children.length;
-                obj.children.forEach(d => {
+                obj.children.forEach(function (d){
                     const tmpMax = this.getMax(d);
                     if (tmpMax > max) {
                         max = tmpMax;
@@ -505,7 +505,7 @@
         function getDepth(obj) {
             var depth = 0;
             if (obj.children) {
-                obj.children.forEach(d => {
+                obj.children.forEach(function (d){
                     var tmpDepth = this.getDepth(d);
                     if (tmpDepth > depth) {
                         depth = tmpDepth;
