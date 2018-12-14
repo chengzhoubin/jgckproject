@@ -110,9 +110,47 @@
     <script src="~/assets/global/plugins/d3.v4.min.js"></script>
     <script>
         // 嗯，这是最初的数据。
-        var treeData = {
-            name: "产品树"
-        };
+        //var treeData = {
+        //    name: "产品树"
+        //};
+
+        var treeData ={
+            "name": "产品树 ",
+            "ID": 2,
+                "children": [
+                    {
+                        "name": "Name: A",
+                        "ID": 2 ,
+                        "children": [{
+                            "name": "Name: B",
+                            "ID": 3
+                        },
+                        {
+                            "name": "Name: C",
+                            "ID": 4
+                        }],
+                    },
+                    {
+                        "name": "Name: B",
+                        "ID": 3
+                    },
+                    {
+                        "name": "Name: C",
+                        "ID": 4
+                    },
+                    {
+                        "name": "Name: D",
+                        "ID": 5
+                    },
+                    {
+                        "name": "Name: E",
+                        "ID": 6
+                    }
+                ]
+        }
+
+
+
         /********************* 1. 初始化D3基本能力（设置宽高等） *********************/
         // 设置图表的宽高和Margin
         var margin = {
@@ -444,7 +482,7 @@
                 // 这里模拟请求，1.json - 5.json 随机获取数据
                 //var randomNum = Math.floor(Math.random() * 5) + 1;
                 console.log(d);
-                d3.json("/Product/GetProductTypeListByParentId?parentId=0", function (error, data) {
+                d3.json("/Product/GetProductTypeListByParentId?parentId=" + d.data.ID, function (error, data) {
                     if (error) throw error;
                     // 给子节点绑定父节点
                     console.log("Data>>> ", data)
