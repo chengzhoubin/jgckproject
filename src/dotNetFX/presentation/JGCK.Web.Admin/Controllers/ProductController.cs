@@ -163,7 +163,7 @@ namespace JGCK.Web.Admin.Controllers
             }
             ret.Value = productTree;
             ret.Result = true;
-            return Json(ret);
+            return Json(ret, JsonRequestBehavior.AllowGet);
         }
     }
 }
