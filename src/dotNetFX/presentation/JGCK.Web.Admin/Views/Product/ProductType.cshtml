@@ -110,9 +110,47 @@
     <script src="~/assets/global/plugins/d3.v4.min.js"></script>
     <script>
         // 嗯，这是最初的数据。
-        var treeData = {
-            name: "产品树"
-        };
+        //var treeData = {
+        //    name: "产品树"
+        //};
+
+        var treeData ={
+            "name": "产品树 ",
+            "ID": 2,
+                "children": [
+                    {
+                        "name": "Name: A",
+                        "ID": 2 ,
+                        "children": [{
+                            "name": "Name: B",
+                            "ID": 3
+                        },
+                        {
+                            "name": "Name: C",
+                            "ID": 4
+                        }],
+                    },
+                    {
+                        "name": "Name: B",
+                        "ID": 3
+                    },
+                    {
+                        "name": "Name: C",
+                        "ID": 4
+                    },
+                    {
+                        "name": "Name: D",
+                        "ID": 5
+                    },
+                    {
+                        "name": "Name: E",
+                        "ID": 6
+                    }
+                ]
+        }
+
+
+
         /********************* 1. 初始化D3基本能力（设置宽高等） *********************/
         // 设置图表的宽高和Margin
         var margin = {
@@ -275,21 +313,21 @@
                     var xPosition = transform.offsetX + 20;
 
                     // 将浮层位置设置为鼠标位置
-                    var chartTooltip = d3
-                        .select(".chartTooltip")
-                        .style("left", xPosition + "px")
-                        .style("top", yPosition + "px");
+                    //var chartTooltip = d3
+                    //    .select(".chartTooltip")
+                    //    .style("left", xPosition + "px")
+                    //    .style("top", yPosition + "px");
 
-                    // 更新浮层内容
-                    chartTooltip.select(".name").text(d.data.name);
+                    //// 更新浮层内容
+                    //chartTooltip.select(".name").text(d.data.name);
 
-                    // 移除浮层hidden样式，展示浮层
-                    chartTooltip.classed("hidden", false);
+                    //// 移除浮层hidden样式，展示浮层
+                    //chartTooltip.classed("hidden", false);
                 })
                 // 添加mouseover事件
                 .on("mouseout", function () {
                     // 添加浮层hidden样式，隐藏浮层
-                    d3.select(".chartTooltip").classed("hidden", true);
+                   // d3.select(".chartTooltip").classed("hidden", true);
                 })
                 // 给每个新加的节点绑定click事件
                 .on("click", click)
@@ -444,7 +482,7 @@
                 // 这里模拟请求，1.json - 5.json 随机获取数据
                 //var randomNum = Math.floor(Math.random() * 5) + 1;
                 console.log(d);
-                d3.json("/assets/pages/scripts/1.js", function (error, data) {
+                d3.json("/Product/GetProductTypeListByParentId?parentId=" + d.data.ID, function (error, data) {
                     if (error) throw error;
                     // 给子节点绑定父节点
                     console.log("Data>>> ", data)
@@ -477,12 +515,17 @@
 
         // 添加贝塞尔曲线的path，衔接与父节点和子节点间
         function diagonal(s, d) {
+            //path =
+            //    `M ${s.y} ${s.x} 
+            //     C ${(s.y + d.y) / 2} ${s.x}, 
+            //     ${(s.y + d.y) / 2} ${d.x}, 
+            //     ${d.y} ${d.x}`;
             path =
-                "M ${s.y} ${s.x}"+
-                      "C ${(s.y + d.y) / 2} ${s.x},"+
-                       " ${(s.y + d.y) / 2} ${d.x},"+
-                       " ${d.y} ${d.x}";
-
+                "M "+s.y+" "+ s.x +" "+
+                "C "+ (s.y + d.y) / 2+" "+ s.x+","+
+                " "+ (s.y + d.y) / 2 +" "+ d.x +","+
+                " "+ d.y+" "+d.x+"";
+            console.log(s, d,path)
             return path;
         }
 
