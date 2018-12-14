@@ -440,7 +440,6 @@
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\bootstrap-year-calendar.min.js" />
     <Content Include="assets\global\plugins\bootstrap-year-datepicker\js\jquery-2.1.1.min.js" />
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap.css" />
-    <Content Include="assets\global\plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="assets\global\plugins\bootstrap\js\bootstrap.js" />
     <Content Include="assets\global\plugins\bootstrap\js\bootstrap.min.js" />
@@ -709,6 +708,8 @@
     <Content Include="assets\global\plugins\simple-line-icons\Readme.txt" />
     <Content Include="assets\global\plugins\simple-line-icons\simple-line-icons.css" />
     <Content Include="assets\global\plugins\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="assets\global\plugins\sweetalert\sweetalert.css" />
+    <Content Include="assets\global\plugins\sweetalert\sweetalert.min.js" />
     <Content Include="assets\global\plugins\typeahead\handlebars.min.js" />
     <Content Include="assets\global\plugins\typeahead\typeahead.bundle.min.js" />
     <Content Include="assets\global\plugins\typeahead\typeahead.css" />
@@ -799,14 +800,16 @@
     <Content Include="assets\global\plugins\uniform\images\sprite_original.png" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.js" />
     <Content Include="assets\global\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="assets\global\plugins\vee-validate\vee-validate.1.js" />
+    <Content Include="assets\global\plugins\vee-validate\vee-validate.js" />
     <Content Include="assets\global\plugins\vue-resource.min.js" />
-    <Content Include="assets\global\plugins\vue-validator.min.js" />
     <Content Include="assets\global\plugins\vue.min.js" />
     <Content Include="assets\global\scripts\app.js" />
     <Content Include="assets\global\scripts\app.min.js" />
     <Content Include="assets\global\scripts\datatable.js" />
     <Content Include="assets\global\scripts\datatable.min.js" />
     <Content Include="assets\global\scripts\fileupload.js" />
+    <Content Include="assets\img\compresslogo.png" />
     <Content Include="assets\layouts\layout\css\custom.css" />
     <Content Include="assets\layouts\layout\css\layout.css" />
     <Content Include="assets\layouts\layout\css\themes\blue.css" />
@@ -1070,12 +1073,14 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Shared\_ParitalNoticeForm.cshtml" />
     <Content Include="Views\Product\ProductType.cshtml" />
+    <Content Include="Views\Shared\_PartialErrorNoticeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\layouts\global\scripts\" />
     <Folder Include="assets\pages\css\" />
     <Folder Include="assets\pages\img\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -10,6 +10,7 @@ using System.Web.UI;
 using JGCK.Framework;
 using JGCK.Framework.EF;
 using JGCK.Util.Enums;
+using JGCK.Web.General.MVC;
 using JGCK.Web.General.VO;
 
 namespace JGCK.Web.General
@@ -38,6 +39,8 @@ namespace JGCK.Web.General
                 .Select(p => string.Format(HostVer.IDBProxy_Slot_Format, p.PropertyType.Name)).ToList();
             CallContext.LogicalSetData(HostVer.ReferenceService_VerName, usedAppServices);
             //CallContext.SetData(HostVer.ReferenceService_VerName, usedAppServices);
+            //ViewData存储用户Token信息
+            ViewBag.UserData = JGCKUserToken.ResolveNewToken();
         }
 
         protected bool IsGetMethod => Request.HttpMethod == "GET";

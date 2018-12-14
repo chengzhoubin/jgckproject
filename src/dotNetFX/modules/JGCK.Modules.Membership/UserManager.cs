@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JGCK.Framework.EF;
 using JGCK.Respority.UserWork;
+using JGCK.Util;
 using JGCK.Util.Enums;
 
 namespace JGCK.Modules.Membership
@@ -16,13 +17,19 @@ namespace JGCK.Modules.Membership
         public async Task<CheckUserPwdResult> CheckAsync(string userName, string pwd,
             Func<string, string> pwdMd5HashHandler = null)
         {
-            var anUser = await userDbContext.Person.FirstOrDefaultAsync(user => user.Name == userName && !user.IsDoctor);
+            var anUser = await userDbContext.Person.FirstOrDefaultAsync(
+                user => user.Name == userName
+                    && !user.IsDoctor
+                    && !user.IsDeleted);
             return GetCheckingResult(anUser, pwd, pwdMd5HashHandler);
         }
 
         public CheckUserPwdResult Check(string userName, string pwd, Func<string, string> pwdMd5HashHandler = null)
         {
-            var anUser = userDbContext.Person.FirstOrDefault(user => user.Name == userName && !user.IsDoctor);
+            var anUser = userDbContext.Person.FirstOrDefault(
+                user => user.Name == userName 
+                    && !user.IsDoctor 
+                    && !user.IsDeleted);
             return GetCheckingResult(anUser, pwd, pwdMd5HashHandler);
         }
 
@@ -50,9 +57,24 @@ namespace JGCK.Modules.Membership
             return userDbContext.Person.CountAsync(search);
         }
 
-        public bool UserIsExists(string name)
+        public bool UserIsExists(string name, long? userId = null)
         {
-            return userDbContext.Person.Any(p => p.Name == name && !p.IsDeleted);
+            var exp = PredicateBuilder.Create<Person>(p => p.Name == name && !p.IsDeleted);
+            if (userId.HasValue)
+            {
+                exp = exp.And(p => p.ID != userId);
+            }
+            return userDbContext.Person.Any(exp);
+        }
+
+        public bool UserIdCardIsExists(string IdCard, long? userId = null)
+        {
+            var exp = PredicateBuilder.Create<Person>(p => p.IdCard == IdCard && !p.IsDeleted);
+            if (userId.HasValue)
+            {
+                exp = exp.And(p => p.ID != userId);
+            }
+            return userDbContext.Person.Any(exp);
         }
 
         public Person GetUser(long userId)
@@ -62,12 +84,17 @@ namespace JGCK.Modules.Membership
 
         public Person GetUser(string userName)
         {
-            return userDbContext.Person.FirstOrDefault(u => u.Name == userName && !u.IsDeleted);
+            return userDbContext.Person.Include(p => p.Role).FirstOrDefault(u => u.Name == userName && !u.IsDeleted && !u.IsDoctor);
         }
 
         public Role GetRole(string rName)
         {
             return userDbContext.Role.FirstOrDefault(r => r.Name == rName);
+        }
+
+        public bool HasUserInDepartment(long depId)
+        {
+            return userDbContext.Person.Any(p => !p.IsDoctor && p.DepartmentId == depId);
         }
     }
 }

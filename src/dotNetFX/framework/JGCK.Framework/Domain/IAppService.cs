@@ -45,13 +45,13 @@ namespace JGCK.Framework
         /// <summary>
         /// 执行失败
         /// </summary>
-        [Description("{0},操作被取消")]
+        [Description("{0}，请重新输入！")]
         Fail = -1001,
 
         /// <summary>
         /// 在执行过程中，条件不符合无法执行
         /// </summary>
-        [Description("{0},操作被取消")]
+        [Description("{0}，请重新输入！")]
         DoNotContinue = -1002
     }
 }

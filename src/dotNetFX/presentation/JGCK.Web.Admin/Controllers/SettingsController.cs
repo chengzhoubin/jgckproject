@@ -23,8 +23,8 @@ namespace JGCK.Web.Admin.Controllers
         private WorktimeManager m_ConfigWorktimeService { get; set; }
         private DepartmentManager m_DepartmentService { get; set; }
         private HospitalManager m_HospitalService { get; set; }
-
         private DoctorManager m_DoctorService { get; set; }
+        private UserManager m_UserService { get; set; }
 
         // GET: Settings
         public ActionResult Index()
@@ -140,7 +140,7 @@ namespace JGCK.Web.Admin.Controllers
             var modelState = val.Validate(vm);
             if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                jsonResult.Err = string.Join("<br>", modelState.Errors.Select(e => e.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
 
@@ -152,7 +152,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = string.Format(addResult.ToDescription(), "医院已经存在");
+            jsonResult.Err = string.Format(addResult.ToDescription(), "医院名称已存在");
             return Json(jsonResult);
         }
 
@@ -185,7 +185,7 @@ namespace JGCK.Web.Admin.Controllers
             var modelState = val.Validate(vm);
             if (!modelState.IsValid)
             {
-                jsonResult.Err = string.Join(",", modelState.Errors.Select(e => e.ErrorMessage));
+                jsonResult.Err = string.Join("<br>", modelState.Errors.Select(e => e.ErrorMessage));
                 return await Task.FromResult(Json(jsonResult));
             }
 
@@ -255,7 +255,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(jsonResult);
             }
 
-            jsonResult.Err = string.Format(addedRet.ToDescription(), "部门已存在");
+            jsonResult.Err = string.Format(addedRet.ToDescription(), "部门名称已存在");
             return Json(jsonResult);
         }
 
@@ -263,6 +263,13 @@ namespace JGCK.Web.Admin.Controllers
         public async Task<JsonResult> DelDepartment(long depId)
         {
             var ret = new VM_JsonOnlyResult();
+            var existUserInDep = m_UserService.HasUserInDepartment(depId);
+            if (existUserInDep)
+            {
+                ret.Err = "该部门下已存在员工信息，无法删除部门信息！";
+                return Json(ret);
+            }
+
             var deleted = await m_DepartmentService.LogicObjectDelete<Department, long>(depId, true);
             if (deleted == AppServiceExecuteStatus.Success)
             {
@@ -271,7 +278,7 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(ret);
             }
 
-            ret.Err = string.Format(deleted.ToDescription(), "部门不存在");
+            ret.Err = string.Format(deleted.ToDescription(), "部门信息不存在");
             return Json(ret);
         }
 
@@ -310,7 +317,7 @@ namespace JGCK.Web.Admin.Controllers
                 jsonResult.Result = true;
             }
 
-            jsonResult.Err = string.Format(updatedRet.ToDescription(), "更新部门信息失败");
+            jsonResult.Err = string.Format(updatedRet.ToDescription(), "部门名称重复");
             return Json(jsonResult);
         }
 

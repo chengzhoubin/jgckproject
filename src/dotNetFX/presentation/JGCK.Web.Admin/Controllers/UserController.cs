@@ -42,13 +42,20 @@ namespace JGCK.Web.Admin.Controllers
             var ret = await m_UserManagerService.CheckAsync(userLogin.UserName, userLogin.Pwd);
             if (ret == CheckUserPwdResult.Success)
             {
+                var userData = m_UserManagerService.GetUser(userLogin.UserName);
                 var token = new JGCKUserToken
                 {
+                    UserID = userData.ID.ToString(), 
                     UserName = userLogin.UserName,
-                    RoleName = "Admin"
+                    RoleID = Convert.ToString(userData.RoleId ?? 0),
+                    RoleName = userData.Role?.Name,
+                    RealName = userData.RealName
                 };
                 token.BuildToken();
-                return RedirectToAction("Index", "Settings");
+                if (string.IsNullOrEmpty(Request["reloadurl"]))
+                    return RedirectToAction("Index", "Settings");
+                else
+                    return Redirect(Request["reloadurl"]);
             }
 
             ModelState.AddModelError("UserPwdMatch", "用户名和密码不匹配");
@@ -264,12 +271,27 @@ namespace JGCK.Web.Admin.Controllers
             if (!modelState.IsValid)
             {
                 ret.Value = -1001;
-                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                ret.Err = string.Join("<br>", modelState.Errors.Select(m => m.ErrorMessage));
                 return await Task.FromResult(Json(ret));
             }
 
+            var errorMsg = "";
             m_UserManagerService.PreOnAddHandler =
-                () => !m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name);
+                () =>
+                {
+                    var retCheck = true;
+                    if (m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name))
+                    {
+                        errorMsg += "用户名已存在，请重新输入！";
+                        retCheck = false;
+                    }
+                    if (m_UserManagerService.UserIdCardIsExists(staff.NagigatedDomainObject.IdCard))
+                    {
+                        errorMsg += "$身份证号已存在，请重新输入！";
+                        retCheck = false;
+                    }
+                    return retCheck;
+                };
 
             var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
             staff.NagigatedDomainObject.DepartmentId = dep?.ID;
@@ -286,7 +308,9 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(ret);
             }
 
-            ret.Err = string.Format(added.ToDescription(), "员工信息已存在");
+            ret.Err = errorMsg.Trim('$').Replace("$", "<br>");//string.Format(added.ToDescription(), "员工信息已存在");
+            if (string.IsNullOrEmpty(ret.Err))
+                ret.Err = string.Format(added.ToDescription(), "员工信息添加失败");
             return Json(ret);
         }
 
@@ -315,24 +339,37 @@ namespace JGCK.Web.Admin.Controllers
             if (!modelState.IsValid)
             {
                 ret.Value = -1001;
-                ret.Err = string.Join(",", modelState.Errors.Select(m => m.ErrorMessage));
+                ret.Err = string.Join("<br>", modelState.Errors.Select(m => m.ErrorMessage));
                 return await Task.FromResult(Json(ret));
             }
 
+            var errorMsg = "";
             m_UserManagerService.PreOnUpdateHandler =
                 () =>
                 {
-                    var selfUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
-                    if (selfUser == null)
-                        return null;
-                    var otherUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.Name);
-                    if (otherUser == null || otherUser.ID == selfUser.ID)
-                        return selfUser;
+                    //var selfUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
+                    //if (selfUser == null)
+                    //    return null;
+                    //var otherUser = m_UserManagerService.GetUser(staff.NagigatedDomainObject.Name);
+                    //if (otherUser == null || otherUser.ID == selfUser.ID)
+                    //    return selfUser;
+                    var existUserName = m_UserManagerService.UserIsExists(staff.NagigatedDomainObject.Name, staff.NagigatedDomainObject.ID);
+                    if (existUserName)
+                        errorMsg += "用户名已存在，请重新输入！";
+
+                    var existIdCard = m_UserManagerService.UserIdCardIsExists(staff.NagigatedDomainObject.IdCard, staff.NagigatedDomainObject.ID);
+                    if (existIdCard)
+                        errorMsg += "$身份证号已存在，请重新输入！";
+
+                    if (!existUserName && !existIdCard)
+                    {
+                        return m_UserManagerService.GetUser(staff.NagigatedDomainObject.ID);
+                    }
                     return null;
                 };
             m_UserManagerService.OnUpdatingHandler = (existOject, newObject) =>
             {
-                var n = VmPersonMapper.MapTo(((Person) newObject), (Person) existOject);
+                var n = VmPersonMapper.MapTo(((Person)newObject), (Person)existOject);
                 var dep = m_DepartmentManagerService.GetDepartment(staff.NagigatedDomainObject.DepartmentName);
                 n.DepartmentId = dep?.ID;
 
@@ -348,7 +385,9 @@ namespace JGCK.Web.Admin.Controllers
                 return Json(ret);
             }
 
-            ret.Err = string.Format(updatedRet.ToDescription(), "更新员工信息失败");
+            ret.Err = errorMsg.Trim('$').Replace("$", "<br>");
+            if (string.IsNullOrEmpty(ret.Err))
+                ret.Err = string.Format(updatedRet.ToDescription(), "更新员工信息失败");
             return Json(ret);
         }
 

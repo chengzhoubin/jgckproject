@@ -79,7 +79,7 @@ namespace JGCK.Web.Admin.Controllers
 
                 if (toUploadFile.ContentLength > FileSize * 1024 * 1024)
                 {
-                    ret.Err = "File length is more than max limit.";
+                    ret.Err = "上传的文件超过限制标准，请重新上传！";
                     return Json(ret);
                 }
 
@@ -90,7 +90,7 @@ namespace JGCK.Web.Admin.Controllers
                 var allowed = IsAllowedExtension(toUploadFile, saveFileDir, out outputFullFileName);
                 if (!allowed)
                 {
-                    ret.Err = "File type is not allowed to upload.";
+                    ret.Err = "上传的文件类型不符合，请重新上传！";
                     return Json(ret);
                 }
 

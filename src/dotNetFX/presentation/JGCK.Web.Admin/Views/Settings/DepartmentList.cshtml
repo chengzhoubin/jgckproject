@@ -1,4 +1,4 @@
-﻿@model List<JGCK.Web.Admin.Models.VmDepartment>
+﻿﻿@model List<JGCK.Web.Admin.Models.VmDepartment>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -60,21 +60,22 @@
 <div class="modal fade" id="modelbasic" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" class="form-horizontal" id="form_1" onsubmit="return false;">
+            <form role="form" class="form-horizontal" id="form_1"  @@submit.prevent="validateBeforeSubmit">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">部门信息</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-body">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">部门名称&nbsp;&nbsp;<span style="color:red">*</span></label>
-                            <div class="col-md-8">                           
-                                    <div class="right input-group">
-                                        <input type="text" class="form-control" v-model="Model.Name" name="Name" data-required="1">
-                                    </div>
+                        <div :class="{'has-error': errors_has('Name'),'form-group':true }" >
+                            <label class="col-md-4 control-label">部门名称 <span style="color:red">*</span></label>
+                            <div class="col-md-8">
+                                <div class="right input-group">
+                                    <input v-model="Model.Name" class="form-control" name="部门名称" type="text" placeholder="部门名称">
+                                    <span v-show="errors_has('Name')" class="help-block">{{ errors_Title('Name') }}</span>                         
                                 </div>
                             </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">备注</label>
                             <div class="col-md-8">
@@ -85,117 +86,67 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" v-if="Model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
+                <div class="modal-footer">                
+                    <button type="button" v-if="Model.ID" class="btn red pull-left" @@click="click_delete()">删除</button>
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                    <button id="btnSave"  type="submit"  class="btn green" @@click="click_save()">保存</button>
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                    <button id="btnSave" type="submit" class="btn green">{{ !Model.ID? '添加' : '修改'}}</button>
+                    @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
                 </div>
             </form>
-        </div>   
+        </div>
     </div>
 </div>
 @Html.Partial("_ParitalNoticeForm")
+@Html.Partial("_PartialErrorNoticeForm")
 @section referenceHeader{
     <link href="~/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
     <script>
         var pageUrl = "/Settings/DepartmentList"
     </script>
-
 }
-
 
 @section scripts{
     <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
-    <script src="~/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-    <script src="~/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-   
-    <!-- 实例化编辑器 -->
-    <script type="text/javascript">
-        //toastr.options = {
-        //    "closeButton": false,
-        //    "debug": false,
-        //    "positionClass": "toast-bottom-center",
-        //    "onclick": null,
-        //    "showDuration": "1000",
-        //    "hideDuration": "1000",
-        //    "timeOut": "1000",
-        //    "extendedTimeOut": "1000",
-        //    "showEasing": "swing",
-        //    "hideEasing": "linear",
-        //    "showMethod": "fadeIn",
-        //    "hideMethod": "fadeOut"
-        //} toastr.warning(item.Err)
-
-        var handleValidation1 = function () {
-            var form1 = $('#form_1');
-            var error1 = $('.alert-danger', form1);
-            var success1 = $('.alert-success', form1);
-
-            form1.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                messages: {
-                    Name: { 
-                        required: jQuery.validator.format("请输入部门名称")
-                    }
-                },
-                rules: {
-                    Name: {
-                        required: true
-                    }
-                },
-                invalidHandler: function (event, validator) {      
-                    success1.hide();
-                    error1.show();                
-                },
-                errorPlacement: function (error, element) {
-                      var cont = $(element).parent('.input-group');
-                    if (cont) {
-                        cont.after(error);
-                    } else {
-                        element.after(error);
-                    }
-                },
-                highlight: function (element) {
-                    $(element)
-                        .closest('.form-group').addClass('has-error'); 
-                },
-                unhighlight: function (element) { 
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); 
-                },
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error');
-                },
-                submitHandler: function (form) {
-                    success1.show();
-                    error1.hide();
-                }
-            });
-
-
-        }
-
-
-        $(function(){
-            handleValidation1();
-        })
-
-
+    <script type="text/javascript">   
+ 
         var app = new Vue({
             el: '#app',
             data: {
-                Model: "",
+                Model: {
+                    ID: '',
+                    Name: '',
+                    Desc: ""
+                },
                 List: "",
                 errMsg: "",
-                isRuning: false
+                isRuning: false,
+                errors:[]
             },
             methods: {
+                errors_has: function (name) {                     
+                    if (_.where(this.errors, { name: name}).length > 0) {
+                        return true
+                    } else {
+                        return false
+                    }  
+                },
+                errors_Title: function (name) {
+                    if (_.where(this.errors, { name: name }).length > 0) {
+                        return _.where(this.errors, { name: name })[0].value
+                    } else {
+                        return ""
+                    }
+                },
+                validateBeforeSubmit:function(e) {           
+                    this.errors = [];
+                    if (!this.Model.Name) {
+                        this.errors.push({ name: "Name", value:"部门名称不能为空"});
+                    }
+                    if (!this.errors.length) {
+                        this.click_save()
+                    }
+                },
                 get_sortCLass: function (sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
@@ -211,10 +162,10 @@
                             Name: '',
                             Desc: ""
                         }
-                    }
+                    }               
                     $("#btnSave").show();
-                    $('#modelbasic').modal('show');
-                    this.errMsg = "";
+                    $('#modelbasic').modal('show');       
+                    this.errMsg = "";                    
                 },
                 click_delete: function () {
                     var that = this
@@ -236,46 +187,43 @@
                                 console.log(this.Model);
                                 $.post("/Settings/DelDepartment", {
                                     depId: that.Model.ID
-                                }).then(item => {
+                                }).then(function (item) {
                                     if (item.Result) {
-                                        window.location.reload();
+                                        //window.location.reload();
                                         //that.errMsg = "删除成功"
+                                        popBox("部门删除成功！");
                                     } else {
-                                        that.errMsg = item.Err;
-                                        $("#btnSave").hide();
+                                        //that.errMsg = item.Err;
+                                        //$("#btnSave").hide();
+                                        this.isRuning = false;
+                                        popErrBox(item.Err);
                                     }
                                 });
                             }
                         }
                     });
                 },
-                click_save: function () {                         
-                    var that = this;                  
+                click_save: function () {
+                    var that = this;
                     var apiUrl = "/Settings/UpdateDepartment"
                     if (!this.Model.ID) {
                         apiUrl = "/Settings/AddDepartment"
                     }         
-                    setTimeout(function () {                    
-                        if ($(".has-error").length > 0) return;
-                        if (this.isRuning) return;
-                        this.isRuning = true;   
-                        $.post(apiUrl, {
-                            NagigatedDomainObject: that.Model
-                        }).then(item => {
-                            that.isRuning = false;
-                            console.log(item);
-                            if (item.Result) {
-                                //that.errMsg = "操作成功"
-                                //window.location.reload();
-                                popBox("部门" + (!that.Model.ID ? "添加" : "更新") + "-操作成功");
-                            } else {
-                                if ($(".has-error").length > 0) {
-                                    that.errMsg = item.Err;
-                                    $("#btnSave").hide();
-                                }
-                            }
-                        });
-                    },400)
+                    if (this.isRuning) return;
+                    this.isRuning = true;
+                    $.post(apiUrl, {
+                        NagigatedDomainObject: that.Model
+                    }).then(function (item){
+                        that.isRuning = false;
+                        console.log(item);
+                        if (item.Result) {
+                            popBox(!that.Model.ID ? "部门添加成功！" : "部门修改成功！");
+                        } else {
+                            that.errMsg = item.Err;                             
+                            this.isRuning = false;
+                            popErrBox(item.Err);
+                        }
+                    });                
 
                 }
             }

@@ -52,7 +52,7 @@ namespace JGCK.Modules.Configuration
             return basicDbContext.Hospital
                 .Include(h => h.HospitalInvoices)
                 .Include(h => h.HospitalReferences)
-                .FirstOrDefault(h => h.Name == hName);
+                .FirstOrDefault(h => h.Name == hName && !h.IsDeleted);
         }
 
         public Task<List<Hospital>> GetHospitals(string name, bool isFuzzyQuery = true)

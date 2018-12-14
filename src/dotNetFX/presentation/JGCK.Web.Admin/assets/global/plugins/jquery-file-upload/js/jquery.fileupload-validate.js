@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQuery File Upload Validation Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
@@ -71,8 +71,8 @@
             // Error and info messages:
             messages: {
                 maxNumberOfFiles: 'Maximum number of files exceeded',
-                acceptFileTypes: 'File type not allowed',
-                maxFileSize: 'File is too large',
+                acceptFileTypes: '上传的文件类型不符合，请重新上传！',
+                maxFileSize: '上传的文件超过限制标准，请重新上传！',
                 minFileSize: 'File is too small'
             }
         },

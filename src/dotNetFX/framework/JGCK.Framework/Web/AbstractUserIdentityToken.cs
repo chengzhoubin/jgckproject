@@ -16,6 +16,8 @@ namespace JGCK.Framework.Web
 
         public string RoleName { get; set; }
 
+        public string RealName { get; set; }
+
         public virtual string TokenName { get; } 
 
         protected abstract Action<IToken<T>> BuildHandler { get; }
