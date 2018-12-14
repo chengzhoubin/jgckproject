@@ -210,6 +210,7 @@
     <Compile Include="Models\VmDoctorBind.cs" />
     <Compile Include="Models\VmHospitalIndex.cs" />
     <Compile Include="Models\VmProductIndex.cs" />
+    <Compile Include="Models\VmProductTree.cs" />
     <Compile Include="Models\VmProductTypeIndex.cs" />
     <Compile Include="Models\VmSmartHospitalSelector.cs" />
     <Compile Include="Models\VmUserDoctorIndex.cs" />

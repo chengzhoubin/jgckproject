@@ -141,11 +141,27 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetProductTypeListByParentId(long parentId)
+        public async Task<JsonResult> GetProductTypeListByParentId(long parentId, string parentName = "")
         {
             var ret = new VM_JsonOnlyResult();
+            VmProductTree productTree = new VmProductTree();
+            productTree.Id = parentId;
+            productTree.Name = parentName;
             IList<ProductTypeInfo> productTypes = m_ProductService.GetProductTypeListByParentId(parentId);
-            ret.Value = productTypes;
+            productTree.children = new List<ProductTreeChildren>();
+            if (productTypes != null && productTypes.Count > 0)
+            {
+                foreach (var pt in productTypes)
+                {
+                    ProductTreeChildren pc = new ProductTreeChildren()
+                    {
+                        Name = pt.Name,
+                        Id = pt.ID
+                    };
+                    productTree.children.Add(pc);
+                }
+            }
+            ret.Value = productTree;
             ret.Result = true;
             return Json(ret);
         }
