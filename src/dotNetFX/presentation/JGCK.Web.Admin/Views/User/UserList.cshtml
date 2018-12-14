@@ -462,8 +462,8 @@
             });
             $('body').removeClass("modal-open");
         }
-        var formatTime = function (value, needTime = true) {
-            return value == "" || value == null || value == '1900-01-01T00:00:00' ? "" : moment(value).format(needTime ? "YYYY-MM-DD" : "MM/DD/YYYY");
+        var formatTime = function (value, needTime) {
+            return value == "" || value == null || value == '1900-01-01T00:00:00' ? "" : moment(value).format("YYYY-MM-DD");
         }
 
 
@@ -615,7 +615,7 @@
                                 $.post("/user/DeleteStaff",
                                     {
                                         staffId: that.doctor.ID
-                                    }).then(item => {
+                                    }).then(function(item) {
                                     if (item.Result) {
                                         $("#successModal").modal('show');
                                         //window.location.reload();
@@ -637,7 +637,7 @@
                             "ModuleName": "sf_staffData_sort_keys",
                             "SortProperty": Name,
                             "SortDirect": SortDirect
-                        }).then(item => {
+                        }).then(function(item){
                         window.location.reload();
                     });
                 },
@@ -648,8 +648,12 @@
                         this.errors.push({ name: "Name", value: "用户名不能为空" });
                     }
                     if (!this.doctor.Pwd) {
-                        this.errors.push({ name: "Pwd", value: "密码不能为空" });
+                        this.errors.push({ name: "Pwd", value: "密码不能为空" });//
+                    } else if (this.doctor.Pwd.length < 5 || this.doctor.Pwd.length >10) {
+                        this.errors.push({ name: "Pwd", value: "密码长度必须在 5 到 10 字符" });
                     }
+
+
                     if (!this.doctor.RealName) {
                         this.errors.push({ name: "RealName", value: "姓名不能为空" });
                     }
@@ -708,14 +712,14 @@
                     $.post(apiUrl,
                         {
                             NagigatedDomainObject: this.doctor
-                        }).then(item => {
+                        }).then(function(item){
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
                             //window.location.reload();
                             //$("#successModal").modal('show');
-                            popBox(!this.doctor.ID ? "员工信息添加成功！" : "员工信息更新成功！");
+                            popBox(!that.doctor.ID ? "员工信息添加成功！" : "员工信息更新成功！");
                         } else {
                             //that.errMsg = item.Err;
                             //$('#btnSave').hide();
