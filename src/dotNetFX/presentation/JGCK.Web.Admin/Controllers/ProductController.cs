@@ -141,7 +141,7 @@ namespace JGCK.Web.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetProductTypeListByParentId(long parentId,string parentName)
+        public async Task<JsonResult> GetProductTypeListByParentId(long parentId, string parentName = "")
         {
             var ret = new VM_JsonOnlyResult();
             VmProductTree productTree = new VmProductTree();
@@ -149,7 +149,7 @@ namespace JGCK.Web.Admin.Controllers
             productTree.Name = parentName;
             IList<ProductTypeInfo> productTypes = m_ProductService.GetProductTypeListByParentId(parentId);
             productTree.children = new List<ProductTreeChildren>();
-            if (productTypes!=null&& productTypes.Count>0)
+            if (productTypes != null && productTypes.Count > 0)
             {
                 foreach (var pt in productTypes)
                 {
