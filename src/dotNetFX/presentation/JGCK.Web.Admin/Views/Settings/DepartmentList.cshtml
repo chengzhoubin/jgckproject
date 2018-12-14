@@ -87,10 +87,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">                
-                    <button type="button" v-if="Model.ID" class="btn green pull-left" @@click="click_delete()">删除</button>
+                    <button type="button" v-if="Model.ID" class="btn red pull-left" @@click="click_delete()">删除</button>
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                     <button id="btnSave" type="submit" class="btn green">{{ !Model.ID? '添加' : '修改'}}</button>
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                    @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
                 </div>
             </form>
         </div>
