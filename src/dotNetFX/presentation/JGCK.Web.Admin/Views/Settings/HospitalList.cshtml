@@ -388,9 +388,9 @@
                                     <div class="form-group">
                                         <label class="control-label">其他证明文件<b>(RAR/ZIP 10M以内)</b></label>
                                         <div>
-                                            <div style="height:150px;width:150px;"  v-if="model.CertificationPic&&!imgTempUpLoad3">
-                                                <a :href="model.CertificationPic" target="_blank" class="jqzoom" title="预览">
-                                                    <img :src="model.CertificationPic" style="max-width:150px;max-height:150px;" id="img3" title="预览" />
+                                            <div style="height:150px;width:150px;" v-if="model.CertificationPic&&!imgTempUpLoad3">
+                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.CertificationPic">
+                                                    <img src="~/assets/img/compresslogo.png" style="max-width:150px;max-height:150px;" id="img3"  />
                                                 </a>
                                             </div>
                                                 <span class="btn btn-success fileinput-button">
@@ -504,7 +504,7 @@
                 app.imgTempUpLoad3 = data.result.Value
             }, 'certification:license', 150, 150, function (error) {
                 popErrBox(error);
-            });
+            }, "/assets/img/compresslogo.png");
 
             $('#modelfull').on('hide.bs.modal', function (e) {
                 $('#tab1').tab('show')

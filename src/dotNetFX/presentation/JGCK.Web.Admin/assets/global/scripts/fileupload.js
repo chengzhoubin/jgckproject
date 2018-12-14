@@ -26,7 +26,7 @@ var url = '/ajaxcommon/UploadFile',
         }),
     hiddenBtn = $("<input type='hidden' />");
 
-var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback, uploadtype, width, height, errHandler) {
+var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback, uploadtype, width, height, errHandler,defaultImgforFile) {
     var _width = 150;
     var _height = 150;
     var url0;
@@ -63,6 +63,10 @@ var fileuploadModule = function (btnFileupload, spanFiles, isMultiple, callback,
                 $.each(data.files, function (index, file) {
                     var node = $('<span />');
                     if (!index) {
+                        if (typeof (defaultImgforFile) !== "undefined") {
+                            var defaultImg = "<img src='" + defaultImgforFile + "' width='150' height='120' />";
+                            node.append(defaultImg);
+                        }
                         node.append(uploadButton.clone(true).data(data));
                     }
                     node.appendTo(data.context);
