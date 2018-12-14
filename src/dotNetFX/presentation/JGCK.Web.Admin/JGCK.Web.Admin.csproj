@@ -807,6 +807,7 @@
     <Content Include="assets\global\scripts\datatable.js" />
     <Content Include="assets\global\scripts\datatable.min.js" />
     <Content Include="assets\global\scripts\fileupload.js" />
+    <Content Include="assets\img\compresslogo.png" />
     <Content Include="assets\layouts\layout\css\custom.css" />
     <Content Include="assets\layouts\layout\css\layout.css" />
     <Content Include="assets\layouts\layout\css\themes\blue.css" />
