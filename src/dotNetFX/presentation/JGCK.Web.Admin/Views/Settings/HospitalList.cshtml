@@ -125,28 +125,28 @@
                                     <h3 class="form-section">基本信息</h3>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <div :class="{'has-error': errors.has('医院编号'),'form-group':true }">
+                                            <div :class="{'has-error': errors_has('HCode'),'form-group':true }">
                                                 <label class="control-label">医院编号&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode" maxlength="20"  v-validate="'required'" name="医院编号">
-                                                <span v-show="errors.has('医院编号')" class="help-block">{{ errors.first('医院编号') }}</span>
+                                                <input type="text" id="hospitalNo" class="form-control" placeholder="医院编号" v-model="model.HCode" maxlength="20" name="医院编号">
+                                                <span v-show="errors_has('HCode')" class="help-block">{{ errors_title('HCode') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div :class="{'has-error': errors.has('医院名称'),'form-group':true }">
+                                            <div :class="{'has-error': errors_has('Name'),'form-group':true }">
                                                 <label class="control-label">医院名称&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID" maxlength="30" v-validate="'required'" name="医院名称">
-                                                <span v-show="errors.has('医院名称')" class="help-block">{{ errors.first('医院名称') }}</span>
+                                                <input type="text" id="hospitalName" class="form-control" placeholder="医院名称" v-model="model.Name" :disabled="model.ID" maxlength="30" name="医院名称">
+                                                <span v-show="errors_has('Name')" class="help-block">{{ errors_title('Name') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div :class="{'has-error': errors.has('医院地址'),'form-group':true }">
+                                            <div :class="{'has-error': errors_has('Address'),'form-group':true }">
                                                 <label class="control-label">医院地址&nbsp;<span style="color:red">*</span></label>
-                                                <input type="text" id="hospitalAddress" class="form-control" placeholder="医院地址" v-model="model.Address"  v-validate="'required'" name="医院地址">
-                                                <span v-show="errors.has('医院地址')" class="help-block">{{ errors.first('医院地址') }}</span>
+                                                <input type="text" id="hospitalAddress" class="form-control" placeholder="医院地址" v-model="model.Address" name="医院地址">
+                                                <span v-show="errors_has('Address')" class="help-block">{{ errors_title('Address') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div  :class="{'has-error': errors.has('医院属性'),'form-group':true }">
+                                            <div  :class="{'has-error': errors_has('HospitalType'),'form-group':true }">
                                                 <label class="control-label">医院属性&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="hospitalSuxing" v-model="model.HospitalType"  v-validate="'required'" name="医院属性">
                                                     <option value="1">公立</option>
@@ -154,27 +154,27 @@
                                                     <option value="3">集团</option>
                                                     <option value="4">其他</option>
                                                 </select>
-                                                <span v-show="errors.has('医院属性')" class="help-block">{{ errors.first('医院属性') }}</span>
+                                                <span v-show="errors_has('HospitalType')" class="help-block">{{ errors_title('HospitalType') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div  :class="{'has-error': errors.has('折扣系数'),'form-group':true }">
+                                            <div  :class="{'has-error': errors_has('SaleRate'),'form-group':true }">
                                                 <label class="control-label">折扣系数&nbsp;<span style="color:red">*</span></label>
                                                 <input type="text" class="form-control" placeholder="" id="zk" v-model="model.SaleRate" maxlength="4"  v-validate="'required|min0'" name="折扣系数">
-                                                <span v-show="errors.has('折扣系数')" class="help-block">{{ errors.first('折扣系数') }}</span>
+                                                <span v-show="errors_has('SaleRate')" class="help-block">{{ errors_title('SaleRate') }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <div  :class="{'has-error': errors.has('付款方式'),'form-group':true }">
+                                            <div  :class="{'has-error':errors_has('PaymentType'),'form-group':true }">
                                                 <label class="control-label">付款方式&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethod" v-model="model.PaymentType"  v-validate="'required'" name="付款方式">
                                                     <option value="1">基本账号</option>
                                                     <option value="2">Alipay</option>
                                                     <option value="4">其他</option>
                                                 </select>
-                                                <span v-show="errors.has('付款方式')" class="help-block">{{ errors.first('付款方式') }}</span>
+                                                <span v-show="errors_has('PaymentType')" class="help-block">{{ errors_title('PaymentType') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3" v-if="model.PaymentType==4">
@@ -184,14 +184,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div :class="{'has-error': errors.has('付款周期'),'form-group':true }">
+                                            <div :class="{'has-error': errors_has('PaymentPeriod'),'form-group':true }">
                                                 <label class="control-label">付款周期&nbsp;<span style="color:red">*</span></label>
                                                 <select class="form-control" id="paymethodTime" v-model="model.PaymentPeriod"   v-validate="'required'" name="付款周期">
                                                     <option value="1">一个月</option>
                                                     <option value="2">预付</option>
                                                     <option value="4">其他</option>
                                                 </select>
-                                                <span v-show="errors.has('付款周期')" class="help-block">{{ errors.first('付款周期') }}</span>
+                                                <span v-show="errors_has('PaymentPeriod')" class="help-block">{{ errors_title('PaymentPeriod') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3" v-if="model.PaymentPeriod==4">
@@ -339,41 +339,40 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">营业执照<b>(JPG/PNG/GIF/JPEG 10M以内)</b></label>
+                                        <label class="control-label">营业执照<b>(10M以内,支持jpg/png/gif/jpeg)</b></label>
                                         <div>
                                             <div style="height:150px;width:150px;" v-if="model.BusinessLicensePic&&!imgTempUpLoad1">
-                                                <a  :href="model.BusinessLicensePic" target="_blank" class="jqzoom" title="预览" style="height:150px;width:150px;">
+                                                <a  :href="model.BusinessLicensePic" target="_blank" class="jqzoom" id="jqzoom1" title="预览" style="height:150px;width:150px;">
                                                     <img :src="model.BusinessLicensePic" style="max-width:150px;max-height:150px;" id="img1" title="预览" />
                                                 </a>
                                             </div>
                                                 <span class="btn btn-success fileinput-button">
                                                     <i class="glyphicon glyphicon-plus"></i>
                                                     <span>上传文件</span>
-                                                    <input id="fileupload1" type="file" name="files[]">
+                                                    <input id="fileupload1" type="file" name="files[]"  accept="image/*">
                                                 </span>
                                                 <a v-if="model.BusinessLicensePic&&!imgTempUpLoad1" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.BusinessLicensePic"  style="font-size:30px;">
                                                     <i class="fa fa-cloud-download"></i>
                                                 </a>
                                                 <br />
                                                 <span id="files_preview1" class="files"></span>
-
                                             </div>
                                         </div>
                                 </div>
                                 <div class="col-md-4">
 
                                     <div class="form-group">
-                                        <label class="control-label">医疗机构执业许可证<b>(JPG/PNG/GIF/JPEG 10M以内)</b></label>
+                                        <label class="control-label">医疗机构执业许可证<b>(10M以内,支持jpg/png/gif/jpeg)</b></label>
                                         <div>
                                             <div  style="height:150px;width:150px;" v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2">
-                                                <a  :href="model.MedicalInstitutionLicensePic" target="_blank" class="jqzoom" title="预览">
+                                                <a  :href="model.MedicalInstitutionLicensePic" target="_blank" class="jqzoom" id="jqzoom2"  title="预览">
                                                     <img :src="model.MedicalInstitutionLicensePic" style="max-width:150px;max-height:150px;" id="img2" title="预览" />
                                                 </a>
                                             </div>
                                             <span class="btn btn-success fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
                                                 <span>上传文件</span>
-                                                <input id="fileupload2" type="file" name="files[]">
+                                                <input id="fileupload2" type="file" name="files[]" accept="image/*">
                                             </span>
                                             <a v-if="model.MedicalInstitutionLicensePic&&!imgTempUpLoad2" :href="'/ajaxcommon/hospitalfiledownload?src=' +  model.MedicalInstitutionLicensePic"  style="font-size:30px;">
                                                 <i class="fa fa-cloud-download"></i>
@@ -386,17 +385,17 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">其他证明文件<b>(RAR/ZIP 10M以内)</b></label>
+                                        <label class="control-label">其他证明文件<b>(10M以内,支持rar/zip)</b></label>
                                         <div>
-                                            <div style="height:150px;width:150px;" v-if="model.CertificationPic&&!imgTempUpLoad3">
-                                                <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.CertificationPic">
-                                                    <img src="~/assets/img/compresslogo.png" style="max-width:150px;max-height:150px;" id="img3"  />
+                                            <div style="height:150px;width:150px;"  v-if="model.CertificationPic&&!imgTempUpLoad3">
+                                                <a :href="model.CertificationPic" target="_blank" class="jqzoom" id="jqzoom3"  title="预览">
+                                                    <img :src="model.CertificationPic" style="max-width:150px;max-height:150px;" id="img3" title="预览" />
                                                 </a>
                                             </div>
                                                 <span class="btn btn-success fileinput-button">
                                                     <i class="glyphicon glyphicon-plus"></i>
                                                     <span>上传文件</span>
-                                                    <input id="fileupload3" type="file" name="files[]">
+                                                    <input id="fileupload3" type="file" name="files[]" accept="application/x-zip-compressed">
                                                 </span>
                                                 <a v-if="model.CertificationPic&&!imgTempUpLoad3" :href="'/ajaxcommon/hospitalfiledownload?src=' + model.CertificationPic" style="font-size:30px;">
                                                     <i class="fa fa-cloud-download"></i>
@@ -462,22 +461,11 @@
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/assets/global/plugins/umeditor/umeditor.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/lang/zh-cn/zh-cn.js"></script>
-    <script src="~/assets/global/plugins/jqzoom/js/jquery.jqzoom1.0.1.js"></script>
-    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
+    <script src="~/assets/global/plugins/jqzoom/js/jquery.jqzoom1.0.1.js"></script>  
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-        const config = {
-            errorBagName: 'errors',
-            fieldsBagName: 'fields',
-            delay: 100,
-            strict: true,
-            locale: 'en',
-            enableAutoClasses: true,
-            events: 'blur',
-            inject: true
-        };
-        Vue.use(VeeValidate, config); 
+     
         var um;
         $(function () {
             um = UM.getEditor('myEditor');
@@ -504,23 +492,29 @@
                 app.imgTempUpLoad3 = data.result.Value
             }, 'certification:license', 150, 150, function (error) {
                 popErrBox(error);
-            }, "/assets/img/compresslogo.png");
+            });
 
             $('#modelfull').on('hide.bs.modal', function (e) {
                 $('#tab1').tab('show')
             })
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if (e.target.id === 'tab2') {
-                    $(".jqzoom").jqzoom({
+                    $("#jqzoom1,#jqzoom2").jqzoom({
                         preloadImages: false,
-                        alwaysOn: false
+                        alwaysOn: false,
+                        zoomWidth: 500,	
+                        zoomHeight: 500
+                    });
+                    $("#jqzoom3").jqzoom({
+                        preloadImages: false,
+                        alwaysOn: false,
+                        zoomWidth: 500,
+                        position: "left",
+                        zoomHeight: 500
                     });
                 }
             })
-
         });
-
-
 
 
         var app = new Vue({
@@ -532,20 +526,26 @@
                 imgTempUpLoad1: "",
                 imgTempUpLoad2: "",
                 imgTempUpLoad3: "",
-
+                errors: []
             },
             created: function () {
-                if (Cookies.get('sf_hospitalData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_hospitalData_sort_keys'))
-                this.$validator.extend('min0', {
-                    getMessage: function (field) { return ("" + field + "应大于0"); },
-                    validate: value => {                        
-                        return value>0;                       
-                    }
-                })          
-
+                if (Cookies.get('sf_hospitalData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_hospitalData_sort_keys'))              
             },
             methods: {
-
+                errors_has: function (name) {
+                    if (_.where(this.errors, { name: name }).length > 0) {
+                        return true
+                    } else {
+                        return false
+                    }
+                },
+                errors_title: function (name) {
+                    if (_.where(this.errors, { name: name }).length > 0) {
+                        return _.where(this.errors, { name: name })[0].value
+                    } else {
+                        return ""
+                    }
+                },
                 get_sortCLass: function(sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
@@ -592,7 +592,7 @@
                             "module": "sf_hospitalData_sort_keys",
                             "sortby": Name,
                             "directby": SortDirect
-                        }).then(item => {
+                        }).then(function(item){
                         window.location.reload();
                     });
                 },
@@ -617,7 +617,7 @@
                                 $.post("/Settings/DeleteHospital",
                                     {
                                         hId: that.model.ID
-                                    }).then(item => {
+                                    }).then(function(item) {
                                     if (item.Result) {
                                         window.location.reload();
                                         that.errMsg = "删除成功"
@@ -629,15 +629,36 @@
                         }
                     });
                 },
-                validateBeforeSubmit() {
-                    var that = this
-                    this.$validator.validateAll().then(function (result) {
-                        if (result) {
-                            that.click_save()
-                            return;
-                        }
-                        console.log('Correct them errors!');
-                    })
+                validateBeforeSubmit:function() {               
+                    this.errors = [];
+                    if (!this.model.HCode) {
+                        this.errors.push({ name: "HCode", value: "医院编号不能为空" });
+                    }
+                    if (!this.model.Name) {
+                        this.errors.push({ name: "Name", value: "医院名称不能为空" });
+                    }
+                    if (!this.model.Address) {
+                        this.errors.push({ name: "Address", value: "医院地址不能为空" });
+                    }
+                    if (!this.model.HospitalType) {
+                        this.errors.push({ name: "HospitalType", value: "医院属性不能为空" });
+                    }
+                    if (!this.model.SaleRate) {
+                        this.errors.push({ name: "SaleRate", value: "折扣系数不能为空" });
+                    }
+                    if (!this.model.PaymentType) {
+                        this.errors.push({ name: "PaymentType", value: "付款方式不能为空" });
+                    }
+                    if (!this.model.PaymentPeriod) {
+                        this.errors.push({ name: "PaymentPeriod", value: "付款周期不能为空" });
+                    }
+                    if (this.model.SaleRate && !(this.model.SaleRate>0)) {
+                        this.errors.push({ name: "SaleRate", value: "折扣系数应大于0" });
+                    }
+
+                    if (!this.errors.length) {
+                        this.click_save()
+                    }
                 },
                 click_save: function() {
                     console.log(this.model)
@@ -655,18 +676,18 @@
                     $.post(apiUrl,
                         {
                             NagigatedDomainObject: this.model
-                        }).then(item => {
+                        }).then(function (item){
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
                             //that.errMsg = "操作成功"
                             //$("#successModal").modal('show');
                             //window.location.reload();
-                            popBox(!this.model.ID ? "医院信息增加成功！" : "医院信息修改成功！");
+                            popBox(!that.model.ID ? "医院信息增加成功！" : "医院信息修改成功！");
                         } else {
                             //that.errMsg = item.Err;
                             //$('#btnSave').hide();
-                            this.isRuning = false;
+                            that.isRuning = false;
                             popErrBox(item.Err);
                         }
                     });

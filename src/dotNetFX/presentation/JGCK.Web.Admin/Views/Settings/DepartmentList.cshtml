@@ -67,12 +67,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-body">
-                        <div :class="{'has-error': errors.has('部门名称'),'form-group':true }" >
+                        <div :class="{'has-error': errors_has('Name'),'form-group':true }" >
                             <label class="col-md-4 control-label">部门名称 <span style="color:red">*</span></label>
                             <div class="col-md-8">
-                                <div class="right input-group">                     
-                                    <input v-validate="'required'" v-model="Model.Name" class="form-control" name="部门名称" type="text" placeholder="部门名称">
-                                    <span v-show="errors.has('部门名称')" class="help-block">{{ errors.first('部门名称') }}</span>
+                                <div class="right input-group">
+                                    <input v-model="Model.Name" class="form-control" name="部门名称" type="text" placeholder="部门名称">
+                                    <span v-show="errors_has('Name')" class="help-block">{{ errors_Title('Name') }}</span>                         
                                 </div>
                             </div>
                         </div>
@@ -108,24 +108,7 @@
 @section scripts{
     <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
-    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
-
-
-    <!-- 实例化编辑器 -->
-    <script type="text/javascript">
-      
-        var config = {
-            errorBagName: 'errors',
-            fieldsBagName: 'fields',
-            delay: 100,
-            strict: true,
-            locale: 'en',
-            enableAutoClasses: true,
-            events: 'blur',
-            inject: true
-        };
-        Vue.use(VeeValidate, config); 
-    
+    <script type="text/javascript">   
  
         var app = new Vue({
             el: '#app',
@@ -137,18 +120,32 @@
                 },
                 List: "",
                 errMsg: "",
-                isRuning: false
+                isRuning: false,
+                errors:[]
             },
             methods: {
-                validateBeforeSubmit:function() {
-                    var that = this
-                    this.$validator.validateAll().then(function (result) {
-                        if (result) {
-                            that.click_save()
-                            return;
-                        }
-                        console.log('Correct them errors!');
-                    })
+                errors_has: function (name) {                     
+                    if (_.where(this.errors, { name: name}).length > 0) {
+                        return true
+                    } else {
+                        return false
+                    }  
+                },
+                errors_Title: function (name) {
+                    if (_.where(this.errors, { name: name }).length > 0) {
+                        return _.where(this.errors, { name: name })[0].value
+                    } else {
+                        return ""
+                    }
+                },
+                validateBeforeSubmit:function(e) {           
+                    this.errors = [];
+                    if (!this.Model.Name) {
+                        this.errors.push({ name: "Name", value:"部门名称不能为空"});
+                    }
+                    if (!this.errors.length) {
+                        this.click_save()
+                    }
                 },
                 get_sortCLass: function (sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
@@ -168,8 +165,7 @@
                     }               
                     $("#btnSave").show();
                     $('#modelbasic').modal('show');       
-                    this.errMsg = "";
-                    this.$validator.errors.clear()                 
+                    this.errMsg = "";                    
                 },
                 click_delete: function () {
                     var that = this

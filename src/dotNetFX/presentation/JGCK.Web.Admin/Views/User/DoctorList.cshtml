@@ -402,7 +402,7 @@
                     }
                     $.post(apiUrl, {
                         audit: _param
-                    }).then(item => {
+                    }).then(function(item){
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
