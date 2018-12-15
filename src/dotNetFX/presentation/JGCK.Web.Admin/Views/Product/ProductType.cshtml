@@ -111,40 +111,40 @@
     <script>
         // 嗯，这是最初的数据。
         var treeData = {
-            name: "产品树",
-            ID: 0
+            Name: "产品树",
+            Id: 0
         };
 
         //var treeData ={
-        //    "name": "产品树 ",
+        //    "Name": "产品树 ",
         //    "ID": 2,
         //        "children": [
         //            {
-        //                "name": "Name: A",
+        //                "Name": "Name: A",
         //                "ID": 2 ,
         //                "children": [{
-        //                    "name": "Name: B",
+        //                    "Name": "Name: B",
         //                    "ID": 3
         //                },
         //                {
-        //                    "name": "Name: C",
+        //                    "Name": "Name: C",
         //                    "ID": 4
         //                }],
         //            },
         //            {
-        //                "name": "Name: B",
+        //                "Name": "Name: B",
         //                "ID": 3
         //            },
         //            {
-        //                "name": "Name: C",
+        //                "Name": "Name: C",
         //                "ID": 4
         //            },
         //            {
-        //                "name": "Name: D",
+        //                "Name": "Name: D",
         //                "ID": 5
         //            },
         //            {
-        //                "name": "Name: E",
+        //                "Name": "Name: E",
         //                "ID": 6
         //            }
         //        ]
@@ -272,7 +272,7 @@
 
             // 设置每个同级节点间的y间距为180
             nodes.forEach(function (d) {
-                d.y = d.depth * 180;
+                d.y = d.depth * 200;
             });
 
             // node交互和绘制
@@ -356,7 +356,7 @@
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function (d) {
-                    return d.data.name;
+                    return d.data.Name;
                 });
 
             // 获取update集
@@ -483,7 +483,7 @@
                 // 这里模拟请求，1.json - 5.json 随机获取数据
                 //var randomNum = Math.floor(Math.random() * 5) + 1;
                 console.log(d);
-                d3.json("/Product/GetProductTypeListByParentId?parentId=" + d.data.ID + "&parentName=" + d.data.name , function (error, _res) {
+                d3.json("/Product/GetProductTypeListByParentId?parentId=" + d.data.Id + "&parentName=" + d.data.Name , function (error, _res) {
                     if (error) throw error;
                     // 给子节点绑定父节点
                    // console.log("Data>>> ", _res)
@@ -491,7 +491,7 @@
                     console.log(data)
                     var children = data.children.map(function (x) {                        
                         return {
-                            name: x.Name,
+                            Name: x.Name,
                             parent: d,
                             depth: d.depth + 1,
                             data:x
