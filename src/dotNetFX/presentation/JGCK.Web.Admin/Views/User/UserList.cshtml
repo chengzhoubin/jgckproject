@@ -370,7 +370,7 @@
             <div class="modal-footer">
                 @*<button type="button" v-if="doctor.ID" class="btn green pull-left" @@click="click_delete()">删除</button>*@
                 <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
-                <button id="btnSave" type="button" class="btn green" @@click="validateBeforeSubmit">保存</button>
+                <button id="btnSave" type="button" class="btn green" @@click="validateBeforeSubmit">{{ !doctor.ID?'添加':'修改' }}</button>
                 @*<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>*@
             </div>
         </div>
@@ -677,7 +677,7 @@
                     if (!this.doctor.Phone) {
                         this.errors.push({ name: "Phone", value: "联系电话不能为空" });
                     } else if (!(this.doctor.Phone.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(this.doctor.Phone) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(this.doctor.Phone))) {
-                        this.errors.push({ name: "Phone", value: "手机或固话格式不正确(格式：021-12345678)" });
+                        this.errors.push({ name: "Phone", value: "手机或固话格式不正确" });
                     }
                     if (!this.doctor.EmergencyContact) {
                         this.errors.push({ name: "EmergencyContact", value: "紧急联系人不能为空" });
@@ -685,7 +685,7 @@
                     if (!this.doctor.EmergencyPhone) {
                         this.errors.push({ name: "EmergencyPhone", value: "紧急联系人电话不能为空" });
                     } else if (!(this.doctor.EmergencyPhone.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(this.doctor.EmergencyPhone) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(this.doctor.EmergencyPhone))) {
-                        this.errors.push({ name: "EmergencyPhone", value: "手机或固话格式不正确(格式：021-12345678)" });
+                        this.errors.push({ name: "EmergencyPhone", value: "手机或固话格式不正确" });
                     }
                     if (!this.doctor.FamliyAddress) {
                         this.errors.push({ name: "FamliyAddress", value: "地址不能为空" });
