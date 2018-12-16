@@ -60,19 +60,19 @@
 <div class="modal fade" id="modelbasic" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" class="form-horizontal" id="form_1"  @@submit.prevent="validateBeforeSubmit">
+            <form role="form" class="form-horizontal" id="form_1" @@submit.prevent="validateBeforeSubmit">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">部门信息</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-body">
-                        <div :class="{'has-error': errors_has('Name'),'form-group':true }" >
+                        <div :class="{'has-error': errors.has('部门名称'),'form-group':true }">
                             <label class="col-md-4 control-label">部门名称 <span style="color:red">*</span></label>
                             <div class="col-md-8">
                                 <div class="right input-group">
-                                    <input v-model="Model.Name" class="form-control" name="部门名称" type="text" placeholder="部门名称">
-                                    <span v-show="errors_has('Name')" class="help-block">{{ errors_Title('Name') }}</span>                         
+                                    <input v-validate="'required'" v-model="Model.Name" class="form-control" name="部门名称" type="text" placeholder="部门名称">
+                                    <span v-show="errors.has('部门名称')" class="help-block">{{ errors.first('部门名称') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">                
+                <div class="modal-footer">
                     <button type="button" v-if="Model.ID" class="btn red pull-left" @@click="click_delete()">删除</button>
                     <span style="color:red;font-size:15px;font-weight:bold;">{{errMsg}}</span>
                     <button id="btnSave" type="submit" class="btn green">{{ !Model.ID? '添加' : '修改'}}</button>
@@ -108,8 +108,24 @@
 @section scripts{
     <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
-    <script type="text/javascript">   
- 
+    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
+
+
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+
+        var config = {
+            errorBagName: 'errors',
+            fieldsBagName: 'fields',
+            delay: 100,
+            strict: true,
+            locale: 'en',
+            enableAutoClasses: true,
+            events: 'blur',
+            inject: true
+        };
+        Vue.use(VeeValidate, config);
+
         var app = new Vue({
             el: '#app',
             data: {
@@ -120,32 +136,18 @@
                 },
                 List: "",
                 errMsg: "",
-                isRuning: false,
-                errors:[]
+                isRuning: false
             },
             methods: {
-                errors_has: function (name) {                     
-                    if (_.where(this.errors, { name: name}).length > 0) {
-                        return true
-                    } else {
-                        return false
-                    }  
-                },
-                errors_Title: function (name) {
-                    if (_.where(this.errors, { name: name }).length > 0) {
-                        return _.where(this.errors, { name: name })[0].value
-                    } else {
-                        return ""
-                    }
-                },
-                validateBeforeSubmit:function(e) {           
-                    this.errors = [];
-                    if (!this.Model.Name) {
-                        this.errors.push({ name: "Name", value:"部门名称不能为空"});
-                    }
-                    if (!this.errors.length) {
-                        this.click_save()
-                    }
+                validateBeforeSubmit: function () {
+                    var that = this
+                    this.$validator.validateAll().then(function (result) {
+                        if (result) {
+                            that.click_save()
+                            return;
+                        }
+                        console.log('Correct them errors!');
+                    })
                 },
                 get_sortCLass: function (sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
@@ -162,11 +164,11 @@
                             Name: '',
                             Desc: ""
                         }
-                    }               
+                    }
                     $("#btnSave").show();
-                    $('#modelbasic').modal('show');       
-                    this.errMsg = "";        
-                    this.errors = [];
+                    $('#modelbasic').modal('show');
+                    this.errMsg = "";
+                    this.$validator.errors.clear()   
                 },
                 click_delete: function () {
                     var that = this
@@ -209,29 +211,26 @@
                     var apiUrl = "/Settings/UpdateDepartment"
                     if (!this.Model.ID) {
                         apiUrl = "/Settings/AddDepartment"
-                    }         
+                    }
                     if (this.isRuning) return;
                     this.isRuning = true;
                     $.post(apiUrl, {
                         NagigatedDomainObject: that.Model
-                    }).then(function (item){
+                    }).then(function (item) {
                         that.isRuning = false;
                         console.log(item);
                         if (item.Result) {
                             popBox(!that.Model.ID ? "部门添加成功！" : "部门修改成功！");
                         } else {
-                            that.errMsg = item.Err;                             
+                            that.errMsg = item.Err;
                             that.isRuning = false;
                             popErrBox(item.Err);
                         }
-                    });                
+                    });
 
                 }
             }
         })
-
-
-
 
     </script>
 }

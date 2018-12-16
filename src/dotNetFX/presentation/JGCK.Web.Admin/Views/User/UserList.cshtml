@@ -121,7 +121,7 @@
                 <h4 class="modal-title">员工信息</h4>
             </div>
             <div class="modal-body">
-              <div class="FormBody">
+                <div class="FormBody">
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
@@ -145,19 +145,19 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('Name'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('用户名'),'form-group':true }">
                                     <strong>用户名:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.Name" :disabled="doctor.ID>0" maxlength="30" v-validate="'required'" class="form-control input-small input-inline" name="用户名" />
-                                    <span v-show="errors_has('Name')" class="help-block">{{ errors_title('Name') }}</span>
+                                    <span v-show="errors.has('用户名')" class="help-block">{{ errors.first('用户名') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('Pwd'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('密码'),'form-group':true }">
                                     <strong>密码:&nbsp;<span style="color:red">*</span></strong>
                                     <input id="userPWD" type="password" v-model="doctor.Pwd" maxlength="10" class="form-control input-small input-inline" v-validate="'required'" name="密码" />
-                                    <span v-show="errors_has('Pwd')" class="help-block">{{ errors_title('Pwd') }}</span>
+                                    <span v-show="errors.has('密码')" class="help-block">{{ errors.first('密码') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -177,10 +177,10 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('RealName'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('姓名'),'form-group':true }">
                                     <strong>姓名:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.RealName" maxlength="10" v-validate="'required'" class="form-control input-small input-inline" name="姓名" />
-                                    <span v-show="errors_has('RealName')" class="help-block">{{ errors_title('RealName') }}</span>
+                                    <span v-show="errors.has('姓名')" class="help-block">{{ errors.first('姓名') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -188,7 +188,7 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>性别:&nbsp;<span style="color:red">*</span></strong>
-                                    <select v-model="doctor.Sex" class="form-control input-small input-inline">                                 
+                                    <select v-model="doctor.Sex" class="form-control input-small input-inline">
                                         <option :value="item.id" v-for="item in ListSexList">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -196,10 +196,10 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('IdCard'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('身份证号'),'form-group':true }">
                                     <strong>身份证号:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.IdCard" maxlength="20" v-validate="'required|CardNo'" class="form-control input-small input-inline" name="身份证号" />
-                                    <span v-show="errors_has('IdCard')" class="help-block">{{ errors_title('IdCard') }}</span>
+                                    <span v-show="errors.has('身份证号')" class="help-block">{{ errors.first('身份证号') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -211,7 +211,7 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <strong>学历:&nbsp;<span style="color:red">*</span></strong>
-                                    <select v-model="doctor.Education" class="form-control input-small input-inline">                                    
+                                    <select v-model="doctor.Education" class="form-control input-small input-inline">
                                         <option :value="item.id" v-for="item in ListEducationType">{{item.name}}</option>
                                     </select>
                                 </li>
@@ -219,28 +219,28 @@
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('GraduateInstitution'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('毕业学校'),'form-group':true }">
                                     <strong>毕业学校:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.GraduateInstitution" maxlength="20" v-validate="'required'" class="form-control input-small input-inline" name="毕业学校" />
-                                    <span v-show="errors_has('GraduateInstitution')" class="help-block">{{ errors_title('GraduateInstitution') }}</span>
+                                    <span v-show="errors.has('毕业学校')" class="help-block">{{ errors.first('毕业学校') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('Major'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('专业'),'form-group':true }">
                                     <strong>专业:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.Major" maxlength="20" v-validate="'required'" class="form-control input-small input-inline" name="专业" />
-                                    <span v-show="errors_has('Major')" class="help-block">{{ errors_title('Major') }}</span>
+                                    <span v-show="errors.has('专业')" class="help-block">{{ errors.first('专业') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('Email'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('Email'),'form-group':true }">
                                     <strong>Email:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.Email" maxlength="50" v-validate="'required|email'" class="form-control input-small input-inline" name="Email" />
-                                    <span v-show="errors_has('Email')" class="help-block">{{ errors_title('Email') }}</span>
+                                    <span v-show="errors.has('Email')" class="help-block">{{ errors.first('Email') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -250,37 +250,37 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('Phone'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('联系电话'),'form-group':true }">
                                     <strong>联系电话:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.Phone" maxlength="20" v-validate="'required|phone'" class="form-control input-small input-inline" name="联系电话" />
-                                    <span v-show="errors_has('Phone')" class="help-block">{{ errors_title('Phone') }}</span>
+                                    <span v-show="errors.has('联系电话')" class="help-block">{{ errors.first('联系电话') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error':errors_has('EmergencyContact'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('紧急联系人'),'form-group':true }">
                                     <strong>紧急联系人:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.EmergencyContact" maxlength="10" v-validate="'required'" class="form-control input-small input-inline" name="紧急联系人" />
-                                    <span v-show="errors_has('EmergencyContact')" class="help-block">{{ errors_title('EmergencyContact') }}</span>
+                                    <span v-show="errors.has('紧急联系人')" class="help-block">{{ errors.first('紧急联系人') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('EmergencyPhone'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('紧急联系人电话'),'form-group':true }">
                                     <strong>紧急联系人电话:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.EmergencyPhone" maxlength="20" v-validate="'required|phone'" class="form-control input-small input-inline" name="紧急联系人电话" />
-                                    <span v-show="errors_has('EmergencyPhone')" class="help-block">{{ errors_title('EmergencyPhone') }}</span>
+                                    <span v-show="errors.has('紧急联系人电话')" class="help-block">{{ errors.first('紧急联系人电话') }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <ul class="list-unstyled">
-                                <li :class="{'has-error': errors_has('FamliyAddress'),'form-group':true }">
+                                <li :class="{'has-error': errors.has('地址'),'form-group':true }">
                                     <strong>地址:&nbsp;<span style="color:red">*</span></strong>
                                     <input type="text" v-model="doctor.FamliyAddress" v-validate="'required'" class="form-control input-small input-inline" name="地址" />
-                                    <span v-show="errors_has('FamliyAddress')" class="help-block">{{ errors_title('FamliyAddress') }}</span>
+                                    <span v-show="errors.has('地址')" class="help-block">{{ errors.first('地址') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -290,7 +290,7 @@
                         <div class="col-xs-3" v-if="doctor.PersonType ===1 ||doctor.PersonType ===2">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
-                                    <strong>入职时间:</strong>                                
+                                    <strong>入职时间:</strong>
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
                                             <input class="form-control" readonly="readonly" id="HireDate" size="16" type="text" v-model="doctor.HireDate" :disabled="doctor.PersonType===2" />
@@ -307,7 +307,7 @@
                         <div class="col-xs-3" v-if="doctor.PersonType ===1 ||doctor.PersonType ===2">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
-                                    <strong>离职时间:</strong>                  
+                                    <strong>离职时间:</strong>
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
                                             <input class="form-control" readonly="readonly" id="LeaveDate" size="16" type="text" v-model="doctor.LeaveDate" :disabled="doctor.PersonType===1" />
@@ -324,7 +324,7 @@
                         <div class="col-xs-3" v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
-                                    <strong>实习开始时间:</strong>                          
+                                    <strong>实习开始时间:</strong>
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
                                             <input class="form-control" id="PracticeBeginDate" readonly="readonly" size="16" type="text" v-model="doctor.PracticeBeginDate" :disabled="doctor.PersonType===4" />
@@ -341,7 +341,7 @@
                         <div class="col-xs-3" v-if="doctor.PersonType ===3 ||doctor.PersonType ===4">
                             <ul class="list-unstyled">
                                 <li class="form-inline">
-                                    <strong>实习结束时间:</strong>                           
+                                    <strong>实习结束时间:</strong>
                                     <div class="form-group">
                                         <div class="input-group date form_datetime">
                                             <input class="form-control" readonly="readonly" id="PracticeEndDate" size="16" type="text" v-model="doctor.PracticeEndDate" :disabled="doctor.PersonType===3" />
@@ -407,20 +407,19 @@
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/third-party/template.min.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.config.js"></script>
     <script type="text/javascript" src="~/assets/global/plugins/umeditor/umeditor.js"></script>
-    @*<script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>*@
+    <script src="~/assets/global/plugins/vee-validate/vee-validate.js"></script>
 
     <script>
-        //const config = {
-        //    errorBagName: 'errors',
-        //    fieldsBagName: 'fields',
-        //    delay: 100,
-        //    strict: true,
-        //    enableAutoClasses: true,
-        //    events: 'blur',
-        //    inject: true
-        //};
-        //Vue.use(VeeValidate, config);
-
+        const config = {
+            errorBagName: 'errors',
+            fieldsBagName: 'fields',
+            delay: 100,
+            strict: true,
+            enableAutoClasses: true,
+            events: 'blur',
+            inject: true
+        };
+        Vue.use(VeeValidate, config);
 
 
         $(function () {
@@ -472,8 +471,7 @@
             data: {
                 sort_keys:'',
                 doctor: { Role: "" },
-                errMsg: "",
-                errors:[],
+                errMsg: "",              
                 ListSexList: [
 
                     @{
@@ -527,28 +525,25 @@
                 ],
                 ListDepartment: @Html.Raw(Model.DepartmentNameListJsonString),
                 ListRoleName: @Html.Raw(Model.RoleNameListJsonString)
-            },         
-            created: function() {
+            },
+            created: function () {
                 if (Cookies.get('sf_staffData_sort_keys')) this.sort_keys = JSON.parse(Cookies.get('sf_staffData_sort_keys'))
 
-             
+                this.$validator.extend('phone', {
+                    getMessage: function (field) { return ("" + field + "手机或固话格式不正确"); },
+                    validate: value => {
+                        return value.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(value)
+                    }
+                })
+                this.$validator.extend('CardNo', {
+                    getMessage: function (field) { return ("身份证号码输入不正确"); },
+                    validate: value => {
+                        return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
+                    }
+                })
 
             },
-            methods: {
-                errors_has: function (name) {
-                    if (_.where(this.errors, { name: name }).length > 0) {
-                        return true
-                    } else {
-                        return false
-                    }
-                },
-                errors_title: function (name) {
-                    if (_.where(this.errors, { name: name }).length > 0) {
-                        return _.where(this.errors, { name: name })[0].value
-                    } else {
-                        return ""
-                    }
-                },
+            methods: {              
                 get_sortCLass: function(sortName) {
                     var _tmp = _.where(this.sort_keys, { SortProperty: sortName });
                     if (_tmp.length === 0) return 'sorting';
@@ -590,7 +585,7 @@
                         300)
                     console.log(this.doctor)
                     this.errMsg = "";
-                    this.errors = [];
+                    this.$validator.errors.clear(); 
                     $('#btnSave').show();
                 },
                 click_delete: function() {
@@ -641,59 +636,15 @@
                         window.location.reload();
                     });
                 },
-                validateBeforeSubmit:function() {
+                validateBeforeSubmit() {
                     var that = this
-                    this.errors = [];
-                    if (!this.doctor.Name) {
-                        this.errors.push({ name: "Name", value: "用户名不能为空" });
-                    }
-                    if (!this.doctor.Pwd) {
-                        this.errors.push({ name: "Pwd", value: "密码不能为空" });//
-                    } else if (this.doctor.Pwd.length < 5 || this.doctor.Pwd.length >10) {
-                        this.errors.push({ name: "Pwd", value: "密码长度必须在 5 到 10 字符" });
-                    }
-
-
-                    if (!this.doctor.RealName) {
-                        this.errors.push({ name: "RealName", value: "姓名不能为空" });
-                    }
-                    if (!this.doctor.IdCard) {
-                        this.errors.push({ name: "IdCard", value: "身份证号不能为空" });
-                    } else if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.doctor.IdCard)){
-                        this.errors.push({ name: "IdCard", value: "身份证号码输入不正确" });
-                    }
-
-                    if (!this.doctor.GraduateInstitution) {
-                        this.errors.push({ name: "GraduateInstitution", value: "毕业学校不能为空" });
-                    }
-                    if (!this.doctor.Major) {
-                        this.errors.push({ name: "Major", value: "专业不能为空" });
-                    }
-                    if (!this.doctor.Email) {
-                        this.errors.push({ name: "Email", value: "Email不能为空" });
-                    } else if (!/^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(this.doctor.Email)) {
-                        this.errors.push({ name: "Email", value: "Email格式不正确" });
-                    }
-                    if (!this.doctor.Phone) {
-                        this.errors.push({ name: "Phone", value: "联系电话不能为空" });
-                    } else if (!(this.doctor.Phone.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(this.doctor.Phone) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(this.doctor.Phone))) {
-                        this.errors.push({ name: "Phone", value: "手机或固话格式不正确" });
-                    }
-                    if (!this.doctor.EmergencyContact) {
-                        this.errors.push({ name: "EmergencyContact", value: "紧急联系人不能为空" });
-                    }
-                    if (!this.doctor.EmergencyPhone) {
-                        this.errors.push({ name: "EmergencyPhone", value: "紧急联系人电话不能为空" });
-                    } else if (!(this.doctor.EmergencyPhone.length === 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(this.doctor.EmergencyPhone) || /^(\d{3,4}-)?(\d{7,8})(-(\d+))?$/.test(this.doctor.EmergencyPhone))) {
-                        this.errors.push({ name: "EmergencyPhone", value: "手机或固话格式不正确" });
-                    }
-                    if (!this.doctor.FamliyAddress) {
-                        this.errors.push({ name: "FamliyAddress", value: "地址不能为空" });
-                    }           
-                    if (!this.errors.length) {
-                        this.click_save()
-                    }
-
+                    this.$validator.validateAll().then(function (result) {
+                        if (result) {
+                            that.click_save()
+                            return;
+                        }
+                        console.log('Correct them errors!');
+                    })
                 },
                 click_save: function() {
                     var that = this;
